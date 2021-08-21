@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.controllers;
+package com.github.mdpetrenko.market.controllers.v1;
 
 import com.github.mdpetrenko.market.dtos.ProductDto;
 import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
