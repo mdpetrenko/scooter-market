@@ -24,19 +24,19 @@
         </thead>
         <tbody>
         <tr ng-repeat="p in productsPage.content">
-                <td ng-if="p.id != edited">{{p.id}}</td>
-                <td ng-if="p.id != edited">{{p.title}}</td>
-                <td ng-if="p.id != edited">{{p.categoryTitle}}</td>
-                <td ng-if="p.id != edited">{{p.price}}</td>
-                <td ng-if="p.id == edited"><input class="form-control" ng-model="p.id" type="number"></td>
-                <td ng-if="p.id == edited"><input class="form-control" ng-model="p.title" type="text"></td>
-                <td ng-if="p.id == edited"><input class="form-control" ng-model="p.categoryTitle" type="text"></td>
-                <td ng-if="p.id == edited"><input class="form-control" ng-model="p.price" type="number"></td>
-                <td>
-                    <button class="btn btn-primary" ng-click="editProduct(p.id)" ng-if="p.id != edited">Edit</button>
-                    <button class="btn btn-primary" ng-if="p.id == edited" ng-click="updateProduct(p)">Save</button>
-                    <button class="btn btn-primary" ng-click="removeProduct(p.id)">Remove</button>
-                </td>
+            <td ng-if="p.id != edited">{{p.id}}</td>
+            <td ng-if="p.id != edited">{{p.title}}</td>
+            <td ng-if="p.id != edited">{{p.categoryTitle}}</td>
+            <td ng-if="p.id != edited">{{p.price}}</td>
+            <td ng-if="p.id == edited"><input class="form-control" ng-model="p.id" type="number"></td>
+            <td ng-if="p.id == edited"><input class="form-control" ng-model="p.title" type="text"></td>
+            <td ng-if="p.id == edited"><input class="form-control" ng-model="p.categoryTitle" type="text"></td>
+            <td ng-if="p.id == edited"><input class="form-control" ng-model="p.price" type="number"></td>
+            <td>
+                <button class="btn btn-primary" ng-click="editProduct(p.id)" ng-if="p.id != edited">Edit</button>
+                <button class="btn btn-primary" ng-click="updateProduct(p)" ng-if="p.id == edited">Save</button>
+                <button class="btn btn-primary" ng-click="removeProduct(p.id)">Remove</button>
+            </td>
         </tr>
         </tbody>
     </table>
