@@ -52,4 +52,15 @@ public class ProductController {
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
     }
+
+    @PutMapping
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        Product product = productService.findById(productDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Product id = " + productDto.getId() + " not found"));
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        product.setCategory(categoryService.findByTitle(productDto.getCategoryTitle())
+                .orElseThrow(() -> new ResourceNotFoundException("Category title = " + productDto.getCategoryTitle() + " not found")));
+        return new ProductDto(productService.save(product));
+    }
 }

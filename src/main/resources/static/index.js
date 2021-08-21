@@ -2,6 +2,7 @@ angular.module('market-front', []).controller('indexController', function ($scop
     const contextPath = 'http://localhost:8189/market/';
     let currentPageIndex = 1;
     let currentPageSize = 3;
+    $scope.edited = 0;
 
     $scope.loadProducts = function (pageIndex = 1, pageSize = 3) {
         currentPageIndex = pageIndex;
@@ -29,7 +30,7 @@ angular.module('market-front', []).controller('indexController', function ($scop
     };
 
     $scope.createNewProduct = function () {
-        $http.post(contextPath + 'api/v1/products', $scope.newProduct)
+        $http.post(contextPath + 'api/v1/products/', $scope.newProduct)
             .then(function successCallback() {
                 $scope.loadProducts(currentPageIndex, currentPageSize);
                 $scope.newProduct = null;
@@ -46,6 +47,20 @@ angular.module('market-front', []).controller('indexController', function ($scop
                 alert(response.data.message);
             });
 
+    };
+
+    $scope.editProduct = function (id) {
+        $scope.edited = id;
+    };
+
+    $scope.updateProduct = function (product) {
+        $http.put(contextPath + 'api/v1/products/', product)
+            .then(function successCallback() {
+                $scope.loadProducts(currentPageIndex, currentPageSize)
+                $scope.edited = 0;
+            }, function failureCallback(response) {
+                alert(response.data.message);
+            });
     };
 
     $scope.loadProducts();
