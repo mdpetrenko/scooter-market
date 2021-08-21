@@ -9,4 +9,5 @@ public interface ProductService {
     Page<Product> findAll(int page, int size);
     Optional<Product> findById(Long id);
     Product save(Product product);
+    void deleteById(Long id);
 }

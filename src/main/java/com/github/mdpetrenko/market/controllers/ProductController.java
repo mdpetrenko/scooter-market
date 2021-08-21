@@ -26,10 +26,10 @@ public class ProductController {
         if (pageSize < 1) {
             pageSize = 3;
         }
-        return productService.findAll(pageIndex, pageSize).map(ProductDto::new);
+        return productService.findAll(pageIndex - 1, pageSize).map(ProductDto::new);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ProductDto findById(@PathVariable Long id) {
         return productService.findById(id)
                 .map(ProductDto::new)
@@ -48,4 +48,8 @@ public class ProductController {
         return new ProductDto(product);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        productService.deleteById(id);
+    }
 }
