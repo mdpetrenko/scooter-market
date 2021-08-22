@@ -51,6 +51,11 @@ angular.module('market-front', []).controller('indexController', function ($scop
 
     $scope.editProduct = function (id) {
         $scope.edited = id;
+        $http.get(contextPath + 'api/v1/categories/')
+            .then(function (response) {
+                console.log(response)
+                $scope.categories = response.data;
+            });
     };
 
     $scope.updateProduct = function (product) {
