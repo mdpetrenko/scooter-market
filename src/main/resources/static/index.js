@@ -51,6 +51,7 @@ angular.module('market-front', []).controller('indexController', function ($scop
 
     $scope.editProduct = function (id) {
         $scope.edited = id;
+        $scope.getCategories();
     };
 
     $scope.getCategories = function () {
