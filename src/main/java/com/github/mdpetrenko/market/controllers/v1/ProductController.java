@@ -8,6 +8,8 @@ import com.github.mdpetrenko.market.services.interfaces.CategoryService;
 import com.github.mdpetrenko.market.services.interfaces.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,10 +32,10 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductDto findById(@PathVariable Long id) {
-        return productService.findById(id)
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.findById(id)
                 .map(ProductDto::new)
-                .orElseThrow(() -> new ResourceNotFoundException("Product id = " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product id = " + id + " not found")), HttpStatus.OK);
     }
 
     @PostMapping

@@ -21,6 +21,15 @@ angular.module('market-front', []).controller('indexController', function ($scop
         });
     };
 
+    $scope.loadProduct = function (id) {
+        $http.get(contextPath + '/api/v1/products/' + id)
+            .then(function successCallback(response) {
+                alert(response.data.title);
+            }, function failureCallback(response) {
+                alert(response.data.message);
+            });
+    };
+
     $scope.generatePageIndexes = function (startPage, endPage) {
         let arr = [];
         for (let i = startPage; i < endPage + 1; i++) {
