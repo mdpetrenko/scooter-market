@@ -22,9 +22,11 @@ angular.module('market-front').controller('catalogController', function ($scope,
 
     $scope.loadProduct = function (id) {
         $http.get(contextPath + 'api/v1/products/' + id)
-            .then(function (response) {
+            .then(function successCallback(response) {
                 console.log(response);
                 alert(response.data.title);
+            }, function failureCallback(response) {
+                alert(response.data.message);
             });
     };
 
