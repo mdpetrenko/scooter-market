@@ -10,23 +10,19 @@
     <script src="webjars/angular-route/1.8.2/angular-route.min.js"></script>
     <script src="index.js"></script>
 </head>
-<body ng-app=market-front>
-<div class="container" ng-controller="indexController">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#!/">Scooter Market</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#!/">Home</a>
-                    <a class="nav-link" href="#!/create_product">Add product</a>
-                </div>
-            </div>
-            <a class="btn btn-warning text-end" href="#!/cart">Cart</a>
+<body ng-app=market-front ng-controller="indexController">
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="#!/" class="nav-link px-4 text-white">Catalog</a></li>
+                <li><a href="#!/create_product" class="nav-link px-2 text-white">Create product</a></li>
+            </ul>
+                    <a class="btn btn-warning text-end" href="#!/cart">Cart</a>
         </div>
-    </nav>
+    </div>
+</header>
+<div class="container">
     <ng-view></ng-view>
     <script src="index.js"></script>
     <script src="catalog/catalog.js"></script>
@@ -34,5 +30,10 @@
     <script src="edit_product/edit_product.js"></script>
     <script src="cart/cart.js"></script>
 </div>
+<footer class="footer mt-auto py-3 bg-dark position-absolute bottom-0 end-0 w-100" th:fragment="footer">
+    <div class="container">
+        <span class="text-muted">Hello World!</span>
+    </div>
+</footer>
 </body>
 </html>
