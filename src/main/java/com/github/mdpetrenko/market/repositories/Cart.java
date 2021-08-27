@@ -1,29 +1,32 @@
 package com.github.mdpetrenko.market.repositories;
 
+import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.model.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 @Data
 @NoArgsConstructor
 public class Cart {
 
-    private final Map<Product, Integer> products = new HashMap<>();
+    private final List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
-        products.putIfAbsent(product, 0);
-        products.compute(product, (k, v) -> v = v + 1);
+        products.add(product);
     }
 
-    public void removeProduct(Product product) {
-        if (products.containsKey(product) && products.get(product) > 0) {
-            products.compute(product, (k, v) -> v = v - 1);
-        }
+    public void removeProductById(Long id) {
+        products.remove(findProduct(id));
+    }
+
+    private Product findProduct(Long id) {
+        return products.stream().filter(p -> p.getId().equals(id)).findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("No product with id=" + id + " in cart"));
     }
 
 }

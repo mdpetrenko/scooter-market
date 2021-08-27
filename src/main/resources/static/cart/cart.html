@@ -1,0 +1,23 @@
+<div>
+<h3>Cart content</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr class="row-cols-auto">
+            <td class="col-4">Title</td>
+            <td class="col-3">Category title</td>
+            <td class="col-1">Price</td>
+            <td class="col-3"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="p in cartContent">
+            <td>{{p.title}}</td>
+            <td>{{p.categoryTitle}}</td>
+            <td>{{p.price}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="removeFromCart(p.id)">Remove</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -38,8 +38,8 @@
             </td>
             <td ng-if="p.id == edited"><input class="form-control" ng-model="p.price" type="number"></td>
             <td>
-                <button class="btn btn-primary" ng-click="addToCart(p)" ng-if="p.id != edited">To Cart</button>
-                <button class="btn btn-primary" ng-click="loadProduct(p.id)" ng-if="p.id != edited">Info</button>
+                <button class="btn btn-primary" ng-click="addToCart(p)">To Cart</button>
+                <button class="btn btn-primary" ng-click="loadProduct(p.id)">Info</button>
                 <button class="btn btn-primary" ng-click="editProduct(p.id)" ng-if="p.id != edited">Edit</button>
                 <button class="btn btn-primary" ng-click="updateProduct(p)" ng-if="p.id == edited">Save</button>
                 <button class="btn btn-primary" ng-click="removeProduct(p.id)">Remove</button>

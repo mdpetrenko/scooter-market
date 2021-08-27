@@ -2,11 +2,11 @@ package com.github.mdpetrenko.market.services.interfaces;
 
 import com.github.mdpetrenko.market.model.Product;
 
-import java.util.Map;
+import java.util.List;
 
 public interface CartService {
 
-    Map<Product, Integer> getAllProducts();
+    List<Product> getCartContent();
 
     void addProductById(Long id);
 

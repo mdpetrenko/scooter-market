@@ -5,7 +5,6 @@ import com.github.mdpetrenko.market.model.Product;
 import com.github.mdpetrenko.market.repositories.Cart;
 import com.github.mdpetrenko.market.services.interfaces.CartService;
 import com.github.mdpetrenko.market.services.interfaces.ProductService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ public class CartServiceImpl implements CartService {
     private final ProductService productService;
 
     @Override
-    public Map<Product, Integer> getAllProducts() {
+    public List<Product> getCartContent() {
         return cart.getProducts();
     }
 
@@ -33,6 +32,6 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional
     public void removeProductById(Long id) {
-        cart.removeProduct(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id=" + id + " not fond")));
+        cart.removeProductById(id);
     }
 }

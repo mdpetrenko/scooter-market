@@ -20,22 +20,8 @@ angular.module('market-front').controller('catalogController', function ($scope,
         });
     };
 
-    $scope.loadProduct = function (id) {
-        $http.get(contextPath + 'api/v1/products/' + id)
-            .then(function successCallback(response) {
-                console.log(response);
-                alert(response.data.title);
-            }, function failureCallback(response) {
-                alert(response.data.message);
-            });
-    };
-
-    $scope.generatePageIndexes = function (startPage, endPage) {
-        let arr = [];
-        for (let i = startPage; i < endPage + 1; i++) {
-            arr.push(i);
-        }
-        return arr;
+    $scope.editProduct = function (id) {
+        $location.path('/edit_product/' + id);
     };
 
     $scope.removeProduct = function (id) {
@@ -55,6 +41,14 @@ angular.module('market-front').controller('catalogController', function ($scope,
                 alert(response.data.message);
             })
     }
+
+    $scope.generatePageIndexes = function (startPage, endPage) {
+        let arr = [];
+        for (let i = startPage; i < endPage + 1; i++) {
+            arr.push(i);
+        }
+        return arr;
+    };
 
     $scope.loadProducts();
 });

@@ -18,6 +18,10 @@
                 templateUrl: 'create_product/create_product.html',
                 controller: 'createProductController'
             })
+            .when('/cart', {
+                templateUrl: 'cart/cart.html',
+                controller: 'cartController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -27,7 +31,7 @@
     }
 })();
 
-angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http) {
+angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $location) {
     const contextPath = 'http://localhost:8189/market';
 
 });
