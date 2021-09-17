@@ -8,6 +8,7 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="webjars/angular/1.8.2/angular.min.js"></script>
     <script src="webjars/angular-route/1.8.2/angular-route.min.js"></script>
+    <script src="webjars/ngstorage/0.3.11/ngStorage.min.js"></script>
     <script src="index.js"></script>
 </head>
 <body ng-app=market-front ng-controller="indexController">
@@ -18,7 +19,29 @@
                 <li><a href="#!/" class="nav-link px-4 text-white">Catalog</a></li>
                 <li><a href="#!/create_product" class="nav-link px-2 text-white">Create product</a></li>
             </ul>
-                    <a class="btn btn-warning text-end" href="#!/cart">Cart</a>
+            <ul class="nav justify-content-end mb-md-0">
+                <li class="nav-item text-end" ng-show="!isUserLoggedIn()">
+                    <form class="align-middle" ng-submit="tryToAuth()">
+                        <div class="input-group input-group-sm" style="padding: 4px;">
+                            <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;" placeholder="username">
+
+                            <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;" placeholder="password">
+
+                            <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
+                                    style="margin-left: 10px;" type="submit">Login
+                            </button>
+                        </div>
+                    </form>
+                </li>
+                <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
+                    <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Logout</button>
+                </li>
+                <li class="nav-item text-end" style="padding: 4px;">
+                    <a class="btn btn-outline-warning btn-sm" href="#!/cart">Cart</a>
+                </li>
+            </ul>
         </div>
     </div>
 </header>
@@ -30,7 +53,7 @@
     <script src="edit_product/edit_product.js"></script>
     <script src="cart/cart.js"></script>
 </div>
-<footer class="footer mt-auto py-3 bg-dark position-absolute bottom-0 end-0 w-100" th:fragment="footer">
+<footer class="footer mt-auto py-3 bg-dark position-absolute bottom-0 end-0 w-100">
     <div class="container">
         <span class="text-muted">Hello World!</span>
     </div>
