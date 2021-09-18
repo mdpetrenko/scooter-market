@@ -1,16 +1,23 @@
 package com.github.mdpetrenko.market.services;
 
+import com.github.mdpetrenko.market.exceptions.MarketError;
+import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.model.Role;
 import com.github.mdpetrenko.market.model.User;
 import com.github.mdpetrenko.market.repositories.UserRepository;
+import com.github.mdpetrenko.market.services.interfaces.RoleService;
 import com.github.mdpetrenko.market.services.interfaces.UserService;
+import jdk.dynalink.linker.LinkerServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +31,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    @Override
+    public void registerUser(User user) {
+        userRepository.save(user);
+    }
+
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));

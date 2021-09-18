@@ -24,10 +24,12 @@
                     <form class="align-middle" ng-submit="tryToAuth()">
                         <div class="input-group input-group-sm" style="padding: 4px;">
                             <input id="navLoginField" class="form-control" ng-model="user.username" type="text"
-                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;" placeholder="username">
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;"
+                                   placeholder="username">
 
                             <input id="navPasswordField" class="form-control" ng-model="user.password" type="password"
-                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;" placeholder="password">
+                                   aria-describedby="inputGroup-sizing-sm" style="margin-left: 10px;"
+                                   placeholder="password">
 
                             <button id="navLoginSubmit" class="btn btn-outline-warning btn-sm"
                                     style="margin-left: 10px;" type="submit">Login
@@ -35,7 +37,11 @@
                         </div>
                     </form>
                 </li>
+                <li class="nav-item text-end" ng-show="!isUserLoggedIn()" style="padding: 4px;">
+                    <a class="btn btn-outline-warning btn-sm" href="#!/register">Register</a>
+                </li>
                 <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
+                    <a class="btn btn-outline-warning btn-sm" href="#!/">{{readUserFromStorage()}}</a>
                     <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Logout</button>
                 </li>
                 <li class="nav-item text-end" style="padding: 4px;">
@@ -51,6 +57,7 @@
     <script src="catalog/catalog.js"></script>
     <script src="create_product/create_product.js"></script>
     <script src="edit_product/edit_product.js"></script>
+    <script src="register/register_user.js"></script>
     <script src="cart/cart.js"></script>
 </div>
 <footer class="footer mt-auto py-3 bg-dark position-absolute bottom-0 end-0 w-100">

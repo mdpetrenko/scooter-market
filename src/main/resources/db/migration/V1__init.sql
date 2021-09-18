@@ -19,9 +19,9 @@ create table products
 create table users
 (
     id         bigserial primary key,
-    username   varchar(255),
-    password   varchar(255),
-    email      varchar(255),
+    username   varchar(255) not null,
+    password   varchar(255) not null,
+    email      varchar(255) unique,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
@@ -29,7 +29,7 @@ create table users
 create table roles
 (
     id         bigserial primary key,
-    name       varchar(255),
+    name       varchar(255) unique,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );

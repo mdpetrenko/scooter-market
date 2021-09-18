@@ -22,6 +22,10 @@
                 templateUrl: 'cart/cart.html',
                 controller: 'cartController'
             })
+            .when('/register', {
+                templateUrl: 'register/register_user.html',
+                controller: 'registerUserController'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -43,13 +47,16 @@ angular.module('market-front').controller('indexController', function ($rootScop
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.webMarketUser = {username: $scope.user.username, token: response.data.token};
-
                     $scope.user.username = null;
                     $scope.user.password = null;
                 }
             }, function errorCallback(response) {
             });
     };
+
+    $scope.readUserFromStorage = function () {
+        return $localStorage.webMarketUser.username;
+    }
 
     $scope.tryToLogout = function () {
         $scope.clearUser();
