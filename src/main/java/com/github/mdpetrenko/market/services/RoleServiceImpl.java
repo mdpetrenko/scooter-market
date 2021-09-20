@@ -1,5 +1,6 @@
 package com.github.mdpetrenko.market.services;
 
+import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.model.Role;
 import com.github.mdpetrenko.market.repositories.RoleRepository;
 import com.github.mdpetrenko.market.services.interfaces.RoleService;
@@ -16,5 +17,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Optional<Role> findByName(String name) {
         return roleRepository.findByName(name);
+    }
+
+    @Override
+    public Optional<Role> getStandardUserRole() {
+        return findByName("ROLE_USER");
     }
 }

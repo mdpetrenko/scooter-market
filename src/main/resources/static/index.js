@@ -39,7 +39,7 @@
 })();
 
 angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage) {
-    const contextPath = 'http://localhost:8189/market';
+    const contextPath = 'http://localhost:8189/market/api/v1';
 
     $scope.tryToAuth = function () {
         $http.post(contextPath + '/auth', $scope.user)
