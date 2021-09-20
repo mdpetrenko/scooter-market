@@ -4,18 +4,16 @@
         <thead>
         <tr class="row-cols-auto">
             <td class="col-4">Title</td>
-            <td class="col-3">Category title</td>
-            <td class="col-1">Price</td>
+            <td class="col-2">Price</td>
             <td class="col-3"></td>
         </thead>
         </tr>
         <tbody>
-        <tr ng-repeat="p in cartContent">
-            <td>{{p.title}}</td>
-            <td>{{p.categoryTitle}}</td>
-            <td>{{p.price}}</td>
+        <tr ng-repeat="p in cartContent.items">
+            <td>{{p.productTitle}}</td>
+            <td>{{p.pricePerItem + ' x ' + p.quantity + ' = ' + p.totalPrice}}</td>
             <td>
-                <button class="btn btn-primary" ng-click="removeFromCart(p.id)">Remove</button>
+                <button class="btn btn-primary" ng-click="removeFromCart(p.productId)">Remove</button>
             </td>
         </tr>
         </tbody>

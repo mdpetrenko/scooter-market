@@ -1,5 +1,6 @@
 package com.github.mdpetrenko.market.services;
 
+import com.github.mdpetrenko.market.dtos.RegisterRequest;
 import com.github.mdpetrenko.market.dtos.UserDto;
 import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.model.Role;
@@ -33,22 +34,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
+    @Transactional
     @Override
-    public void registerUser(UserDto userDto) {
-        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
-            throw new IllegalArgumentException("Passwords not equal!");
-        }
+    public void registerUser(RegisterRequest registerRequest) {
         User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setEmail(userDto.getEmail());
-        if (userDto.getRoles() != null) {
-            user.setRoles(userDto.getRoles().stream()
+        user.setUsername(registerRequest.getUsername());
+        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+        user.setEmail(registerRequest.getEmail());
+        if (registerRequest.getRoles() != null) {
+            user.setRoles(registerRequest.getRoles().stream()
                     .map(r -> roleService.findByName(r)
                             .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + r)))
                     .collect(Collectors.toList()));
         } else {
-            user.setRoles(List.of(roleService.getStandardUserRole().orElseThrow()));
+            user.setRoles(List.of(roleService.getStandardUserRoles().orElseThrow()));
         }
         userRepository.save(user);
     }

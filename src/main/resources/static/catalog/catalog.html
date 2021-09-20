@@ -16,7 +16,7 @@
             <td>{{p.categoryTitle}}</td>
             <td>{{p.price}}</td>
             <td>
-                <button class="btn btn-primary" ng-click="addToCart(p)">To Cart</button>
+                <button class="btn btn-primary" ng-click="addToCart(p.id)">To Cart</button>
                 <button class="btn btn-primary" ng-click="editProduct(p.id)">Edit</button>
                 <button class="btn btn-primary" ng-click="removeProduct(p.id)">Remove</button>
             </td>

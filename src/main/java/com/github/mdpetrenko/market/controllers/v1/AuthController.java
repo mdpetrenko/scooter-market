@@ -2,6 +2,7 @@ package com.github.mdpetrenko.market.controllers.v1;
 
 import com.github.mdpetrenko.market.dtos.AuthRequest;
 import com.github.mdpetrenko.market.dtos.AuthResponse;
+import com.github.mdpetrenko.market.dtos.RegisterRequest;
 import com.github.mdpetrenko.market.dtos.UserDto;
 import com.github.mdpetrenko.market.exceptions.MarketError;
 import com.github.mdpetrenko.market.services.interfaces.RoleService;
@@ -41,8 +42,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> tryToRegister(@RequestBody UserDto userDto) {
-        userService.registerUser(userDto);
+    public ResponseEntity<?> tryToRegister(@RequestBody RegisterRequest registerRequest) {
+        if (!registerRequest.isValid()) {
+            return new ResponseEntity<>(new MarketError("Passwords are not equal"), HttpStatus.BAD_REQUEST);
+        }
+        userService.registerUser(registerRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

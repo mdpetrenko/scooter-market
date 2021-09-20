@@ -1,15 +1,13 @@
 package com.github.mdpetrenko.market.services.interfaces;
 
-import com.github.mdpetrenko.market.model.Product;
-
-import java.util.List;
+import com.github.mdpetrenko.market.utils.Cart;
 
 public interface CartService {
 
-    List<Product> getCartContent();
-
-    void addProductById(Long id);
-
-    void removeProductById(Long id);
+    void addItem(Long productId);
+    void removeItem(Long productId);
+    void decrementItem(Long productId);
+    Cart getCartForCurrentUser();
+    void clearCart();
 
 }

@@ -10,7 +10,7 @@ public class ProductDto {
     private Long id;
     private String title;
     private String categoryTitle;
-    private float price;
+    private int price;
 
     public ProductDto(Product product) {
         this.id = product.getId();

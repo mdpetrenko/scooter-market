@@ -2,36 +2,51 @@ package com.github.mdpetrenko.market.services;
 
 import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.model.Product;
-import com.github.mdpetrenko.market.repositories.Cart;
 import com.github.mdpetrenko.market.services.interfaces.CartService;
 import com.github.mdpetrenko.market.services.interfaces.ProductService;
+import com.github.mdpetrenko.market.utils.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.PostConstruct;
 
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
-    private final Cart cart;
     private final ProductService productService;
+    private Cart cart;
 
-    @Override
-    public List<Product> getCartContent() {
-        return cart.getProducts();
+    @PostConstruct
+    public void init() {
+        cart = new Cart();
     }
 
     @Override
-    @Transactional
-    public void addProductById(Long id) {
-        cart.addProduct(productService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product with id=" + id + " not fond")));
+    public void addItem(Long productId) {
+        if (cart.add(productId)) {
+            return;
+        }
+        Product product = productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product with id=" + productId + " does not exists"));
+        cart.add(product);
     }
 
     @Override
-    @Transactional
-    public void removeProductById(Long id) {
-        cart.removeProductById(id);
+    public void removeItem(Long productId) {
+        cart.remove(productId);
+    }
+
+    @Override
+    public void decrementItem(Long productId) {
+        cart.decrement(productId);
+    }
+
+    @Override
+    public Cart getCartForCurrentUser() {
+        return cart;
+    }
+
+    @Override
+    public void clearCart() {
+        cart.clear();
     }
 }

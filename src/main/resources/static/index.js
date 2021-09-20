@@ -55,7 +55,10 @@ angular.module('market-front').controller('indexController', function ($rootScop
     };
 
     $scope.readUserFromStorage = function () {
-        return $localStorage.webMarketUser.username;
+        if ($rootScope.isUserLoggedIn()) {
+            return $localStorage.webMarketUser.username;
+        }
+        return null;
     }
 
     $scope.tryToLogout = function () {

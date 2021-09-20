@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Optional<Role> getStandardUserRole() {
+    public Optional<Role> getStandardUserRoles() {
         return findByName("ROLE_USER");
     }
 }
