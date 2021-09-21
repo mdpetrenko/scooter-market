@@ -3,7 +3,6 @@ package com.github.mdpetrenko.market.model;
 import com.github.mdpetrenko.market.dtos.OrderDetailsDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -43,7 +42,7 @@ public class Order {
         this.deliveryAddress = orderDetailsDto.getDeliveryAddress();
         this.ownerPhone = orderDetailsDto.getOwnerPhone();
         this.ownerEmail = orderDetailsDto.getOwnerEmail();
-        this.orderItems = orderDetailsDto.getCartItems().stream().map(OrderItem::new).collect(Collectors.toList());
+//        this.orderItems = orderDetailsDto.getCartItems().stream().map(OrderItem::new).collect(Collectors.toList());
     }
 
 }
