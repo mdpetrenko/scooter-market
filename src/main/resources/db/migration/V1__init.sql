@@ -60,3 +60,24 @@ values ('ROLE_USER'),
 insert into users_roles (user_id, role_id)
 values (1, 1),
        (2, 2);
+
+create table orders
+(
+    id               bigserial primary key,
+    owner_id         bigint references users (id),
+    owner_name       varchar(255) not null,
+    delivery_address varchar(255) not null,
+    owner_phone      varchar(255),
+    owner_email      varchar(255),
+    created_at       timestamp default current_timestamp
+);
+
+create table order_items
+(
+    id             bigserial primary key,
+    product_title  bigint not null,
+    quantity       int    not null,
+    price_per_item int    not null,
+    total_price    int    not null,
+    order_id       bigint references orders (id)
+)

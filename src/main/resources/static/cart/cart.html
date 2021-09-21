@@ -1,21 +1,41 @@
-<div>
-<h3>Cart content</h3>
+<div ng-show="cartContent.items.length > 0">
+    <h3 class="mt-3">Cart content</h3>
     <table class="table table-hover">
         <thead>
         <tr class="row-cols-auto">
-            <td class="col-4">Title</td>
-            <td class="col-2">Price</td>
-            <td class="col-3"></td>
+            <th class="col-2">Title</th>
+            <th class="col-2">Price per item</th>
+            <th class="col-2">Quantity</th>
+            <th class="col-2">Cost</th>
+            <th class="col-3"></th>
         </thead>
         </tr>
         <tbody>
         <tr ng-repeat="p in cartContent.items">
             <td>{{p.productTitle}}</td>
-            <td>{{p.pricePerItem + ' x ' + p.quantity + ' = ' + p.totalPrice}}</td>
+            <td>{{p.pricePerItem}}</td>
             <td>
-                <button class="btn btn-primary" ng-click="removeFromCart(p.productId)">Remove</button>
+                <button class="btn btn-outline-info" ng-click="decrementItem(p.productId)">-</button>
+                {{p.quantity}}
+                <button class="btn btn-outline-info" ng-click="incrementItem(p.productId)">+</button>
             </td>
+            <td>{{p.totalPrice}}</td>
+            <td>
+                <button class="btn btn-outline-danger" ng-click="removeItem(p.productId)">Remove from cart</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="text-end"><b>Total cost:</b> {{cartContent.totalPrice}}</td>
+            <td>
+                <button class="btn btn-outline-warning" ng-click="checkout()">Checkout</button>
+            </td>
+            <td></td>
         </tr>
         </tbody>
     </table>
+</div>
+<div ng-show="cartContent.items.length == 0">
+    <span><h3 class="mt-3">Cart is empty!</h3></span>
 </div>

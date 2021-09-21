@@ -22,6 +22,10 @@
                 templateUrl: 'cart/cart.html',
                 controller: 'cartController'
             })
+            .when('/checkout', {
+                templateUrl: 'checkout/checkout.html',
+                controller: 'checkoutController'
+            })
             .when('/register', {
                 templateUrl: 'register/register_user.html',
                 controller: 'registerUserController'
