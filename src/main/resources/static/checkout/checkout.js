@@ -15,10 +15,9 @@ angular.module('market-front').controller('checkoutController', function ($scope
     };
 
     $scope.processOrder = function () {
-        $scope.orderDetails.cartItems = $scope.cartContent.items;
-        $http.post(contextPath + '/api/v1/order', $scope.orderDetails)
+        $http.post(contextPath + '/api/v1/orders', $scope.orderDetails)
             .then(function () {
-                alert('Order complete!');
+                alert('Order created!');
                 $scope.orderDetails = null;
                 }, function (response) {
                 alert(response.data.message);

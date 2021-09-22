@@ -41,7 +41,7 @@
                     <a class="btn btn-outline-warning btn-sm" href="#!/register">Register</a>
                 </li>
                 <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
-                    <a class="btn btn-outline-warning btn-sm" href="#!/">{{readUserFromStorage()}}</a>
+                    <a class="btn btn-outline-warning btn-sm" href="#!/profile">{{readUserFromStorage()}}</a>
                     <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Logout</button>
                 </li>
                 <li class="nav-item text-end" style="padding: 4px;">
@@ -60,6 +60,7 @@
     <script src="register/register_user.js"></script>
     <script src="cart/cart.js"></script>
     <script src="checkout/checkout.js"></script>
+    <script src="user_profile/user_profile.js"></script>
 </div>
 <footer class="footer mt-auto py-3 bg-dark position-absolute bottom-0 end-0 w-100">
     <div class="container">

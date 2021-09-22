@@ -26,6 +26,10 @@
                 templateUrl: 'checkout/checkout.html',
                 controller: 'checkoutController'
             })
+            .when('/profile', {
+            templateUrl: 'user_profile/user_profile.html',
+            controller: 'profileController'
+        })
             .when('/register', {
                 templateUrl: 'register/register_user.html',
                 controller: 'registerUserController'

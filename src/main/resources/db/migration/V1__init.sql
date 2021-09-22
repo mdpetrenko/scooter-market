@@ -1,7 +1,9 @@
 create table categories
 (
-    id    bigserial primary key,
-    title varchar(255)
+    id         bigserial primary key,
+    title      varchar(255),
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
 );
 
 insert into categories (title)
@@ -12,8 +14,10 @@ create table products
 (
     id          bigserial primary key,
     title       varchar(255),
-    price       int,
-    category_id bigint references categories (id)
+    price       integer,
+    category_id bigint references categories (id),
+    created_at  timestamp default current_timestamp,
+    updated_at  timestamp default current_timestamp
 );
 
 create table users
@@ -64,20 +68,24 @@ values (1, 1),
 create table orders
 (
     id               bigserial primary key,
-    owner_id         bigint references users (id),
+    price            integer      not null,
+    user_id          bigint references users (id),
     owner_name       varchar(255) not null,
     delivery_address varchar(255) not null,
     owner_phone      varchar(255),
     owner_email      varchar(255),
-    created_at       timestamp default current_timestamp
+    created_at       timestamp default current_timestamp,
+    updated_at       timestamp default current_timestamp
 );
 
 create table order_items
 (
     id             bigserial primary key,
-    order_id       bigint not null references orders (id),
-    product_title  bigint not null,
-    quantity       int    not null,
-    price_per_item int    not null,
-    total_price    int    not null
+    order_id       bigint       not null references orders (id),
+    product_id     varchar(255) not null references products (id),
+    quantity       integer      not null,
+    price_per_item integer      not null,
+    price          integer      not null,
+    created_at     timestamp default current_timestamp,
+    updated_at     timestamp default current_timestamp
 )

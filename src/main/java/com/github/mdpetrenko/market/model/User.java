@@ -36,8 +36,8 @@ public class User {
     )
     private Collection<Role> roles;
 
-    @OneToMany(mappedBy = "owner")
-    private Set<Order> orders;
+    @OneToMany(mappedBy = "user")
+    private Collection<Order> orders;
 
     @CreationTimestamp
     @Column(name = "created_at")

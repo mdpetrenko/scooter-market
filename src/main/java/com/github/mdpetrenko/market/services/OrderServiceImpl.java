@@ -1,34 +1,62 @@
 package com.github.mdpetrenko.market.services;
 
 import com.github.mdpetrenko.market.dtos.OrderDetailsDto;
+import com.github.mdpetrenko.market.dtos.OrderItemDto;
 import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.model.Order;
 import com.github.mdpetrenko.market.model.OrderItem;
 import com.github.mdpetrenko.market.repositories.OrderRepository;
+import com.github.mdpetrenko.market.services.interfaces.CartService;
 import com.github.mdpetrenko.market.services.interfaces.OrderService;
+import com.github.mdpetrenko.market.services.interfaces.ProductService;
 import com.github.mdpetrenko.market.services.interfaces.UserService;
+import com.github.mdpetrenko.market.utils.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.stream.Collectors;
+import java.security.Principal;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final ProductService productService;
     private final UserService userService;
+    private final CartService cartService;
 
     @Transactional
     @Override
-    public Order save(OrderDetailsDto orderDetails) {
+    public void createOrder(OrderDetailsDto orderDetails, Principal principal) {
         Order order = new Order(orderDetails);
-        if (orderDetails.getOwnerId() != null) {
-            order.setOwner(userService.findById(orderDetails.getOwnerId())
-                    .orElseThrow(() -> new ResourceNotFoundException("User with id=" + orderDetails.getOwnerId() + " not found")));
+        Cart cart = cartService.getCartForCurrentUser();
+        order.setPrice(cart.getTotalPrice());
+        if (principal != null) {
+            order.setUser(userService.findByUsername(principal.getName())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found. Name: " + principal.getName())));
         }
-        order = orderRepository.save(order);
-        order.setOrderItems(orderDetails.getCartItems().stream().map(OrderItem::new).collect(Collectors.toList()));
-        return orderRepository.save(order);
+        Set<OrderItem> items = new HashSet<>();
+        for (OrderItemDto item : cart.getItems()) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            orderItem.setPrice(item.getPrice());
+            orderItem.setProduct(productService.findById(item.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found. Id: " + item.getProductId())));
+            orderItem.setPrice(item.getPrice());
+            orderItem.setPricePerItem(item.getPricePerItem());
+            orderItem.setQuantity(item.getQuantity());
+            items.add(orderItem);
+        }
+        order.setItems(items);
+        orderRepository.save(order);
+        cartService.clearCart();
+    }
+
+    @Override
+    public List<Order> findUserOrders(String username) {
+        return orderRepository.findAllByUsername(username);
     }
 }

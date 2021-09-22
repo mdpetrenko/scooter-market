@@ -1,0 +1,26 @@
+<div>
+    <h3 class="mt-3">Orders</h3>
+    <table class="table table-hover">
+        <thead>
+        <tr class="row-cols-auto">
+            <th class="col-2">#</th>
+            <th class="col-2">Items</th>
+            <th class="col-2">Cost</th>
+            <th class="col-2">Owner name</th>
+            <th class="col-4">Delivery Address</th>
+        </thead>
+        </tr>
+        <tbody>
+        <tr ng-repeat="o in orders">
+            <td>{{o.id}}</td>
+            <td>{{o.items.length}}</td>
+            <td>{{o.price}}</td>
+            <td>{{o.ownerName}}</td>
+            <td>{{o.deliveryAddress}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-show="order.items.length == 0">
+    <span><h3 class="mt-3">Cart is empty!</h3></span>
+</div>

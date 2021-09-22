@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.utils;
 
-import com.github.mdpetrenko.market.dtos.CartItem;
+import com.github.mdpetrenko.market.dtos.OrderItemDto;
 import com.github.mdpetrenko.market.model.Product;
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 @Getter
 public class Cart {
-    private final Collection<CartItem> items;
+    private final Collection<OrderItemDto> items;
     private int totalPrice;
 
     public Cart() {
@@ -18,7 +18,7 @@ public class Cart {
     }
 
     public boolean add(Long productId) {
-        for (CartItem item : items) {
+        for (OrderItemDto item : items) {
             if (item.getProductId().equals(productId)) {
                 item.changeQuantity(1);
                 recalculate();
@@ -29,14 +29,14 @@ public class Cart {
     }
 
     public void add(Product product) {
-        items.add(new CartItem(product));
+        items.add(new OrderItemDto(product));
         recalculate();
     }
 
     public void decrement(Long productId) {
-        Iterator<CartItem> iter = items.iterator();
+        Iterator<OrderItemDto> iter = items.iterator();
         while (iter.hasNext()) {
-            CartItem item = iter.next();
+            OrderItemDto item = iter.next();
             if (item.getProductId().equals(productId)) {
                 item.changeQuantity(-1);
                 if (item.getQuantity() <= 0) {
@@ -60,7 +60,7 @@ public class Cart {
 
     private void recalculate() {
         totalPrice = 0;
-        totalPrice = items.stream().mapToInt(CartItem::getTotalPrice).sum();
+        totalPrice = items.stream().mapToInt(OrderItemDto::getPrice).sum();
     }
 
 }
