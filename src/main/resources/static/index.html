@@ -19,6 +19,16 @@
                 <li><a href="#!/" class="nav-link px-4 text-white">Catalog</a></li>
                 <li ng-show="isUserLoggedIn()"><a href="#!/create_product" class="nav-link px-2 text-white">Create product</a></li>
             </ul>
+            <div class="dropdown text-end" ng-show="isUserLoggedIn()">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#!/profile">My profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button class="dropdown-item" ng-click="tryToLogout()">Logout</button></li>
+                </ul>
+            </div>
             <ul class="nav justify-content-end mb-md-0">
                 <li class="nav-item text-end" ng-show="!isUserLoggedIn()">
                     <form class="align-middle" ng-submit="tryToAuth()">
@@ -39,10 +49,6 @@
                 </li>
                 <li class="nav-item text-end" ng-show="!isUserLoggedIn()" style="padding: 4px;">
                     <a class="btn btn-outline-warning btn-sm" href="#!/register">Register</a>
-                </li>
-                <li class="nav-item" ng-show="isUserLoggedIn()" style="padding: 4px;">
-                    <a class="btn btn-outline-warning btn-sm" href="#!/profile">{{readUserFromStorage()}}</a>
-                    <button class="btn btn-outline-secondary btn-sm" ng-click="tryToLogout()">Logout</button>
                 </li>
                 <li class="nav-item text-end" style="padding: 4px;">
                     <a class="btn btn-outline-warning btn-sm" href="#!/cart">Cart</a>

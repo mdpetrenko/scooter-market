@@ -46,7 +46,7 @@
     }
 })();
 
-angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage) {
+angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage, $location) {
     const contextPath = 'http://localhost:8189/market/api/v1';
 
     $scope.tryToAuth = function () {
@@ -77,6 +77,9 @@ angular.module('market-front').controller('indexController', function ($rootScop
         if ($scope.user.password) {
             $scope.user.password = null;
         }
+        if ($location.path() === '/profile') {
+            $location.path('/');
+        }
     };
 
     $scope.clearUser = function () {
@@ -85,11 +88,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
     };
 
     $rootScope.isUserLoggedIn = function () {
-        if ($localStorage.webMarketUser) {
-            return true;
-        } else {
-            return false;
-        }
+        return !!$localStorage.webMarketUser;
     };
 
 });
