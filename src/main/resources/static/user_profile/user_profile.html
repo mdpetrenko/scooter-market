@@ -1,30 +1,45 @@
 <div>
     <h3 class="mt-3">Orders</h3>
-    <table class="table table-hover table-striped caption-top" ng-repeat="o in orders">
-        <caption>Order #{{o.id}} items. Owner: {{o.ownerName}}. Delivery address: {{o.deliveryAddress}}</caption>
-        <thead>
-        <tr class="row-cols-auto">
-            <th class="col-2">Title</th>
-            <th class="col-2">Price per item</th>
-            <th class="col-2">Quantity</th>
-            <th class="col-4">Total price</th>
-        </thead>
-        </tr>
-        <tbody>
-        <tr ng-repeat="p in o.items">
-            <td>{{p.productTitle}}</td>
-            <td>{{o.pricePerItem}}</td>
-            <td>{{o.quantity}}</td>
-            <td>{{o.price}}</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td class="text-end"><b>Total:</b></td>
-            <td>{{o.price}}</td>
-        </tr>
-        </tbody>
-    </table>
+
+    <div class="accordion" id="accordion">
+        <div class="accordion-item" ng-repeat="o in orders">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{o.id}}" aria-expanded="false" aria-controls="collapse{{o.id}}">
+                    Order #{{o.id}}. Owner: {{o.ownerName}}. Delivery address: {{o.deliveryAddress}}
+                </button>
+            </h2>
+            <div id="collapse{{o.id}}" class="accordion-collapse collapse"
+                 data-bs-parent="#accordion">
+                <div class="accordion-body">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr class="row-cols-auto">
+                            <th class="col-2">Title</th>
+                            <th class="col-2">Price per item</th>
+                            <th class="col-2">Quantity</th>
+                            <th class="col-4">Total price</th>
+                        </thead>
+                        </tr>
+                        <tbody>
+                        <tr ng-repeat="p in o.items">
+                            <td>{{p.productTitle}}</td>
+                            <td>{{p.pricePerItem}}</td>
+                            <td>{{p.quantity}}</td>
+                            <td>{{p.price}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="text-end"><b>Total:</b></td>
+                            <td>{{o.price}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div ng-show="order.items.length == 0">
     <span><h3 class="mt-3">Cart is empty!</h3></span>
