@@ -63,4 +63,20 @@ public class Cart {
         totalPrice = items.stream().mapToInt(OrderItemDto::getPrice).sum();
     }
 
+    public void merge(Cart another) {
+        for (OrderItemDto item : another.items) {
+            boolean merged = false;
+            for (OrderItemDto currentItem : this.items) {
+                if (item.getProductId().equals(currentItem.getProductId())) {
+                    currentItem.changeQuantity(item.getQuantity());
+                    merged = true;
+                    break;
+                }
+            }
+            if (!merged) {
+                items.add(item);
+            }
+        }
+        another.clear();
+    }
 }
