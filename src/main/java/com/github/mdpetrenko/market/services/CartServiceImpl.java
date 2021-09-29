@@ -1,52 +1,73 @@
 package com.github.mdpetrenko.market.services;
 
 import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
-import com.github.mdpetrenko.market.model.Product;
+import com.github.mdpetrenko.market.repositories.CartRepository;
 import com.github.mdpetrenko.market.services.interfaces.CartService;
 import com.github.mdpetrenko.market.services.interfaces.ProductService;
-import com.github.mdpetrenko.market.utils.Cart;
+import com.github.mdpetrenko.market.model.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
+import java.security.Principal;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
+    private static final String  CART_PREFIX = "ScooterMarket_Cart_";
     private final ProductService productService;
-    private Cart cart;
-
-    @PostConstruct
-    public void init() {
-        cart = new Cart();
-    }
+    private final CartRepository cartRepository;
 
     @Override
-    public void addItem(Long productId) {
-        if (cart.add(productId)) {
-            return;
+    public Cart getCartForCurrentUser(Principal principal, UUID uuid) {
+        String key = getCartKey(principal, uuid);
+        return cartRepository.findById(key).orElse(cartRepository.save(new Cart(key)));
+    }
+
+    private String getCartKey(Principal principal, UUID uuid) {
+        if (principal == null && uuid == null) {
+            throw new IllegalArgumentException("Not Enough information for generate key");
         }
-        Product product = productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product with id=" + productId + " does not exists"));
-        cart.add(product);
+        if (principal != null) {
+            return CART_PREFIX + principal.getName();
+        }
+        return CART_PREFIX + uuid;
     }
 
     @Override
-    public void removeItem(Long productId) {
-        cart.remove(productId);
+    public void addItem(Principal principal, UUID uuid, Long productId) {
+        Cart cart = getCartForCurrentUser(principal, uuid);
+        if (!cart.add(productId)) {
+            cart.add(productService.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product not found. Id: " + productId)));
+        }
+        cartRepository.save(cart);
     }
 
     @Override
-    public void decrementItem(Long productId) {
-        cart.decrement(productId);
+    public void removeItem(Principal principal, UUID uuid, Long productId) {
+        cartRepository.save(getCartForCurrentUser(principal, uuid).remove(productId));
     }
 
     @Override
-    public Cart getCartForCurrentUser() {
-        return cart;
+    public void decrementItem(Principal principal, UUID uuid, Long productId) {
+        cartRepository.save(getCartForCurrentUser(principal, uuid).decrement(productId));
     }
 
     @Override
-    public void clearCart() {
-        cart.clear();
+    public void clearCart(Principal principal, UUID uuid) {
+        cartRepository.save(getCartForCurrentUser(principal, uuid));
+    }
+
+    @Override
+    public void clearCart(Cart cart) {
+        cartRepository.save(cart.clear());
+    }
+
+    @Override
+    public void merge(Principal principal, UUID cartId) {
+        Cart userCart = getCartForCurrentUser(principal, null);
+        Cart guestCart =  getCartForCurrentUser(null, cartId);
+        cartRepository.save(userCart.merge(guestCart));
+        cartRepository.save(guestCart.clear());
     }
 }

@@ -1,20 +1,29 @@
-package com.github.mdpetrenko.market.utils;
+package com.github.mdpetrenko.market.model;
 
 import com.github.mdpetrenko.market.dtos.OrderItemDto;
-import com.github.mdpetrenko.market.model.Product;
 import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 @Getter
+@RedisHash("ScooterMarket_cart")
 public class Cart {
     private final Collection<OrderItemDto> items;
     private int totalPrice;
+    @Setter
+    private String id;
 
     public Cart() {
         items = new ArrayList<>();
+    }
+
+    public Cart(String id) {
+        this();
+        this.id = id;
     }
 
     public boolean add(Long productId) {
@@ -28,12 +37,13 @@ public class Cart {
         return false;
     }
 
-    public void add(Product product) {
+    public Cart add(Product product) {
         items.add(new OrderItemDto(product));
         recalculate();
+        return this;
     }
 
-    public void decrement(Long productId) {
+    public Cart decrement(Long productId) {
         Iterator<OrderItemDto> iter = items.iterator();
         while (iter.hasNext()) {
             OrderItemDto item = iter.next();
@@ -43,19 +53,22 @@ public class Cart {
                     iter.remove();
                 }
                 recalculate();
-                return;
+                break;
             }
         }
+        return this;
     }
 
-    public void remove(Long productId) {
+    public Cart remove(Long productId) {
         items.removeIf(i -> i.getProductId().equals(productId));
         recalculate();
+        return this;
     }
 
-    public void clear() {
+    public Cart clear() {
         items.clear();
         totalPrice = 0;
+        return this;
     }
 
     private void recalculate() {
@@ -63,7 +76,7 @@ public class Cart {
         totalPrice = items.stream().mapToInt(OrderItemDto::getPrice).sum();
     }
 
-    public void merge(Cart another) {
+    public Cart merge(Cart another) {
         for (OrderItemDto item : another.items) {
             boolean merged = false;
             for (OrderItemDto currentItem : this.items) {
@@ -78,5 +91,6 @@ public class Cart {
             }
         }
         another.clear();
+        return this;
     }
 }

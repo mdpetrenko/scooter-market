@@ -10,7 +10,7 @@ import com.github.mdpetrenko.market.services.interfaces.CartService;
 import com.github.mdpetrenko.market.services.interfaces.OrderService;
 import com.github.mdpetrenko.market.services.interfaces.ProductService;
 import com.github.mdpetrenko.market.services.interfaces.UserService;
-import com.github.mdpetrenko.market.utils.Cart;
+import com.github.mdpetrenko.market.model.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,7 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -30,14 +31,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public void createOrder(OrderDetailsDto orderDetails, Principal principal) {
+    public void createOrder(OrderDetailsDto orderDetails, Principal principal, UUID uuid) {
         Order order = new Order(orderDetails);
-        Cart cart = cartService.getCartForCurrentUser();
-        order.setPrice(cart.getTotalPrice());
         if (principal != null) {
             order.setUser(userService.findByUsername(principal.getName())
                     .orElseThrow(() -> new ResourceNotFoundException("User not found. Name: " + principal.getName())));
         }
+        Cart cart = cartService.getCartForCurrentUser(principal, uuid);
+        order.setPrice(cart.getTotalPrice());
         Set<OrderItem> items = new HashSet<>();
         for (OrderItemDto item : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
@@ -52,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setItems(items);
         orderRepository.save(order);
-        cartService.clearCart();
+        cartService.clearCart(cart);
     }
 
     @Override

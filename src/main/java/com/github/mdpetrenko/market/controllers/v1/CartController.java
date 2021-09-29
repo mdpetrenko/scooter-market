@@ -1,12 +1,13 @@
 package com.github.mdpetrenko.market.controllers.v1;
 
+import com.github.mdpetrenko.market.dtos.StringResponse;
 import com.github.mdpetrenko.market.services.interfaces.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -14,24 +15,34 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
     private final CartService cartService;
 
-    @GetMapping
-    public ResponseEntity<?> getCartForCurrentUser() {
-        return ResponseEntity.ok(cartService.getCartForCurrentUser());
+    @GetMapping("/generate")
+    public ResponseEntity<?> generateCartUuid() {
+        return ResponseEntity.ok(new StringResponse(UUID.randomUUID().toString()));
     }
 
-    @GetMapping("/add/{productId}")
-    public void addItem(@PathVariable Long productId) {
-        cartService.addItem(productId);
+    @GetMapping("/{cartId}")
+    public ResponseEntity<?> getCartForCurrentUser(@PathVariable UUID cartId, Principal principal) {
+        return ResponseEntity.ok(cartService.getCartForCurrentUser(principal, cartId));
     }
 
-    @GetMapping("/remove/{productId}")
-    public void removeItem(@PathVariable Long productId) {
-        cartService.removeItem(productId);
+    @GetMapping("/{cartId}/add/{productId}")
+    public void addItem(@PathVariable UUID cartId, @PathVariable Long productId, Principal principal) {
+        cartService.addItem(principal, cartId, productId);
     }
 
-    @GetMapping("/decrement/{productId}")
-    public void decrementItem(@PathVariable Long productId) {
-        cartService.decrementItem(productId);
+    @GetMapping("/{cartId}/remove/{productId}")
+    public void removeItem(@PathVariable UUID cartId, @PathVariable Long productId, Principal principal) {
+        cartService.removeItem(principal, cartId, productId);
+    }
+
+    @GetMapping("/{cartId}/decrement/{productId}")
+    public void decrementItem(@PathVariable UUID cartId, @PathVariable Long productId, Principal principal) {
+        cartService.decrementItem(principal, cartId, productId);
+    }
+
+    @GetMapping("/{cartId}/merge")
+    public void mergeCarts(@PathVariable UUID cartId, Principal principal) {
+        cartService.merge(principal, cartId);
     }
 
 }
