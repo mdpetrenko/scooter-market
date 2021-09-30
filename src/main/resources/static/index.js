@@ -44,7 +44,7 @@
         if ($localStorage.scooterMarketUser) {
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.scooterMarketUser.token;
         }
-        if (!$localStorage.ScooterMarketGuestCartId) {
+        if (!$localStorage.scooterMarketGuestCartId) {
             $http.get(contextPath + '/api/v1/cart/generate')
                 .then(function successCallback(response) {
                     $localStorage.scooterMarketGuestCartId = response.data.value;
@@ -64,7 +64,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
                     $localStorage.scooterMarketUser = {username: $scope.user.username, token: response.data.token};
                     $scope.user.username = null;
                     $scope.user.password = null;
-                    $http.get(contextPath + '/api/v1/cart/' + $localStorage.ScooterMarketGuestCartId + '/merge')
+                    $http.get(contextPath + '/cart/' + $localStorage.scooterMarketGuestCartId + '/merge')
                         .then(function successCallback(response) {
                         });
                 }

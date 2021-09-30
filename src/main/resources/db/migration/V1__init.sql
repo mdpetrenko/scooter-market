@@ -22,7 +22,7 @@ create table products
 
 create table users
 (
-    id         UUID primary key,
+    id         bigserial primary key,
     username   varchar(255) not null,
     password   varchar(255) not null,
     email      varchar(255) unique,

@@ -1,6 +1,7 @@
 package com.github.mdpetrenko.market.controllers.v1;
 
 import com.github.mdpetrenko.market.dtos.StringResponse;
+import com.github.mdpetrenko.market.model.Cart;
 import com.github.mdpetrenko.market.services.interfaces.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class CartController {
 
     @GetMapping("/{cartId}")
     public ResponseEntity<?> getCartForCurrentUser(@PathVariable UUID cartId, Principal principal) {
-        return ResponseEntity.ok(cartService.getCartForCurrentUser(principal, cartId));
+        Cart cart = cartService.getCartForCurrentUser(principal, cartId);
+        return ResponseEntity.ok(cart);
     }
 
     @GetMapping("/{cartId}/add/{productId}")
@@ -43,6 +45,11 @@ public class CartController {
     @GetMapping("/{cartId}/merge")
     public void mergeCarts(@PathVariable UUID cartId, Principal principal) {
         cartService.merge(principal, cartId);
+    }
+
+    @GetMapping("/{cartId}/clear")
+    public void clearCart(@PathVariable UUID cartId, Principal principal) {
+        cartService.clearCart(principal, cartId);
     }
 
 }

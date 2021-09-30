@@ -19,7 +19,6 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -31,13 +30,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public void createOrder(OrderDetailsDto orderDetails, Principal principal, UUID uuid) {
+    public void createOrder(OrderDetailsDto orderDetails, Principal principal) {
         Order order = new Order(orderDetails);
         if (principal != null) {
             order.setUser(userService.findByUsername(principal.getName())
                     .orElseThrow(() -> new ResourceNotFoundException("User not found. Name: " + principal.getName())));
         }
-        Cart cart = cartService.getCartForCurrentUser(principal, uuid);
+        Cart cart = cartService.getCartForCurrentUser(principal, orderDetails.getGuestCartUuid());
         order.setPrice(cart.getTotalPrice());
         Set<OrderItem> items = new HashSet<>();
         for (OrderItemDto item : cart.getItems()) {

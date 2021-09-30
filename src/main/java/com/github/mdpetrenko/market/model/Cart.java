@@ -1,20 +1,19 @@
 package com.github.mdpetrenko.market.model;
 
 import com.github.mdpetrenko.market.dtos.OrderItemDto;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-@Getter
+@Data
 @RedisHash("ScooterMarket_cart")
-public class Cart {
-    private final Collection<OrderItemDto> items;
+public class Cart implements Serializable {
+    private Collection<OrderItemDto> items;
     private int totalPrice;
-    @Setter
     private String id;
 
     public Cart() {

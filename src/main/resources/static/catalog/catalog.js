@@ -1,4 +1,4 @@
-angular.module('market-front').controller('catalogController', function ($scope, $http, $location) {
+angular.module('market-front').controller('catalogController', function ($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:8189/market';
     let currentPageIndex = 1;
     let currentPageSize = 3;
@@ -34,7 +34,7 @@ angular.module('market-front').controller('catalogController', function ($scope,
     };
 
     $scope.addToCart = function (productId) {
-        $http.get(contextPath + '/api/v1/cart/add/' + productId)
+        $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/add/' + productId)
             .then(function successCallback() {
                 $scope.loadProducts(currentPageIndex, currentPageSize);
             }, function failureCallback(response) {

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,7 +22,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public Cart getCartForCurrentUser(Principal principal, UUID uuid) {
         String key = getCartKey(principal, uuid);
-        return cartRepository.findById(key).orElse(cartRepository.save(new Cart(key)));
+        return cartRepository.findById(key).orElseGet(() -> new Cart(key));
     }
 
     private String getCartKey(Principal principal, UUID uuid) {
@@ -68,6 +69,6 @@ public class CartServiceImpl implements CartService {
         Cart userCart = getCartForCurrentUser(principal, null);
         Cart guestCart =  getCartForCurrentUser(null, cartId);
         cartRepository.save(userCart.merge(guestCart));
-        cartRepository.save(guestCart.clear());
+        cartRepository.save(guestCart);
     }
 }

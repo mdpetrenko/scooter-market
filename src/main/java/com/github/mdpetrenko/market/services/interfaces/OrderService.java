@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface OrderService {
-    void createOrder(OrderDetailsDto orderDetails, Principal principal, UUID uuid);
+    void createOrder(OrderDetailsDto orderDetails, Principal principal);
 
     List<Order> findUserOrders(String username);
 }

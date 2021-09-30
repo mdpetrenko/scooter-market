@@ -3,9 +3,7 @@ package com.github.mdpetrenko.market.controllers.v1;
 import com.github.mdpetrenko.market.dtos.AuthRequest;
 import com.github.mdpetrenko.market.dtos.AuthResponse;
 import com.github.mdpetrenko.market.dtos.RegisterRequest;
-import com.github.mdpetrenko.market.dtos.UserDto;
 import com.github.mdpetrenko.market.exceptions.MarketError;
-import com.github.mdpetrenko.market.services.interfaces.RoleService;
 import com.github.mdpetrenko.market.services.interfaces.UserService;
 import com.github.mdpetrenko.market.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class AuthController {
     private final UserService userService;
-    private final RoleService roleService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 

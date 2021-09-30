@@ -2,7 +2,7 @@ angular.module('market-front').controller('cartController', function ($scope, $h
     const contextPath = 'http://localhost:8189/market';
 
     $scope.loadCart = function () {
-        $http.get(contextPath + '/api/v1/cart/' + $localStorage.ScooterMarketGuestCartId)
+        $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId)
             .then(function (response) {
                 console.log(response);
                 $scope.cartContent = response.data;
@@ -10,7 +10,7 @@ angular.module('market-front').controller('cartController', function ($scope, $h
     };
 
     $scope.removeItem = function (productId) {
-        $http.get(contextPath + '/api/v1/cart/' + $localStorage.ScooterMarketGuestCartId + '/remove/' + productId)
+        $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/remove/' + productId)
             .then(function successCallback() {
                 $scope.loadCart();
             }, function failureCallback(response) {
@@ -19,7 +19,7 @@ angular.module('market-front').controller('cartController', function ($scope, $h
     };
 
     $scope.decrementItem = function (productId) {
-        $http.get(contextPath + '/api/v1/cart/' + $localStorage.ScooterMarketGuestCartId + '/decrement/' + productId)
+        $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/decrement/' + productId)
             .then(function successCallback() {
                 $scope.loadCart();
             }, function failureCallback(response) {
@@ -28,7 +28,7 @@ angular.module('market-front').controller('cartController', function ($scope, $h
     };
 
     $scope.incrementItem = function (productId) {
-        $http.get(contextPath + '/api/v1/cart/' + $localStorage.ScooterMarketGuestCartId + '/add/' + productId)
+        $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/add/' + productId)
             .then(function successCallback() {
                 $scope.loadCart();
             }, function failureCallback(response) {

@@ -5,6 +5,7 @@ import com.github.mdpetrenko.market.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Collection;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Data
