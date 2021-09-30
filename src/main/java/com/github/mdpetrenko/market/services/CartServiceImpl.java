@@ -1,21 +1,20 @@
 package com.github.mdpetrenko.market.services;
 
 import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
+import com.github.mdpetrenko.market.model.Cart;
 import com.github.mdpetrenko.market.repositories.CartRepository;
 import com.github.mdpetrenko.market.services.interfaces.CartService;
 import com.github.mdpetrenko.market.services.interfaces.ProductService;
-import com.github.mdpetrenko.market.model.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
-    private static final String  CART_PREFIX = "ScooterMarket_Cart_";
+    private static final String CART_PREFIX = "ScooterMarket_Cart_";
     private final ProductService productService;
     private final CartRepository cartRepository;
 
@@ -67,7 +66,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void merge(Principal principal, UUID cartId) {
         Cart userCart = getCartForCurrentUser(principal, null);
-        Cart guestCart =  getCartForCurrentUser(null, cartId);
+        Cart guestCart = getCartForCurrentUser(null, cartId);
         cartRepository.save(userCart.merge(guestCart));
         cartRepository.save(guestCart);
     }
