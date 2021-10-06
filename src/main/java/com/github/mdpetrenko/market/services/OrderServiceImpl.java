@@ -19,7 +19,6 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final UserService userService;
 
-    @Transactional
     @Override
     public Order save(OrderDetailsDto orderDetails) {
         Order order = new Order(orderDetails);
@@ -27,8 +26,6 @@ public class OrderServiceImpl implements OrderService {
             order.setOwner(userService.findById(orderDetails.getOwnerId())
                     .orElseThrow(() -> new ResourceNotFoundException("User with id=" + orderDetails.getOwnerId() + " not found")));
         }
-        order = orderRepository.save(order);
-        order.setOrderItems(orderDetails.getCartItems().stream().map(OrderItem::new).collect(Collectors.toList()));
         return orderRepository.save(order);
     }
 }

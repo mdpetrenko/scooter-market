@@ -75,9 +75,9 @@ create table orders
 create table order_items
 (
     id             bigserial primary key,
-    order_id       bigint not null references orders (id),
-    product_title  bigint not null,
-    quantity       int    not null,
-    price_per_item int    not null,
-    total_price    int    not null
+    order_id       bigint       not null references orders (id),
+    product_title  varchar(255) not null,
+    quantity       int          not null,
+    price_per_item int          not null,
+    total_price    int          not null
 )

@@ -42,7 +42,8 @@ public class Order {
         this.deliveryAddress = orderDetailsDto.getDeliveryAddress();
         this.ownerPhone = orderDetailsDto.getOwnerPhone();
         this.ownerEmail = orderDetailsDto.getOwnerEmail();
-//        this.orderItems = orderDetailsDto.getCartItems().stream().map(OrderItem::new).collect(Collectors.toList());
+        this.orderItems = orderDetailsDto.getCartItems().stream().map(OrderItem::new).collect(Collectors.toList());
+        this.orderItems.forEach(i -> i.setOrder(this));
     }
 
 }
