@@ -26,6 +26,10 @@
                 templateUrl: 'checkout/checkout.html',
                 controller: 'checkoutController'
             })
+            .when('/profile', {
+            templateUrl: 'user_profile/user_profile.html',
+            controller: 'profileController'
+        })
             .when('/register', {
                 templateUrl: 'register/register_user.html',
                 controller: 'registerUserController'
@@ -36,13 +40,20 @@
     }
 
     function run($rootScope, $http, $localStorage) {
-        if ($localStorage.webMarketUser) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webMarketUser.token;
+        const contextPath = 'http://localhost:8189/market'
+        if ($localStorage.scooterMarketUser) {
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.scooterMarketUser.token;
+        }
+        if (!$localStorage.scooterMarketGuestCartId) {
+            $http.get(contextPath + '/api/v1/cart/generate')
+                .then(function successCallback(response) {
+                    $localStorage.scooterMarketGuestCartId = response.data.value;
+                });
         }
     }
 })();
 
-angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage) {
+angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage, $location) {
     const contextPath = 'http://localhost:8189/market/api/v1';
 
     $scope.tryToAuth = function () {
@@ -50,9 +61,12 @@ angular.module('market-front').controller('indexController', function ($rootScop
             .then(function successCallback(response) {
                 if (response.data.token) {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.webMarketUser = {username: $scope.user.username, token: response.data.token};
+                    $localStorage.scooterMarketUser = {username: $scope.user.username, token: response.data.token};
                     $scope.user.username = null;
                     $scope.user.password = null;
+                    $http.get(contextPath + '/cart/' + $localStorage.scooterMarketGuestCartId + '/merge')
+                        .then(function successCallback(response) {
+                        });
                 }
             }, function errorCallback(response) {
             });
@@ -60,7 +74,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
 
     $scope.readUserFromStorage = function () {
         if ($rootScope.isUserLoggedIn()) {
-            return $localStorage.webMarketUser.username;
+            return $localStorage.scooterMarketUser.username;
         }
         return null;
     }
@@ -73,19 +87,18 @@ angular.module('market-front').controller('indexController', function ($rootScop
         if ($scope.user.password) {
             $scope.user.password = null;
         }
+        if ($location.path() === '/profile') {
+            $location.path('/');
+        }
     };
 
     $scope.clearUser = function () {
-        delete $localStorage.webMarketUser;
+        delete $localStorage.scooterMarketUser;
         $http.defaults.headers.common.Authorization = '';
     };
 
     $rootScope.isUserLoggedIn = function () {
-        if ($localStorage.webMarketUser) {
-            return true;
-        } else {
-            return false;
-        }
+        return !!$localStorage.scooterMarketUser;
     };
 
 });

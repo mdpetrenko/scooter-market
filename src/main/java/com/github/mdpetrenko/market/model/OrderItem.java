@@ -1,10 +1,12 @@
 package com.github.mdpetrenko.market.model;
 
-import com.github.mdpetrenko.market.dtos.CartItem;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_items")
@@ -16,8 +18,13 @@ public class OrderItem {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "product_title")
-    private String productTitle;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "quantity")
     private int quantity;
@@ -25,17 +32,16 @@ public class OrderItem {
     @Column(name = "price_per_item")
     private int pricePerItem;
 
-    @Column(name = "total_price")
-    private int totalPrice;
+    @Column(name = "price")
+    private int price;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
-    public OrderItem(CartItem cartItem) {
-        this.productTitle = cartItem.getProductTitle();
-        this.pricePerItem = cartItem.getPricePerItem();
-        this.totalPrice = cartItem.getTotalPrice();
-        this.quantity = cartItem.getQuantity();
-    }
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+
 }

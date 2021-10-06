@@ -1,9 +1,9 @@
-angular.module('market-front').controller('checkoutController', function ($scope, $http, $location) {
+angular.module('market-front').controller('checkoutController', function ($scope, $http, $location, $localStorage) {
     $scope.orderDetails = null;
     const contextPath = 'http://localhost:8189/market';
 
     $scope.loadCart = function () {
-        $http.get(contextPath + '/api/v1/cart')
+        $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId)
             .then(function (response) {
                 console.log(response);
                 $scope.cartContent = response.data;
@@ -15,12 +15,15 @@ angular.module('market-front').controller('checkoutController', function ($scope
     };
 
     $scope.processOrder = function () {
-        $scope.orderDetails.cartItems = $scope.cartContent.items;
-        $http.post(contextPath + '/api/v1/order', $scope.orderDetails)
+        $scope.orderDetails.cartUuid = $localStorage.scooterMarketGuestCartId;
+        $http.post(contextPath + '/api/v1/orders', $scope.orderDetails)
             .then(function () {
-                alert('Order complete!');
                 $scope.orderDetails = null;
-                }, function (response) {
+                $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/clear')
+                    .then(function () {
+                        alert('Order created!');
+                    });
+            }, function (response) {
                 alert(response.data.message);
             });
     };

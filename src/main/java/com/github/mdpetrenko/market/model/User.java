@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -36,8 +37,8 @@ public class User {
     )
     private Collection<Role> roles;
 
-    @OneToMany(mappedBy = "owner")
-    private Set<Order> orders;
+    @OneToMany(mappedBy = "user")
+    private Collection<Order> orders;
 
     @CreationTimestamp
     @Column(name = "created_at")
