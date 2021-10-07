@@ -15,7 +15,7 @@ angular.module('market-front').controller('checkoutController', function ($scope
     };
 
     $scope.processOrder = function () {
-        $scope.orderDetails.cartUuid = $localStorage.scooterMarketGuestCartId;
+        $scope.orderDetails.guestCartUuid = $localStorage.scooterMarketGuestCartId;
         $http.post(contextPath + '/api/v1/orders', $scope.orderDetails)
             .then(function () {
                 $scope.orderDetails = null;

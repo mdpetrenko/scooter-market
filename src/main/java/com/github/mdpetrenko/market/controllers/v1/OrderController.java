@@ -26,7 +26,7 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<?> listOrders(Principal principal) {
         return new ResponseEntity<>(orderService.findUserOrders(principal.getName())
-                .stream().map(OrderDto:: new).collect(Collectors.toList()), HttpStatus.OK);
+                .stream().map(OrderDto::new).collect(Collectors.toList()), HttpStatus.OK);
     }
 
 }
