@@ -1,0 +1,41 @@
+<div ng-show="cartContent.items.length > 0">
+    <h3 class="mt-3">Cart content</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr class="row-cols-auto">
+            <th class="col-2">Title</th>
+            <th class="col-2">Price per item</th>
+            <th class="col-2">Quantity</th>
+            <th class="col-2">Cost</th>
+            <th class="col-3"></th>
+        </thead>
+        </tr>
+        <tbody>
+        <tr ng-repeat="p in cartContent.items">
+            <td>{{p.productTitle}}</td>
+            <td>{{p.pricePerItem}}</td>
+            <td>
+                <button class="btn btn-outline-info" ng-click="decrementItem(p.productId)">-</button>
+                {{p.quantity}}
+                <button class="btn btn-outline-info" ng-click="incrementItem(p.productId)">+</button>
+            </td>
+            <td>{{p.price}}</td>
+            <td>
+                <button class="btn btn-outline-danger" ng-click="removeItem(p.productId)">Remove from cart</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td class="text-end"><b>Total cost:</b></td>
+            <td>
+                {{cartContent.totalPrice}}
+            </td>
+            <td class="text-start"><button class="btn btn-outline-warning" ng-click="checkout()">Checkout</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-show="cartContent.items.length == 0">
+    <span><h3 class="mt-3">Cart is empty!</h3></span>
+</div>

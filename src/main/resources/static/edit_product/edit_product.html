@@ -1,0 +1,14 @@
+<div>
+    <h3>Edit product</h3>
+    <form ng-submit="createNewProduct()" novalidate>
+        <input class="form-control" ng-model="product.title" placeholder="Title" type="text">
+        <p></p>
+        <input class="form-control" ng-model="product.price" placeholder="Price" type="number">
+        <p></p>
+        <select class="form-select" ng-model="product.categoryTitle">
+            <option ng-repeat="c in categories">{{c}}</option>
+        </select>
+        <p></p>
+        <button class="btn btn-primary" type="submit" ng-click="updateProduct(product)">Submit</button>
+    </form>
+</div>
