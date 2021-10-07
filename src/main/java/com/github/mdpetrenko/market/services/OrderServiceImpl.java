@@ -14,7 +14,6 @@ import com.github.mdpetrenko.market.model.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +27,6 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final CartService cartService;
 
-    @Transactional
     @Override
     public void createOrder(OrderDetailsDto orderDetails, Principal principal) {
         Order order = new Order(orderDetails);
