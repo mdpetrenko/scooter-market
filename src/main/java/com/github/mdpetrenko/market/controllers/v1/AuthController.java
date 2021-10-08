@@ -3,7 +3,10 @@ package com.github.mdpetrenko.market.controllers.v1;
 import com.github.mdpetrenko.market.dtos.AuthRequest;
 import com.github.mdpetrenko.market.dtos.AuthResponse;
 import com.github.mdpetrenko.market.dtos.RegisterRequest;
+import com.github.mdpetrenko.market.dtos.UserDto;
+import com.github.mdpetrenko.market.exceptions.DataValidationException;
 import com.github.mdpetrenko.market.exceptions.MarketError;
+import com.github.mdpetrenko.market.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.services.interfaces.UserService;
 import com.github.mdpetrenko.market.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +16,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,6 +47,12 @@ public class AuthController {
         }
         userService.registerUser(registerRequest);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> showProfile(Principal principal) {
+        UserDto userDto = new UserDto(userService.findByUsername(principal.getName()).orElseThrow(() -> new ResourceNotFoundException("User not found: " + principal.getName())));
+        return ResponseEntity.ok(userDto);
     }
 
 }
