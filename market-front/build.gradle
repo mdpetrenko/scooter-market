@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.mdpetrenko.scooter-market'
+version '0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+    implementation 'org.webjars.npm:angular:1.8.2'
+    implementation 'org.webjars.bower:angular-route:1.8.2'
+    implementation 'org.webjars.bower:ngstorage:0.3.11'
+}
+
+test {
+    useJUnitPlatform()
+}

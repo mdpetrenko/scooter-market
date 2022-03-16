@@ -5,7 +5,7 @@ plugins {
     id 'io.freefair.lombok' version '6.3.0'
 }
 
-group = 'com.github.mdpetrenko.market'
+group 'com.github.mdpetrenko.scooter-market'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
