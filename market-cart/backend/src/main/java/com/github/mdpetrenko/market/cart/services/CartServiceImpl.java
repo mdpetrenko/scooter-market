@@ -1,10 +1,13 @@
 package com.github.mdpetrenko.market.cart.services;
 
 import com.github.mdpetrenko.market.api.dto.ProductDto;
+import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.entities.Cart;
+import com.github.mdpetrenko.market.cart.integration.CoreIntegration;
 import com.github.mdpetrenko.market.cart.repositories.CartRepository;
 import com.github.mdpetrenko.market.cart.services.interfaces.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,9 +17,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
-    private static final String CART_PREFIX = "ScooterMarket_Cart_";
+    @Value("${utils.cart-prefix}")
+    private String CART_PREFIX;
     private final CartRepository cartRepository;
-    private final RestTemplate restTemplate;
+    private final CoreIntegration coreIntegration;
 
     @Override
     public Cart getCartForCurrentUser(String username, UUID uuid) {
@@ -35,8 +39,7 @@ public class CartServiceImpl implements CartService {
     public void addItem(String username, UUID uuid, Long productId) {
         Cart cart = getCartForCurrentUser(username, uuid);
         if (!cart.add(productId)) {
-            ProductDto productDto = restTemplate.getForObject("http://localhost:5555/core/api/v1/products/" + productId, ProductDto.class);
-            assert productDto != null;
+            ProductDto productDto = coreIntegration.findById(productId).orElseThrow(() -> new ResourceNotFoundException("Product with id=" + productId + " not found"));
             cart.add(productDto);
         }
         cartRepository.save(cart);

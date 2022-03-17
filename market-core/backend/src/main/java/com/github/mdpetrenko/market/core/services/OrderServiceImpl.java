@@ -1,6 +1,5 @@
 package com.github.mdpetrenko.market.core.services;
 
-import com.github.mdpetrenko.market.api.dto.CartDto;
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.core.dtos.OrderDetailsDto;
 import com.github.mdpetrenko.market.api.dto.OrderItemDto;
@@ -10,11 +9,9 @@ import com.github.mdpetrenko.market.core.repositories.OrderRepository;
 import com.github.mdpetrenko.market.core.services.interfaces.OrderService;
 import com.github.mdpetrenko.market.core.services.interfaces.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

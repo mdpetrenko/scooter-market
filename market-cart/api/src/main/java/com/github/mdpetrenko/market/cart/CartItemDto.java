@@ -1,22 +1,18 @@
-package com.github.mdpetrenko.market.api.dto;
+package com.github.mdpetrenko.market.cart;
 
-public class OrderItemDto {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class CartItemDto {
     private Long productId;
     private String productTitle;
     private int quantity;
     private int pricePerItem;
     private int price;
-
-    public OrderItemDto() {
-    }
-
-    public OrderItemDto(Long productId, String productTitle, int quantity, int pricePerItem, int price) {
-        this.productId = productId;
-        this.productTitle = productTitle;
-        this.quantity = quantity;
-        this.pricePerItem = pricePerItem;
-        this.price = price;
-    }
 
     public Long getProductId() {
         return productId;

@@ -2,3 +2,14 @@ server:
   port: 8191
   servlet:
     context-path: /market-cart
+spring:
+  redis:
+    host: localhost
+    port: 6371
+  cache:
+    type: redis
+utils:
+  cart-prefix: ScooterMarket_Cart_
+integrations:
+  core:
+    url: http://localhost:8189/market-core
