@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.cart.entities;
 
-import com.github.mdpetrenko.market.api.dto.ProductDto;
+import com.github.mdpetrenko.market.core.api.dto.ProductDto;
 import lombok.Data;
 import org.springframework.data.redis.core.RedisHash;
 

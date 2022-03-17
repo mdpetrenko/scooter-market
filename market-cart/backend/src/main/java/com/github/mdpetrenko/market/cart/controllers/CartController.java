@@ -1,11 +1,11 @@
 package com.github.mdpetrenko.market.cart.controllers;
 
-import com.github.mdpetrenko.market.api.dto.ProductDto;
 import com.github.mdpetrenko.market.api.dto.StringResponse;
+import com.github.mdpetrenko.market.cart.CartDto;
+import com.github.mdpetrenko.market.cart.converters.CartConverter;
 import com.github.mdpetrenko.market.cart.entities.Cart;
 import com.github.mdpetrenko.market.cart.services.interfaces.CartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -15,16 +15,17 @@ import java.util.UUID;
 @RequestMapping("/api/v1/cart")
 public class CartController {
     private final CartService cartService;
+    private final CartConverter cartConverter;
 
     @GetMapping("/generate")
-    public ResponseEntity<?> generateCartUuid() {
-        return ResponseEntity.ok(new StringResponse(UUID.randomUUID().toString()));
+    public StringResponse generateCartUuid() {
+        return new StringResponse(UUID.randomUUID().toString());
     }
 
     @GetMapping("/{cartId}")
-    public ResponseEntity<?> getCartForCurrentUser(@PathVariable UUID cartId, @RequestHeader(required = false) String username) {
+    public CartDto getCartForCurrentUser(@PathVariable UUID cartId, @RequestHeader(required = false) String username) {
         Cart cart = cartService.getCartForCurrentUser(username, cartId);
-        return ResponseEntity.ok(cart);
+        return cartConverter.entityToDto(cart);
     }
 
     @GetMapping("/{cartId}/add/{productId}")

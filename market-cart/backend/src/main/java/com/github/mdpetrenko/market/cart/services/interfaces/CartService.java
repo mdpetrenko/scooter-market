@@ -1,6 +1,5 @@
 package com.github.mdpetrenko.market.cart.services.interfaces;
 
-import com.github.mdpetrenko.market.api.dto.ProductDto;
 import com.github.mdpetrenko.market.cart.entities.Cart;
 
 import java.util.UUID;

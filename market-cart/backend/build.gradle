@@ -19,6 +19,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation project(":api")
     implementation project(":market-cart:api")
+    implementation project(":market-core:api")
 }
 
 test {

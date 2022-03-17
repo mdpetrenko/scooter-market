@@ -1,11 +1,11 @@
 package com.github.mdpetrenko.market.cart.services;
 
-import com.github.mdpetrenko.market.api.dto.ProductDto;
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.entities.Cart;
-import com.github.mdpetrenko.market.cart.integration.CoreIntegration;
+import com.github.mdpetrenko.market.cart.integrations.CoreServiceIntegration;
 import com.github.mdpetrenko.market.cart.repositories.CartRepository;
 import com.github.mdpetrenko.market.cart.services.interfaces.CartService;
+import com.github.mdpetrenko.market.core.api.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
-    private final CoreIntegration coreIntegration;
+    private final CoreServiceIntegration coreIntegration;
     @Value("${utils.cart-prefix}")
     private String CART_PREFIX;
 
