@@ -9,7 +9,6 @@ import com.github.mdpetrenko.market.cart.services.interfaces.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -17,10 +16,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
-    @Value("${utils.cart-prefix}")
-    private String CART_PREFIX;
     private final CartRepository cartRepository;
     private final CoreIntegration coreIntegration;
+    @Value("${utils.cart-prefix}")
+    private String CART_PREFIX;
 
     @Override
     public Cart getCartForCurrentUser(String username, UUID uuid) {
