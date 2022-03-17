@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setItems(items);
         orderRepository.save(order);
-        cartService.clearCart(cart);
+        cartService.clearCart(username, cart);
     }
 
     @Override

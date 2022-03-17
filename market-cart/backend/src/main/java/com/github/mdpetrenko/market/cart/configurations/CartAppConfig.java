@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.cart;
+package com.github.mdpetrenko.market.cart.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
