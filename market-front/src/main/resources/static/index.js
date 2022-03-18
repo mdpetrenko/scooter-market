@@ -63,7 +63,10 @@ angular.module('market-front').controller('indexController', function ($rootScop
                     $scope.user.username = null;
                     $scope.user.password = null;
                     $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/merge')
-                        .then(function successCallback(response) {
+                        .then(function successCallback() {
+                            if ($location.path() === '/cart') {
+                                $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.scooterMarketGuestCartId);
+                            }
                         });
                 }
             }, function errorCallback(response) {
@@ -85,7 +88,8 @@ angular.module('market-front').controller('indexController', function ($rootScop
         if ($scope.user.password) {
             $scope.user.password = null;
         }
-        if ($location.path() === '/profile') {
+        if (($location.path() === '/profile') || ($location.path() === '/cart')) {
+            console.log($location.path());
             $location.path('/');
         }
     };
