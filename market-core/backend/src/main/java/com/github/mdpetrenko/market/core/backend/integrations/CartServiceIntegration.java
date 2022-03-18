@@ -21,9 +21,9 @@ public class CartServiceIntegration {
                 .block();
     }
 
-    public void clearCart(String username, CartDto cartDto) {
+    public void clearCart(String username, UUID guestCartUuid) {
         webClient.get()
-                .uri("/api/v1/cart/" + cartDto.getId())
+                .uri("/api/v1/cart/" + guestCartUuid + "/clear")
                 .header("username", username)
                 .retrieve()
                 .toBodilessEntity()

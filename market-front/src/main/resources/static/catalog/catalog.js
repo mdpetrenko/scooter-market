@@ -1,5 +1,5 @@
 angular.module('market-front').controller('catalogController', function ($scope, $http, $location, $localStorage) {
-    const contextPath = 'http://localhost:5555/core';
+    const contextPath = 'http://localhost:5555';
     let currentPageIndex = 1;
     let currentPageSize = 3;
 
@@ -7,7 +7,7 @@ angular.module('market-front').controller('catalogController', function ($scope,
         currentPageIndex = pageIndex;
         currentPageSize = pageSize;
         $http({
-            url: contextPath + '/api/v1/products',
+            url: contextPath + '/core/api/v1/products',
             method: 'GET',
             params: {
                 p: pageIndex,
@@ -25,7 +25,7 @@ angular.module('market-front').controller('catalogController', function ($scope,
     };
 
     $scope.removeProduct = function (id) {
-        $http.delete(contextPath + '/api/v1/products/' + id)
+        $http.delete(contextPath + '/core/api/v1/products/' + id)
             .then(function successCallback() {
                 $scope.loadProducts(currentPageIndex, currentPageSize)
             }, function failureCallback(response) {
@@ -35,7 +35,7 @@ angular.module('market-front').controller('catalogController', function ($scope,
 
     $scope.addToCart = function (productId) {
         $http.get(
-            contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/add/' + productId)
+            contextPath + '/cart/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/add/' + productId)
             .then(function successCallback() {
                 $scope.loadProducts(currentPageIndex, currentPageSize);
             }, function failureCallback(response) {

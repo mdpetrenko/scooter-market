@@ -56,12 +56,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void clearCart(String username, UUID uuid) {
-        cartRepository.save(getCartForCurrentUser(username, uuid));
-    }
-
-    @Override
-    public void clearCart(Cart cart) {
-        cartRepository.save(cart.clear());
+        cartRepository.save(getCartForCurrentUser(username, uuid).clear());
     }
 
     @Override

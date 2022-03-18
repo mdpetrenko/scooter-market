@@ -44,7 +44,7 @@
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.scooterMarketUser.token;
         }
         if (!$localStorage.scooterMarketGuestCartId) {
-            $http.get('http://localhost:5555/core/api/v1/cart/generate')
+            $http.get('http://localhost:5555/cart/api/v1/cart/generate')
                 .then(function successCallback(response) {
                     $localStorage.scooterMarketGuestCartId = response.data.value;
                 });
@@ -62,7 +62,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
                     $localStorage.scooterMarketUser = {username: $scope.user.username, token: response.data.token};
                     $scope.user.username = null;
                     $scope.user.password = null;
-                    $http.get('http://localhost:5555/core/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/merge')
+                    $http.get('http://localhost:5555/cart/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/merge')
                         .then(function successCallback(response) {
                         });
                 }

@@ -15,7 +15,5 @@ public interface CartService {
 
     void clearCart(String username, UUID uuid);
 
-    void clearCart(Cart cart);
-
     void merge(String username, UUID cartId);
 }

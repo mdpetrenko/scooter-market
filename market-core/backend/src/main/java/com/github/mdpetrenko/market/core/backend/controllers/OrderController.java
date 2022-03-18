@@ -20,12 +20,12 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveOrder(@RequestBody OrderDetailsDto orderDetails, @RequestHeader String username) {
+    public void saveOrder(@RequestBody OrderDetailsDto orderDetails, @RequestHeader(required = false) String username) {
         orderService.createOrder(orderDetails, username);
     }
 
     @GetMapping
-    public List<OrderDto> listOrders(@RequestHeader String username) {
+    public List<OrderDto> listOrders(@RequestHeader(required = false) String username) {
         return orderService.findUserOrders(username)
                 .stream().map(orderConverter::entityToDto).collect(Collectors.toList());
     }

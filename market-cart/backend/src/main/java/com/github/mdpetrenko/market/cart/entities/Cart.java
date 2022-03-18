@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 @Data
-@RedisHash("Scooter-Market_cart")
+@RedisHash("Cart")
 public class Cart implements Serializable {
     private Collection<CartItem> items;
     private int totalPrice;
