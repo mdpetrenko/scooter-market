@@ -12,7 +12,7 @@ angular.module('market-front').controller('cartController', function ($scope, $h
 
     $scope.removeItem = function (productId) {
         console.log($localStorage.scooterMarketGuestCartId);
-        $http.delete(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/remove/' + productId)
+        $http.get(contextPath + '/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/remove/' + productId)
             .then(function successCallback() {
                 $scope.loadCart();
             }, function failureCallback(response) {
