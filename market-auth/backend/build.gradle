@@ -3,7 +3,7 @@ plugins {
     id 'io.freefair.lombok' version '6.3.0'
 }
 
-group = 'com.github.mdpetrenko.scooter-market'
+group = 'com.github.mdpetrenko.scooter-market.market-auth'
 sourceCompatibility = '11'
 version '0.1-SNAPSHOT'
 
@@ -20,9 +20,10 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation "jakarta.xml.bind:jakarta.xml.bind-api:2.3.2"
     implementation "org.glassfish.jaxb:jaxb-runtime:2.3.2"
+    implementation project (':api')
+    implementation project(':market-auth:api')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    implementation project (':api')
 }
 
 test {

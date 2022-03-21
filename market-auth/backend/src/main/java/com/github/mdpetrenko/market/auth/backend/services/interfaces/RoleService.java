@@ -1,6 +1,6 @@
-package com.github.mdpetrenko.market.auth.services.interfaces;
+package com.github.mdpetrenko.market.auth.backend.services.interfaces;
 
-import com.github.mdpetrenko.market.auth.entities.Role;
+import com.github.mdpetrenko.market.auth.backend.entities.Role;
 
 import java.util.Optional;
 

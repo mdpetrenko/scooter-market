@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.auth.dto;
+package com.github.mdpetrenko.market.auth.api.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

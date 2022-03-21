@@ -1,12 +1,12 @@
-package com.github.mdpetrenko.market.auth.services;
+package com.github.mdpetrenko.market.auth.backend.services;
 
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
-import com.github.mdpetrenko.market.auth.dto.RegisterRequest;
-import com.github.mdpetrenko.market.auth.entities.Role;
-import com.github.mdpetrenko.market.auth.entities.User;
-import com.github.mdpetrenko.market.auth.repositories.UserRepository;
-import com.github.mdpetrenko.market.auth.services.interfaces.RoleService;
-import com.github.mdpetrenko.market.auth.services.interfaces.UserService;
+import com.github.mdpetrenko.market.auth.api.dto.RegisterRequest;
+import com.github.mdpetrenko.market.auth.backend.entities.Role;
+import com.github.mdpetrenko.market.auth.backend.entities.User;
+import com.github.mdpetrenko.market.auth.backend.repositories.UserRepository;
+import com.github.mdpetrenko.market.auth.backend.services.interfaces.RoleService;
+import com.github.mdpetrenko.market.auth.backend.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

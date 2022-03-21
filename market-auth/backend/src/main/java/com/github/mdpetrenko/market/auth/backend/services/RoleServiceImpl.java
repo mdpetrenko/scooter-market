@@ -1,8 +1,8 @@
-package com.github.mdpetrenko.market.auth.services;
+package com.github.mdpetrenko.market.auth.backend.services;
 
-import com.github.mdpetrenko.market.auth.entities.Role;
-import com.github.mdpetrenko.market.auth.repositories.RoleRepository;
-import com.github.mdpetrenko.market.auth.services.interfaces.RoleService;
+import com.github.mdpetrenko.market.auth.backend.entities.Role;
+import com.github.mdpetrenko.market.auth.backend.repositories.RoleRepository;
+import com.github.mdpetrenko.market.auth.backend.services.interfaces.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

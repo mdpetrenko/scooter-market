@@ -1,5 +1,6 @@
 rootProject.name = 'scooter-market'
 include 'api'
+findProject(':api')?.name = 'api'
 include 'market-auth'
 include 'market-cart'
 include 'market-core'

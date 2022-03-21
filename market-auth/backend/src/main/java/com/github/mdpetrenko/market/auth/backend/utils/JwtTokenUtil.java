@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.auth.utils;
+package com.github.mdpetrenko.market.auth.backend.utils;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

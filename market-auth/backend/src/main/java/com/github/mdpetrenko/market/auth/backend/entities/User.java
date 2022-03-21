@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.auth.entities;
+package com.github.mdpetrenko.market.auth.backend.entities;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

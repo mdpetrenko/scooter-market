@@ -12,12 +12,12 @@ public class MarketExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<?> resourceNotFoundExceptionCaught(ResourceNotFoundException e) {
-        return new ResponseEntity<>(new MarketError(e.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new MarketError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
     public ResponseEntity<?> illegalArgumentExceptionCaught(IllegalArgumentException e) {
-        return new ResponseEntity<>(new MarketError(e.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new MarketError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 }

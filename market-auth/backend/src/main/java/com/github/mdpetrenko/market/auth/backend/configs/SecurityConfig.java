@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.auth.configs;
+package com.github.mdpetrenko.market.auth.backend.configs;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

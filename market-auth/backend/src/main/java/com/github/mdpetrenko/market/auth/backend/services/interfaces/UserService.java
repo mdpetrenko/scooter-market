@@ -1,7 +1,7 @@
-package com.github.mdpetrenko.market.auth.services.interfaces;
+package com.github.mdpetrenko.market.auth.backend.services.interfaces;
 
-import com.github.mdpetrenko.market.auth.dto.RegisterRequest;
-import com.github.mdpetrenko.market.auth.entities.User;
+import com.github.mdpetrenko.market.auth.api.dto.RegisterRequest;
+import com.github.mdpetrenko.market.auth.backend.entities.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;

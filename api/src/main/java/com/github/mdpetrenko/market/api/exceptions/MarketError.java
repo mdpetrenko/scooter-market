@@ -5,6 +5,16 @@ import java.util.Date;
 public class MarketError {
     private String message;
     private Date date;
+    private int statusCode;
+
+    public MarketError() {
+    }
+
+    public MarketError(int statusCode, String message) {
+        this.message = message;
+        this.statusCode = statusCode;
+        this.date = new Date();
+    }
 
     public String getMessage() {
         return message;
@@ -22,12 +32,12 @@ public class MarketError {
         this.date = date;
     }
 
-    public MarketError() {
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public MarketError(String message) {
-        this.message = message;
-        this.date = new Date();
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
 }

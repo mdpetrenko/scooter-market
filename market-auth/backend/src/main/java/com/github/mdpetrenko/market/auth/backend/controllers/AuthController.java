@@ -1,11 +1,10 @@
-package com.github.mdpetrenko.market.auth.controllers.v1;
+package com.github.mdpetrenko.market.auth.backend.controllers;
 
 import com.github.mdpetrenko.market.api.exceptions.MarketError;
-import com.github.mdpetrenko.market.auth.dto.AuthRequest;
-import com.github.mdpetrenko.market.auth.dto.AuthResponse;
-import com.github.mdpetrenko.market.auth.dto.RegisterRequest;
-import com.github.mdpetrenko.market.auth.services.interfaces.UserService;
-import com.github.mdpetrenko.market.auth.utils.JwtTokenUtil;
+import com.github.mdpetrenko.market.auth.api.dto.AuthRequest;
+import com.github.mdpetrenko.market.auth.api.dto.RegisterRequest;
+import com.github.mdpetrenko.market.auth.backend.services.interfaces.UserService;
+import com.github.mdpetrenko.market.auth.backend.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,20 +30,20 @@ public class AuthController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(new MarketError("Invalid username or password"), HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new MarketError(HttpStatus.UNAUTHORIZED.value(), "Incorrect username or password"), HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(token));
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> tryToRegister(@RequestBody RegisterRequest registerRequest) {
         if (!registerRequest.isValid()) {
-            return new ResponseEntity<>(new MarketError("Passwords are not equal"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MarketError(HttpStatus.BAD_REQUEST.value(), "Passwords are not equal"), HttpStatus.BAD_REQUEST);
         }
         userService.registerUser(registerRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(null);
     }
 
 }

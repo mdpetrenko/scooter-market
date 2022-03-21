@@ -1,6 +1,6 @@
-package com.github.mdpetrenko.market.auth.repositories;
+package com.github.mdpetrenko.market.auth.backend.repositories;
 
-import com.github.mdpetrenko.market.auth.entities.Role;
+import com.github.mdpetrenko.market.auth.backend.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
