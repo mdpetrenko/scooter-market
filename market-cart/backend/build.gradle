@@ -14,11 +14,11 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.5.5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation project(":api")
     implementation project(":market-cart:api")
     implementation project(":market-core:api")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {

@@ -22,7 +22,6 @@ dependencies {
     implementation project(":market-core:api")
     implementation project(":market-cart:api")
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
-    testImplementation 'org.springframework.security:spring-security-test:5.5.1'
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.4'
 }
 
