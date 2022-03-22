@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /***
  * Authentication service for market
- * Takes jwt-token from frontend service, converts it to username and appends it to headers for further requests
+ * Takes jwt-token from frontend service, extracts the username and appends it to headers for further requests
  *
  */
 
