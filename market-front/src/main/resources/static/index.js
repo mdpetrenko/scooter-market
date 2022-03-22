@@ -58,6 +58,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
         $http.post('http://localhost:5555/auth/api/v1/auth', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
+                    console.log(response.data.token);
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.scooterMarketUser = {username: $scope.user.username, token: response.data.token};
                     $scope.user.username = null;
@@ -70,6 +71,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
                         });
                 }
             }, function errorCallback(response) {
+                console.log(response.data);
             });
     };
 
