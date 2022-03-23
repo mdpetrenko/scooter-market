@@ -33,7 +33,8 @@ public class ProductController {
         if (pageSize < 1) {
             pageSize = 3;
         }
-        return productService.findAll(pageIndex - 1, pageSize).map(productConverter::entityToDto);
+        return productService.findAll(pageIndex - 1, pageSize, minPrice, maxPrice, titlePart)
+                .map(productConverter::entityToDto);
     }
 
     @GetMapping("/{id}")
