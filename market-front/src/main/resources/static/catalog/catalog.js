@@ -1,14 +1,19 @@
-angular.module('market-front').controller('catalogController', function ($scope, $http, $location, $localStorage) {
+angular.module('market-front').controller('catalogController', function ($scope, $rootScope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:5555';
     let currentPageIndex = 1;
     let currentPageSize = 3;
+    let currentFilter;
 
-    $scope.applyFilter = function () {
-        console.log($scope.productFilter)
-        $scope.loadProducts(currentPageIndex, currentPageSize, $scope.productFilter.minPrice, $scope.productFilter.maxPrice, $scope.productFilter.titlePart);
+    $scope.resetFilter = function () {
+        currentFilter = {
+            titlePart: null,
+            minPrice: null,
+            maxPrice: null
+        };
+        console.log(currentFilter);
     }
 
-    $scope.loadProducts = function (pageIndex = 1, pageSize = 3, minPrice = null, maxPrice = null, titlePart = null) {
+    $scope.loadProducts = function (pageIndex = 1, pageSize = 3) {
         currentPageIndex = pageIndex;
         currentPageSize = pageSize;
         $http({
@@ -17,16 +22,23 @@ angular.module('market-front').controller('catalogController', function ($scope,
             params: {
                 p: pageIndex,
                 s: pageSize,
-                min_price: minPrice,
-                max_price: maxPrice,
-                title_part: titlePart
+                min_price: currentFilter.minPrice,
+                max_price: currentFilter.maxPrice,
+                title_part: currentFilter.titlePart
             }
         }).then(function (response) {
-            console.log(response);
             $scope.productsPage = response.data;
             $scope.paginationArray = $scope.generatePageIndexes(1, $scope.productsPage.totalPages);
         });
     };
+
+    $scope.applyFilter = function (productFilter) {
+        if (productFilter == null) {
+            $scope.resetFilter();
+        }
+        currentFilter = productFilter;
+        $scope.loadProducts();
+    }
 
     $scope.editProduct = function (id) {
         $location.path('/edit_product/' + id);
@@ -59,5 +71,6 @@ angular.module('market-front').controller('catalogController', function ($scope,
         return arr;
     };
 
+    $scope.resetFilter();
     $scope.loadProducts();
 });

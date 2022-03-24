@@ -105,4 +105,9 @@ angular.module('market-front').controller('indexController', function ($rootScop
         return !!$localStorage.scooterMarketUser;
     };
 
+    //TODO: implement admin check
+    $rootScope.isUserAdmin = function () {
+        return $rootScope.isUserLoggedIn();
+    }
+
 });

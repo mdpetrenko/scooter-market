@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-2 pt-3">
-        <form ng-submit="applyFilter()" novalidate>
+        <form ng-submit="applyFilter(productFilter)" novalidate>
             <p></p>
             <input class="form-control" type="number" placeholder="Min price" ng-model="productFilter.minPrice" ng-value="productFilter.minPrice">
             <p></p>
@@ -30,8 +30,8 @@
                 <td>{{p.price}}</td>
                 <td>
                     <button class="btn btn-primary" ng-click="addToCart(p.id)">To Cart</button>
-                    <button class="btn btn-primary" ng-click="editProduct(p.id)">Edit</button>
-                    <button class="btn btn-danger" ng-click="removeProduct(p.id)">Remove</button>
+                    <button class="btn btn-primary" ng-click="editProduct(p.id)" ng-show="isUserAdmin()">Edit</button>
+                    <button class="btn btn-danger" ng-click="removeProduct(p.id)" ng-show="isUserAdmin()">Remove</button>
                 </td>
             </tr>
             </tbody>
