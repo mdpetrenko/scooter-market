@@ -3,7 +3,12 @@ angular.module('market-front').controller('catalogController', function ($scope,
     let currentPageIndex = 1;
     let currentPageSize = 3;
 
-    $scope.loadProducts = function (pageIndex = 1, pageSize = 3) {
+    $scope.applyFilter = function () {
+        console.log($scope.productFilter)
+        $scope.loadProducts(currentPageIndex, currentPageSize, $scope.productFilter.minPrice, $scope.productFilter.maxPrice, $scope.productFilter.titlePart);
+    }
+
+    $scope.loadProducts = function (pageIndex = 1, pageSize = 3, minPrice = null, maxPrice = null, titlePart = null) {
         currentPageIndex = pageIndex;
         currentPageSize = pageSize;
         $http({
@@ -11,7 +16,10 @@ angular.module('market-front').controller('catalogController', function ($scope,
             method: 'GET',
             params: {
                 p: pageIndex,
-                s: pageSize
+                s: pageSize,
+                min_price: minPrice,
+                max_price: maxPrice,
+                title_part: titlePart
             }
         }).then(function (response) {
             console.log(response);
