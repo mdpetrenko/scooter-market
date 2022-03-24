@@ -53,6 +53,7 @@
 })();
 
 angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage, $location) {
+    const contextPath = 'http://localhost:5555';
 
     $scope.tryToAuth = function () {
         $http.post('http://localhost:5555/auth/api/v1/auth', $scope.user)
@@ -106,7 +107,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
 
     //TODO: implement admin check
     $rootScope.isUserAdmin = function () {
-        return $rootScope.isUserLoggedIn();
+        return false;
     }
 
 });

@@ -22,11 +22,12 @@ public class ProductController {
     private final ProductValidator productValidator;
 
     @GetMapping
-    public Page<ProductDto> findAll(@RequestParam(defaultValue = "1", name = "p") Integer pageIndex,
-                                    @RequestParam(defaultValue = "3", name = "s") Integer pageSize,
-                                    @RequestParam(required = false, name = "min_price") Integer minPrice,
-                                    @RequestParam(required = false, name = "max_price") Integer maxPrice,
-                                    @RequestParam(required = false, name = "title_part") String titlePart) {
+    public Page<ProductDto> findAll(
+            @RequestParam(defaultValue = "1", name = "p") Integer pageIndex,
+            @RequestParam(defaultValue = "3", name = "s") Integer pageSize,
+            @RequestParam(required = false, name = "min_price") Integer minPrice,
+            @RequestParam(required = false, name = "max_price") Integer maxPrice,
+            @RequestParam(required = false, name = "title_part") String titlePart) {
         if (pageIndex < 1) {
             pageIndex = 1;
         }

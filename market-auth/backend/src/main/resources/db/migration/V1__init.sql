@@ -11,7 +11,7 @@ create table users
 create table roles
 (
     id         bigserial primary key,
-    name       varchar(255) unique,
+    title       varchar(255) unique,
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
@@ -27,7 +27,7 @@ insert into users (username, password, email)
 values ('user', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'user@example.com'),
        ('admin', '$2a$04$Fx/SX9.BAvtPlMyIIqqFx.hLY2Xp8nnhpzvEEVINvVpwIPbA3v/.i', 'admin@example.com');
 
-insert into roles (name)
+insert into roles (title)
 values ('ROLE_USER'),
        ('ROLE_ADMIN');
 

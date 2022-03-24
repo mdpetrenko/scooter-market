@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registerRequest.getEmail());
         if (registerRequest.getRoles() != null) {
             user.setRoles(registerRequest.getRoles().stream()
-                    .map(r -> roleService.findByName(r)
+                    .map(r -> roleService.findByTitle(r)
                             .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + r)))
                     .collect(Collectors.toList()));
         } else {
@@ -64,6 +64,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getTitle())).collect(Collectors.toList());
     }
 }
