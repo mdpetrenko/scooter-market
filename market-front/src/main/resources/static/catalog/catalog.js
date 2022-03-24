@@ -1,4 +1,4 @@
-angular.module('market-front').controller('catalogController', function ($scope, $rootScope, $http, $location, $localStorage) {
+angular.module('market-front').controller('catalogController', function ($scope, $http, $location, $localStorage) {
     const contextPath = 'http://localhost:5555';
     let currentPageIndex = 1;
     let currentPageSize = 3;
