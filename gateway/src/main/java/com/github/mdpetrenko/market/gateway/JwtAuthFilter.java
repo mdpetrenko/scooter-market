@@ -1,7 +1,6 @@
 package com.github.mdpetrenko.market.gateway;
 
 import io.jsonwebtoken.Claims;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpStatus;
@@ -13,11 +12,11 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
     public JwtAuthFilter() {
         super(Config.class);
+        jwtUtil = new JwtUtil();
     }
 
     @Override
