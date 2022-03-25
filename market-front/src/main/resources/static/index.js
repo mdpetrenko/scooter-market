@@ -108,7 +108,7 @@ angular.module('market-front').controller('indexController', function ($rootScop
 
     //TODO: implement admin check
     $rootScope.isUserAdmin = function () {
-        return false;
+        return $rootScope.isUserLoggedIn();
     }
 
 });
