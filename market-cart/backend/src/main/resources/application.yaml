@@ -8,5 +8,5 @@ spring:
 utils:
   cart-prefix: ScooterMarket_Cart_
 integrations:
-  core:
+  core-service:
     url: http://localhost:5555/core

@@ -17,12 +17,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.5.4'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
     runtimeOnly 'com.h2database:h2:1.4.200'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.4'
     implementation 'org.flywaydb:flyway-core:7.14.1'
     implementation project(":api")
     implementation project(":market-core:api")
     implementation project(":market-cart:api")
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.4'
 }
 
 test {
