@@ -2,6 +2,16 @@ angular.module('market-front').controller('catalogController', function ($scope,
     const contextPath = 'http://localhost:5555';
     let currentPageIndex = 1;
     let currentPageSize = 3;
+    let currentFilter;
+
+    $scope.resetFilter = function () {
+        currentFilter = {
+            titlePart: null,
+            minPrice: null,
+            maxPrice: null
+        };
+        console.log(currentFilter);
+    }
 
     $scope.loadProducts = function (pageIndex = 1, pageSize = 3) {
         currentPageIndex = pageIndex;
@@ -11,14 +21,24 @@ angular.module('market-front').controller('catalogController', function ($scope,
             method: 'GET',
             params: {
                 p: pageIndex,
-                s: pageSize
+                s: pageSize,
+                min_price: currentFilter.minPrice,
+                max_price: currentFilter.maxPrice,
+                title_part: currentFilter.titlePart
             }
         }).then(function (response) {
-            console.log(response);
             $scope.productsPage = response.data;
             $scope.paginationArray = $scope.generatePageIndexes(1, $scope.productsPage.totalPages);
         });
     };
+
+    $scope.applyFilter = function (productFilter) {
+        if (productFilter == null) {
+            $scope.resetFilter();
+        }
+        currentFilter = productFilter;
+        $scope.loadProducts();
+    }
 
     $scope.editProduct = function (id) {
         $location.path('/edit_product/' + id);
@@ -51,5 +71,6 @@ angular.module('market-front').controller('catalogController', function ($scope,
         return arr;
     };
 
+    $scope.resetFilter();
     $scope.loadProducts();
 });

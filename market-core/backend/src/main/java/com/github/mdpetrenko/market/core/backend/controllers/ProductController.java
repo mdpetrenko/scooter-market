@@ -7,6 +7,7 @@ import com.github.mdpetrenko.market.core.backend.entities.Category;
 import com.github.mdpetrenko.market.core.backend.entities.Product;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.CategoryService;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.ProductService;
+import com.github.mdpetrenko.market.core.backend.validators.ProductValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +19,23 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ProductConverter productConverter;
+    private final ProductValidator productValidator;
 
     @GetMapping
-    public Page<ProductDto> findAll(@RequestParam(defaultValue = "1", name = "p") int pageIndex,
-                                    @RequestParam(defaultValue = "3", name = "s") int pageSize) {
+    public Page<ProductDto> findAll(
+            @RequestParam(defaultValue = "1", name = "p") Integer pageIndex,
+            @RequestParam(defaultValue = "3", name = "s") Integer pageSize,
+            @RequestParam(required = false, name = "min_price") Integer minPrice,
+            @RequestParam(required = false, name = "max_price") Integer maxPrice,
+            @RequestParam(required = false, name = "title_part") String titlePart) {
         if (pageIndex < 1) {
             pageIndex = 1;
         }
         if (pageSize < 1) {
             pageSize = 3;
         }
-        return productService.findAll(pageIndex - 1, pageSize).map(productConverter::entityToDto);
+        return productService.findAll(pageIndex - 1, pageSize, minPrice, maxPrice, titlePart)
+                .map(productConverter::entityToDto);
     }
 
     @GetMapping("/{id}")
@@ -40,6 +47,7 @@ public class ProductController {
 
     @PostMapping
     public ProductDto save(@RequestBody ProductDto productDto) {
+        productValidator.validate(productDto);
         Product product = new Product();
         product.setPrice(productDto.getPrice());
         product.setTitle(productDto.getTitle());

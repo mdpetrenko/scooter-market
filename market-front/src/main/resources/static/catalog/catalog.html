@@ -1,34 +1,48 @@
-<div>
-    <table class="table table-hover">
-        <thead>
-        <tr class="row-cols-auto">
-            <td class="col-1">ID</td>
-            <td class="col-4">Title</td>
-            <td class="col-3">Category title</td>
-            <td class="col-1">Price</td>
-            <td class="col-3">Actions</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="p in productsPage.content">
-            <td>{{p.id}}</td>
-            <td>{{p.title}}</td>
-            <td>{{p.categoryTitle}}</td>
-            <td>{{p.price}}</td>
-            <td>
-                <button class="btn btn-primary" ng-click="addToCart(p.id)">To Cart</button>
-                <button class="btn btn-primary" ng-click="editProduct(p.id)">Edit</button>
-                <button class="btn btn-primary" ng-click="removeProduct(p.id)">Remove</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <p></p>
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li class="page-item" ng-repeat="pageIndex in paginationArray">
-                <button class="page-link" ng-click="loadProducts(pageIndex)">{{pageIndex}}</button>
-            </li>
-        </ul>
-    </nav>
+<div class="row">
+    <div class="col-2 pt-3">
+        <form ng-submit="applyFilter(productFilter)" novalidate>
+            <p></p>
+            <input class="form-control" type="number" placeholder="Min price" ng-model="productFilter.minPrice" ng-value="productFilter.minPrice">
+            <p></p>
+            <input class="form-control" type="number" placeholder="Min price" ng-model="productFilter.maxPrice" ng-value="productFilter.maxPrice">
+            <p></p>
+            <input class="form-control" type="text" placeholder="Title part" ng-model="productFilter.titlePart" ng-value="productFilter.titlePart">
+            <p></p>
+            <button class="btn btn-primary" type="submit">Apply filter</button>
+        </form>
+    </div>
+    <div class="col-10">
+        <table class="table table-hover">
+            <thead>
+            <tr class="row-cols-auto">
+                <td ng-show="false">ID</td>
+                <td class="col-5">Title</td>
+                <td class="col-3">Category title</td>
+                <td class="col-1">Price</td>
+                <td class="col-3"></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in productsPage.content">
+                <td ng-show="false">{{p.id}}</td>
+                <td>{{p.title}}</td>
+                <td>{{p.categoryTitle}}</td>
+                <td>{{p.price}}</td>
+                <td>
+                    <button class="btn btn-primary" ng-click="addToCart(p.id)">To Cart</button>
+                    <button class="btn btn-primary" ng-click="editProduct(p.id)" ng-show="isUserAdmin()">Edit</button>
+                    <button class="btn btn-danger" ng-click="removeProduct(p.id)" ng-show="isUserAdmin()">Remove</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p></p>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item" ng-repeat="pageIndex in paginationArray">
+                    <button class="page-link" ng-click="loadProducts(pageIndex)">{{pageIndex}}</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>

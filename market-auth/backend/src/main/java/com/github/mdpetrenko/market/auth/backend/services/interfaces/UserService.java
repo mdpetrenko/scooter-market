@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface UserService extends UserDetailsService {
 
     Optional<User> findByUsername(String username);
+
     void registerUser(RegisterRequest registerRequest);
 
     Optional<User> findById(Long ownerId);

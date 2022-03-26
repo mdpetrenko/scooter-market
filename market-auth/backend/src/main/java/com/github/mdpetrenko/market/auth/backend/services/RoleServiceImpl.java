@@ -14,12 +14,12 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public Optional<Role> findByName(String name) {
-        return roleRepository.findByName(name);
+    public Optional<Role> findByTitle(String name) {
+        return roleRepository.findByTitle(name);
     }
 
     @Override
     public Optional<Role> getStandardUserRoles() {
-        return findByName("ROLE_USER");
+        return findByTitle("ROLE_USER");
     }
 }

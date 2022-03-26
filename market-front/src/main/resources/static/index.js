@@ -53,12 +53,13 @@
 })();
 
 angular.module('market-front').controller('indexController', function ($rootScope, $scope, $http, $localStorage, $location) {
+    const contextPath = 'http://localhost:5555';
 
     $scope.tryToAuth = function () {
-        $http.post('http://localhost:5555/auth/api/v1/auth', $scope.user)
+        $http.post(contextPath + '/auth/api/v1/auth', $scope.user)
             .then(function successCallback(response) {
+                console.log(response.data)
                 if (response.data.token) {
-                    console.log(response.data.token);
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                     $localStorage.scooterMarketUser = {username: $scope.user.username, token: response.data.token};
                     $scope.user.username = null;
@@ -104,5 +105,10 @@ angular.module('market-front').controller('indexController', function ($rootScop
     $rootScope.isUserLoggedIn = function () {
         return !!$localStorage.scooterMarketUser;
     };
+
+    //TODO: implement admin check
+    $rootScope.isUserAdmin = function () {
+        return false;
+    }
 
 });

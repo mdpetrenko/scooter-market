@@ -17,6 +17,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/***
+ * Service for create, find, delete orders
+ * Interacts with market-cart service using CartServiceIntegration class
+ */
+
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -31,7 +36,6 @@ public class OrderServiceImpl implements OrderService {
             order.setUsername(username);
         }
         CartDto cart = cartService.getCartForCurrentUser(username, orderDetails.getGuestCartUuid());
-        order.setPrice(cart.getTotalPrice());
         Set<OrderItem> items = new HashSet<>();
         for (CartItemDto item : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
@@ -45,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
             items.add(orderItem);
         }
         order.setItems(items);
+        order.setPrice(cart.getTotalPrice());
         orderRepository.save(order);
         cartService.clearCart(username, orderDetails.getGuestCartUuid());
     }

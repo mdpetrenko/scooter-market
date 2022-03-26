@@ -3,13 +3,13 @@ package com.github.mdpetrenko.market.core.backend.exceptions;
 import java.util.List;
 
 public class DataValidationException extends RuntimeException {
-    private List<String> messages;
+    private List<String> errorMessages;
 
     public DataValidationException(List<String> messages) {
-        this.messages = messages;
+        this.errorMessages = messages;
     }
 
-    public List<String> getMessages() {
-        return messages;
+    public List<String> getErrorMessages() {
+        return errorMessages;
     }
 }
