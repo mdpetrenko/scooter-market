@@ -2,9 +2,7 @@ package com.github.mdpetrenko.market.cart.integrations;
 
 import com.github.mdpetrenko.market.core.api.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Optional;
