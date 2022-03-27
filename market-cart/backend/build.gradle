@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version '6.3.0'
+}
+
+sourceCompatibility = '11'
+group 'com.github.mdpetrenko.scooter-market.market-cart'
+version '0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.5.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.5.5'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.4'
+    implementation project(":api")
+    implementation project(":market-cart:api")
+    implementation project(":market-core:api")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
