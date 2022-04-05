@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.exceptions;
 
-import com.github.mdpetrenko.market.api.exceptions.MarketError;
+import com.github.mdpetrenko.market.api.exceptions.AppError;
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ public class MarketExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<?> catchResourceNotFoundExceptionCaught(ResourceNotFoundException e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new MarketError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(), e.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
