@@ -39,7 +39,7 @@ public class CartServiceImpl implements CartService {
     public void addItem(String username, UUID uuid, Long productId) {
         Cart cart = getCartForCurrentUser(username, uuid);
         if (!cart.add(productId)) {
-            ProductDto productDto = coreIntegration.findProductById(productId).orElseThrow(() -> new ResourceNotFoundException("Product with id=" + productId + " not found"));
+            ProductDto productDto = coreIntegration.findProductById(productId);
             cart.add(productDto);
         }
         cartRepository.save(cart);
