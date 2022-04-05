@@ -1,12 +1,14 @@
 package com.github.mdpetrenko.market.core.api.dto;
 
+import java.math.BigDecimal;
+
 public class ProductDto {
     private Long id;
     private String title;
     private String categoryTitle;
-    private int price;
+    private BigDecimal price;
 
-    public ProductDto(Long id, String title, String categoryTitle, int price) {
+    public ProductDto(Long id, String title, String categoryTitle, BigDecimal price) {
         this.id = id;
         this.title = title;
         this.categoryTitle = categoryTitle;
@@ -40,11 +42,11 @@ public class ProductDto {
         this.categoryTitle = categoryTitle;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

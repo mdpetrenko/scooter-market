@@ -1,16 +1,18 @@
 package com.github.mdpetrenko.market.cart.dto;
 
+import java.math.BigDecimal;
+
 public class CartItemDto {
     private Long productId;
     private String productTitle;
     private int quantity;
-    private int pricePerItem;
-    private int price;
+    private BigDecimal pricePerItem;
+    private BigDecimal price;
 
     public CartItemDto() {
     }
 
-    public CartItemDto(Long productId, String productTitle, int quantity, int pricePerItem, int price) {
+    public CartItemDto(Long productId, String productTitle, int quantity, BigDecimal pricePerItem, BigDecimal price) {
         this.productId = productId;
         this.productTitle = productTitle;
         this.quantity = quantity;
@@ -42,19 +44,19 @@ public class CartItemDto {
         this.quantity = quantity;
     }
 
-    public int getPricePerItem() {
+    public BigDecimal getPricePerItem() {
         return pricePerItem;
     }
 
-    public void setPricePerItem(int pricePerItem) {
+    public void setPricePerItem(BigDecimal pricePerItem) {
         this.pricePerItem = pricePerItem;
     }
 
-    public int getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -63,6 +65,6 @@ public class CartItemDto {
         if (quantity < 0) {
             quantity = 0;
         }
-        price = pricePerItem * quantity;
+        price = pricePerItem.multiply(BigDecimal.valueOf(quantity));
     }
 }
