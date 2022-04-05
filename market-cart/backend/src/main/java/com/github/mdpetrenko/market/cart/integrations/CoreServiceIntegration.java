@@ -10,10 +10,10 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 public class CoreServiceIntegration {
-    private final WebClient webClient;
+    private final WebClient coreServiceWebClient;
 
     public Optional<ProductDto> findProductById(Long productId) {
-        return Optional.ofNullable(webClient.get()
+        return Optional.ofNullable(coreServiceWebClient.get()
                 .uri("/api/v1/products/" + productId)
                 .retrieve()
                 .bodyToMono(ProductDto.class)
