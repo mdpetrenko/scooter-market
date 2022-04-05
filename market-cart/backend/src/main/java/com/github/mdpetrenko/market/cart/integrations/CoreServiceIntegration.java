@@ -1,7 +1,10 @@
 package com.github.mdpetrenko.market.cart.integrations;
 
+import com.github.mdpetrenko.market.api.exceptions.AppError;
+import com.github.mdpetrenko.market.cart.exceptions.CartBrokenException;
 import com.github.mdpetrenko.market.core.api.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 

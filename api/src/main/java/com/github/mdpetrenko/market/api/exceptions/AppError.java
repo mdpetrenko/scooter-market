@@ -5,14 +5,14 @@ import java.util.Date;
 public class AppError {
     private String message;
     private Date date;
-    private int statusCode;
+    private String code;
 
     public AppError() {
     }
 
-    public AppError(int statusCode, String message) {
+    public AppError(String code, String message) {
         this.message = message;
-        this.statusCode = statusCode;
+        this.code = code;
         this.date = new Date();
     }
 
@@ -32,12 +32,12 @@ public class AppError {
         this.date = date;
     }
 
-    public int getStatusCode() {
-        return statusCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

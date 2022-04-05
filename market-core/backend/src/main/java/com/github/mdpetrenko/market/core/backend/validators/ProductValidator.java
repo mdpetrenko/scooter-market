@@ -1,7 +1,7 @@
 package com.github.mdpetrenko.market.core.backend.validators;
 
 import com.github.mdpetrenko.market.core.api.dto.ProductDto;
-import com.github.mdpetrenko.market.core.backend.exceptions.DataValidationException;
+import com.github.mdpetrenko.market.core.api.exceptions.DataValidationException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

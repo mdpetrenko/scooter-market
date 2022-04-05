@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.core.backend.exceptions;
+package com.github.mdpetrenko.market.core.api.exceptions;
 
 import java.util.List;
 
