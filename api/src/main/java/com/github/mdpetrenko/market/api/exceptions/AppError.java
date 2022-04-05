@@ -3,9 +3,9 @@ package com.github.mdpetrenko.market.api.exceptions;
 import java.util.Date;
 
 public class AppError {
+    private String code;
     private String message;
     private Date date;
-    private String code;
 
     public AppError() {
     }

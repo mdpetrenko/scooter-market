@@ -2,6 +2,8 @@ package com.github.mdpetrenko.market.core.backend.controllers;
 
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.core.api.dto.ProductDto;
+import com.github.mdpetrenko.market.core.api.exceptions.CategoryNotFoundException;
+import com.github.mdpetrenko.market.core.api.exceptions.ProductNotFoundException;
 import com.github.mdpetrenko.market.core.backend.converters.ProductConverter;
 import com.github.mdpetrenko.market.core.backend.entities.Category;
 import com.github.mdpetrenko.market.core.backend.entities.Product;
@@ -42,7 +44,7 @@ public class ProductController {
     public ProductDto findById(@PathVariable Long id) {
         return productService.findById(id)
                 .map(productConverter::entityToDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Product id = " + id + " not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product id = " + id + " not found"));
     }
 
     @PostMapping
@@ -52,7 +54,7 @@ public class ProductController {
         product.setPrice(productDto.getPrice());
         product.setTitle(productDto.getTitle());
         Category category = categoryService.findByTitle(productDto.getCategoryTitle())
-                .orElseThrow(() -> new ResourceNotFoundException("Category title = " + productDto.getCategoryTitle() + " not found"));
+                .orElseThrow(() -> new CategoryNotFoundException("Category title = " + productDto.getCategoryTitle() + " not found"));
         product.setCategory(category);
         product = productService.save(product);
         return productConverter.entityToDto(product);
@@ -66,11 +68,11 @@ public class ProductController {
     @PutMapping
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         Product product = productService.findById(productDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Product id = " + productDto.getId() + " not found"));
+                .orElseThrow(() -> new ProductNotFoundException("Product id = " + productDto.getId() + " not found"));
         product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         product.setCategory(categoryService.findByTitle(productDto.getCategoryTitle())
-                .orElseThrow(() -> new ResourceNotFoundException("Category title = " + productDto.getCategoryTitle() + " not found")));
+                .orElseThrow(() -> new CategoryNotFoundException("Category title = " + productDto.getCategoryTitle() + " not found")));
         return productConverter.entityToDto(product);
     }
 }
