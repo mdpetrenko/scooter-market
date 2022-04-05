@@ -1,11 +1,7 @@
-package com.github.mdpetrenko.market.cart;
+package com.github.mdpetrenko.market.cart.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class CartItemDto {
     private Long productId;
@@ -13,6 +9,17 @@ public class CartItemDto {
     private int quantity;
     private int pricePerItem;
     private int price;
+
+    public CartItemDto() {
+    }
+
+    public CartItemDto(Long productId, String productTitle, int quantity, int pricePerItem, int price) {
+        this.productId = productId;
+        this.productTitle = productTitle;
+        this.quantity = quantity;
+        this.pricePerItem = pricePerItem;
+        this.price = price;
+    }
 
     public Long getProductId() {
         return productId;

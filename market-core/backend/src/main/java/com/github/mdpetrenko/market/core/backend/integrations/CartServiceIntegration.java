@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.integrations;
 
-import com.github.mdpetrenko.market.cart.CartDto;
+import com.github.mdpetrenko.market.cart.dto.CartDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;

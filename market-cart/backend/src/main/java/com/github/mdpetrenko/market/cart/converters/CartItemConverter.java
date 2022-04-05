@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.cart.converters;
 
-import com.github.mdpetrenko.market.cart.CartItemDto;
+import com.github.mdpetrenko.market.cart.dto.CartItemDto;
 import com.github.mdpetrenko.market.cart.entities.CartItem;
 import org.springframework.stereotype.Component;
 

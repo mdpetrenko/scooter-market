@@ -1,7 +1,7 @@
 package com.github.mdpetrenko.market.cart.controllers;
 
 import com.github.mdpetrenko.market.api.dto.StringResponse;
-import com.github.mdpetrenko.market.cart.CartDto;
+import com.github.mdpetrenko.market.cart.dto.CartDto;
 import com.github.mdpetrenko.market.cart.converters.CartConverter;
 import com.github.mdpetrenko.market.cart.entities.Cart;
 import com.github.mdpetrenko.market.cart.services.interfaces.CartService;
