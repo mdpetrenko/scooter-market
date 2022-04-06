@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.cart.exceptions;
+package com.github.mdpetrenko.market.cart.exceptions.errors;
 
 import com.github.mdpetrenko.market.api.exceptions.AppError;
 

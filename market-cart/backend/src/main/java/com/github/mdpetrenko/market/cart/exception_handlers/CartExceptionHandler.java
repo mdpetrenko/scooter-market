@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.cart.exception_handlers;
 
-import com.github.mdpetrenko.market.cart.exceptions.CartError;
+import com.github.mdpetrenko.market.cart.exceptions.errors.CartError;
 import com.github.mdpetrenko.market.cart.exceptions.CartGenerationException;
 import com.github.mdpetrenko.market.cart.exceptions.CartNotFoundException;
 import com.github.mdpetrenko.market.cart.exceptions.CoreServiceIntegrationException;
