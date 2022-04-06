@@ -1,4 +1,4 @@
-package com.github.mdpetrenko.market.core.backend.exceptions;
+package com.github.mdpetrenko.market.core.api.exceptions.erors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

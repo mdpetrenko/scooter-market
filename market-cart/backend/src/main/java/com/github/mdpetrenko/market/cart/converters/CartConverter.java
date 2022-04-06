@@ -1,7 +1,7 @@
 package com.github.mdpetrenko.market.cart.converters;
 
-import com.github.mdpetrenko.market.cart.CartDto;
-import com.github.mdpetrenko.market.cart.CartItemDto;
+import com.github.mdpetrenko.market.cart.dto.CartDto;
+import com.github.mdpetrenko.market.cart.dto.CartItemDto;
 import com.github.mdpetrenko.market.cart.entities.Cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

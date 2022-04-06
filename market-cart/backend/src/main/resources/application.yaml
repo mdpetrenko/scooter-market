@@ -9,4 +9,4 @@ utils:
   cart-prefix: ScooterMarket_Cart_
 integrations:
   core-service:
-    url: http://localhost:5555/core
+    url: http://localhost:8189/market-core

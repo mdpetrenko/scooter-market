@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -13,7 +14,7 @@ import java.util.Iterator;
 @RedisHash("Cart")
 public class Cart implements Serializable {
     private Collection<CartItem> items;
-    private int totalPrice;
+    private BigDecimal totalPrice;
     private String id;
 
     public Cart() {
@@ -66,13 +67,16 @@ public class Cart implements Serializable {
 
     public Cart clear() {
         items.clear();
-        totalPrice = 0;
+        totalPrice = BigDecimal.ZERO;
         return this;
     }
 
     private void recalculate() {
-        totalPrice = 0;
-        totalPrice = items.stream().mapToInt(CartItem::getPrice).sum();
+        totalPrice = BigDecimal.ZERO;
+        for (CartItem item : items) {
+            totalPrice = totalPrice.add(item.getPrice());
+        }
+
     }
 
     public Cart merge(Cart another) {

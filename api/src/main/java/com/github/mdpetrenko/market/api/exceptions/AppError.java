@@ -2,17 +2,17 @@ package com.github.mdpetrenko.market.api.exceptions;
 
 import java.util.Date;
 
-public class MarketError {
+public class AppError {
+    private String code;
     private String message;
     private Date date;
-    private int statusCode;
 
-    public MarketError() {
+    public AppError() {
     }
 
-    public MarketError(int statusCode, String message) {
+    public AppError(String code, String message) {
         this.message = message;
-        this.statusCode = statusCode;
+        this.code = code;
         this.date = new Date();
     }
 
@@ -32,12 +32,12 @@ public class MarketError {
         this.date = date;
     }
 
-    public int getStatusCode() {
-        return statusCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
 }

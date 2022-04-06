@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'io.freefair.lombok' version '6.3.0'
 }
 
 group 'com.github.mdpetrenko.scooter-market.market-cart'
@@ -11,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(":api")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }

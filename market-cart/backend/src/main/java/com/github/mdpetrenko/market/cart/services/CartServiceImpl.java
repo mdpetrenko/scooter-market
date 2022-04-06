@@ -2,6 +2,7 @@ package com.github.mdpetrenko.market.cart.services;
 
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.entities.Cart;
+import com.github.mdpetrenko.market.cart.exceptions.CartGenerationException;
 import com.github.mdpetrenko.market.cart.integrations.CoreServiceIntegration;
 import com.github.mdpetrenko.market.cart.repositories.CartRepository;
 import com.github.mdpetrenko.market.cart.services.interfaces.CartService;
@@ -29,7 +30,7 @@ public class CartServiceImpl implements CartService {
 
     private String getCartKey(String username, UUID uuid) {
         if (username == null && uuid == null) {
-            throw new IllegalArgumentException("Not Enough information for generate key");
+            throw new CartGenerationException("Username and uuid null");
         }
         return CART_PREFIX + Objects.requireNonNullElse(username, uuid);
     }
@@ -38,7 +39,7 @@ public class CartServiceImpl implements CartService {
     public void addItem(String username, UUID uuid, Long productId) {
         Cart cart = getCartForCurrentUser(username, uuid);
         if (!cart.add(productId)) {
-            ProductDto productDto = coreIntegration.findProductById(productId).orElseThrow(() -> new ResourceNotFoundException("Product with id=" + productId + " not found"));
+            ProductDto productDto = coreIntegration.findProductById(productId);
             cart.add(productDto);
         }
         cartRepository.save(cart);

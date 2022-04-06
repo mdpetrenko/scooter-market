@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 public class OrderConverter {
     private final OrderItemConverter orderItemMapper;
 
-    public OrderDto entityToDto(Order entity) {
-        OrderDto out = new OrderDto();
-        out.setId(entity.getId());
-        out.setDeliveryAddress(entity.getDeliveryAddress());
-        out.setOwnerName(entity.getOwnerName());
-        out.setOwnerEmail(entity.getOwnerEmail());
-        out.setOwnerPhone(entity.getOwnerPhone());
-        out.setPrice(entity.getPrice());
-        out.setItems(entity.getItems().stream().map(orderItemMapper::orderItemToDto).collect(Collectors.toList()));
-        return out;
+    public OrderDto entityToDto(Order order) {
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(order.getId());
+        orderDto.setDeliveryAddress(order.getDeliveryAddress());
+        orderDto.setOwnerName(order.getOwnerName());
+        orderDto.setOwnerEmail(order.getOwnerEmail());
+        orderDto.setOwnerPhone(order.getOwnerPhone());
+        orderDto.setPrice(order.getPrice());
+        orderDto.setItems(order.getItems().stream().map(orderItemMapper::orderItemToDto).collect(Collectors.toList()));
+        return orderDto;
     }
 }

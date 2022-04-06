@@ -1,11 +1,18 @@
 package com.github.mdpetrenko.market.core.backend.integrations;
 
-import com.github.mdpetrenko.market.cart.CartDto;
+import com.github.mdpetrenko.market.cart.dto.CartDto;
+import com.github.mdpetrenko.market.cart.exceptions.errors.CartError;
+import com.github.mdpetrenko.market.core.api.exceptions.CartServiceIntegrationException;
+import com.github.mdpetrenko.market.core.api.exceptions.erors.CoreError;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 @Component
 @RequiredArgsConstructor
@@ -17,6 +24,10 @@ public class CartServiceIntegration {
                 .uri("/api/v1/cart/" + guestCartUuid)
                 .header("username", username)
                 .retrieve()
+                .onStatus(
+                        HttpStatus::is4xxClientError,
+                        getResponseError()
+                )
                 .bodyToMono(CartDto.class)
                 .block();
     }
@@ -26,7 +37,26 @@ public class CartServiceIntegration {
                 .uri("/api/v1/cart/" + guestCartUuid + "/clear")
                 .header("username", username)
                 .retrieve()
+                .onStatus(
+                        HttpStatus::is4xxClientError,
+                        getResponseError()
+                )
                 .toBodilessEntity()
                 .block();
     }
+
+    private Function<ClientResponse, Mono<? extends Throwable>> getResponseError() {
+        return clientResponse -> clientResponse.bodyToMono(CoreError.class).map(
+                body -> {
+                    if (body.getCode().equals(CartError.CartErrors.CART_NOT_FOUND.name())) {
+                        return new CartServiceIntegrationException("Incorrect input: cart with such key not found");
+                    }
+                    if (body.getCode().equals(CartError.CartErrors.CART_KEY_IS_NULL.name())) {
+                        return new CartServiceIntegrationException("Incorrect input: no cart key provided");
+                    }
+                    return new CartServiceIntegrationException("Unknown request error");
+                }
+        );
+    }
+
 }

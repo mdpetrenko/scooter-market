@@ -21,7 +21,7 @@ spring:
         web-allow-others: false
 integrations:
   cart-service:
-    url: http://localhost:5555/cart
+    url: http://localhost:8191/market-cart
 jwt:
   secret: sdgfklj289fkldsnj8347thkyoi@go7890@;ljkkld;lsgkj;l834#bfxkblmj
   lifetime: 36000000
