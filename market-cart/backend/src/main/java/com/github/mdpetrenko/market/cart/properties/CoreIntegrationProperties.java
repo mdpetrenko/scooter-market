@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
 @ConstructorBinding
-@ConfigurationProperties(prefix = "integrations.cart-service")
+@ConfigurationProperties(prefix = "integrations.core-service")
 @Data
 public class CoreIntegrationProperties {
     private String url;
