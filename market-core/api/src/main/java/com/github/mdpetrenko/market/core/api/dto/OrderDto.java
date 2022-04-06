@@ -1,11 +1,17 @@
 package com.github.mdpetrenko.market.core.api.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.math.BigDecimal;
 import java.util.Collection;
 
+@Schema(description = "Order schema")
 public class OrderDto {
+    @Schema(description = "Order id", required = true, example = "1")
     private Long id;
+    @Schema(description = "Order items list")
     private Collection<OrderItemDto> items;
+    @Schema(description = "Order total price")
     private BigDecimal price;
     private String ownerName;
     private String ownerPhone;
