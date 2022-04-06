@@ -35,7 +35,4 @@ public class CoreExceptionHandler {
         log.error(e.getMessage(), e);
         return new ResponseEntity<>(new AppError("INVALID_INPUT_DATA", e.getMessage()), HttpStatus.BAD_REQUEST);
     }
-
-
-
 }
