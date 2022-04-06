@@ -4,6 +4,7 @@ import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.dto.CartDto;
 import com.github.mdpetrenko.market.cart.dto.CartItemDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
+import com.github.mdpetrenko.market.core.api.exceptions.ProductNotFoundException;
 import com.github.mdpetrenko.market.core.backend.entities.Order;
 import com.github.mdpetrenko.market.core.backend.entities.OrderItem;
 import com.github.mdpetrenko.market.core.backend.integrations.CartServiceIntegration;
@@ -42,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setOrder(order);
             orderItem.setPrice(item.getPrice());
             orderItem.setProduct(productService.findById(item.getProductId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Product not found. Id: " + item.getProductId())));
+                    .orElseThrow(() -> new ProductNotFoundException("Product not found. Id: " + item.getProductId())));
             orderItem.setPrice(item.getPrice());
             orderItem.setPricePerItem(item.getPricePerItem());
             orderItem.setQuantity(item.getQuantity());

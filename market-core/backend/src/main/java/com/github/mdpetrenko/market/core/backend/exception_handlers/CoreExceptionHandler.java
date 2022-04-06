@@ -5,7 +5,9 @@ import com.github.mdpetrenko.market.core.api.exceptions.DataValidationException;
 import com.github.mdpetrenko.market.core.api.exceptions.OrderNotFoundException;
 import com.github.mdpetrenko.market.core.api.exceptions.ProductNotFoundException;
 import com.github.mdpetrenko.market.core.api.exceptions.erors.CoreError;
+import com.github.mdpetrenko.market.core.api.exceptions.erors.FieldsValidationError;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -36,6 +38,7 @@ public class CoreExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<?> catchDataValidationException(DataValidationException e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new CoreError(CoreError.CoreErrors.CART_INTEGRATION_ERROR.name(), e.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new FieldsValidationError(e.getErrorMessages()), HttpStatus.BAD_REQUEST);
     }
+
 }
