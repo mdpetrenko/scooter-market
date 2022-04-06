@@ -19,6 +19,9 @@ dependencies {
     runtimeOnly 'com.h2database:h2:1.4.200'
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.4'
     implementation 'org.flywaydb:flyway-core:7.14.1'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation project(":api")
     implementation project(":market-core:api")
     implementation project(":market-cart:api")
