@@ -23,6 +23,6 @@ public class CartExceptionHandler {
     }
     @ExceptionHandler
     public ResponseEntity<?> catchCoreServiceIntegrationException(CoreServiceIntegrationException e) {
-        return new ResponseEntity<>(new CartError(CartError.CartErrors.CORE_ERROR.name(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new CartError(CartError.CartErrors.CORE_INTEGRATION_ERROR.name(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

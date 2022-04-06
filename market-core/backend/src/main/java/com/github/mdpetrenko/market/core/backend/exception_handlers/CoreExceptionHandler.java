@@ -36,6 +36,6 @@ public class CoreExceptionHandler {
     @ExceptionHandler
     public ResponseEntity<?> catchDataValidationException(DataValidationException e) {
         log.error(e.getMessage(), e);
-        return new ResponseEntity<>(new CoreError(CoreError.CoreErrors.INVALID_DATA.name(), e.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new CoreError(CoreError.CoreErrors.CART_INTEGRATION_ERROR.name(), e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
