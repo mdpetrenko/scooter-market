@@ -7,8 +7,7 @@ build/
 
 ### PayPal Secrets ###
 
-/market-core/backend/src/main/resources/application-secret.yaml
-/market-core/backend/src/main/resources/secret.properties
+/market-core/backend/src/main/resources/application.yaml
 
 ### STS ###
 .apt_generated
