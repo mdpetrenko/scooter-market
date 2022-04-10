@@ -1,5 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.services;
 
+import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.dto.CartDto;
 import com.github.mdpetrenko.market.cart.dto.CartItemDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
@@ -55,6 +56,13 @@ public class OrderServiceImpl implements OrderService {
         order.setPrice(cart.getTotalPrice());
         orderRepository.save(order);
         cartServiceIntegration.clearCart(username, orderDetails.getGuestCartUuid());
+    }
+
+    @Override
+    public void changeOrderStatus(Long orderId, Order.OrderStatus status) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found. Id: " + orderId));
+        order.setStatus(status);
+        orderRepository.save(order);
     }
 
     @Override

@@ -22,8 +22,6 @@ create table products
     updated_at  timestamp default current_timestamp
 );
 
-
-
 insert into products (title, price, category_id)
 values ('Razor A6', 11700, 1),
        ('Самокат Razor A5 Lux', 6999.90, 1),
@@ -36,13 +34,14 @@ create table orders
 (
     id               bigserial primary key,
     price            numeric(8, 2) not null,
+    status           varchar       not null default 'NEW',
     username         varchar(255),
     owner_name       varchar(255)  not null,
     delivery_address varchar(255)  not null,
     owner_phone      varchar(255),
     owner_email      varchar(255),
-    created_at       timestamp default current_timestamp,
-    updated_at       timestamp default current_timestamp
+    created_at       timestamp              default current_timestamp,
+    updated_at       timestamp              default current_timestamp
 );
 
 create table order_items
@@ -56,3 +55,6 @@ create table order_items
     created_at     timestamp default current_timestamp,
     updated_at     timestamp default current_timestamp
 );
+
+insert into orders (price, username, owner_name, delivery_address, owner_phone, owner_email)
+values (1000, 'user', 'max', 'Europe', '77777777777', 'test@gmail.com')

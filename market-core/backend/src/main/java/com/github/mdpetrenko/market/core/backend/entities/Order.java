@@ -65,12 +65,19 @@ public class Order {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     public Order(OrderDetailsDto orderDetailsDto) {
         this.ownerName = orderDetailsDto.getOwnerName();
         this.deliveryAddress = orderDetailsDto.getDeliveryAddress();
         this.ownerPhone = orderDetailsDto.getOwnerPhone();
         this.ownerEmail = orderDetailsDto.getOwnerEmail();
+    }
+
+    public enum OrderStatus {
+        NEW, PAID, CANCELED
     }
 
 }

@@ -20,7 +20,7 @@ angular.module('market-front').controller('checkoutController', function ($scope
             .then(function () {
                 $scope.orderDetails = null;
                 $http.get(contextPath + '/cart/api/v1/cart/' + $localStorage.scooterMarketGuestCartId + '/clear');
-                $location.path('/profile');
+                $location.path('/orders');
             }, function (response) {
                 alert(response.data.message);
             });

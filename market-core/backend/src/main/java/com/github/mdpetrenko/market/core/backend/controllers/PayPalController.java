@@ -1,6 +1,7 @@
 package com.github.mdpetrenko.market.core.backend.controllers;
 
 import com.github.mdpetrenko.market.core.backend.services.PayPalService;
+import com.github.mdpetrenko.market.core.backend.services.interfaces.OrderService;
 import com.paypal.core.PayPalHttpClient;
 import com.paypal.http.HttpResponse;
 import com.paypal.orders.Order;
@@ -23,6 +24,7 @@ import java.io.IOException;
 public class PayPalController {
     private final PayPalHttpClient payPalClient;
     private final PayPalService payPalService;
+    private final OrderService orderService;
 
     @PostMapping("/create/{orderId}")
     public ResponseEntity<?> createOrder(@PathVariable Long orderId) throws IOException {
@@ -42,6 +44,7 @@ public class PayPalController {
         Order payPalOrder = response.result();
         if ("COMPLETED".equals(payPalOrder.status())) {
             long orderId = Long.parseLong(payPalOrder.purchaseUnits().get(0).referenceId());
+            orderService.changeOrderStatus(orderId, com.github.mdpetrenko.market.core.backend.entities.Order.OrderStatus.PAID);
             // Optional<com.geekbrains.spring.web.core.entities.Order> orderOptional = orderService.findById(orderId);
             return new ResponseEntity<>("Order completed!", HttpStatus.valueOf(response.statusCode()));
         }
