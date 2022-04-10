@@ -10,10 +10,10 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 public class PayPalConfig {
-    @Value("${paypal.client-id}")
+    @Value("${paypal.clientId}")
     private String clientId;
 
-    @Value("${paypal.client-secret}")
+    @Value("${paypal.clientSecret}")
     private String secret;
 
     private PayPalEnvironment environment;
