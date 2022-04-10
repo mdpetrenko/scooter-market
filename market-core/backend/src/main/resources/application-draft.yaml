@@ -26,5 +26,5 @@ jwt:
   secret: sdgfklj289fkldsnj8347thkyoi@go7890@;ljkkld;lsgkj;l834#bfxkblmj
   lifetime: 36000000
 paypal:
-  clientSecret: ${paypal-secret.client-secret}
-  clientId: ${paypal-secret.client-id}
+  clientId: ##your client-id
+  clientSecret: ##your client-secret
