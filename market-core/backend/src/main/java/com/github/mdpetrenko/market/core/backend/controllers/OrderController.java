@@ -1,9 +1,11 @@
 package com.github.mdpetrenko.market.core.backend.controllers;
 
+import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDto;
 import com.github.mdpetrenko.market.core.api.exceptions.erors.CoreError;
 import com.github.mdpetrenko.market.core.backend.converters.OrderConverter;
+import com.github.mdpetrenko.market.core.backend.entities.Order;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,8 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class OrderController {
             }
     )
     @PostMapping
-    public void saveOrder(@RequestBody OrderDetailsDto orderDetails, @RequestHeader(required = false) String username) {
+    public void saveOrder(@RequestBody OrderDetailsDto orderDetails, @RequestHeader String username) {
         orderService.createOrder(orderDetails, username);
     }
 
@@ -51,8 +51,14 @@ public class OrderController {
     )
     @GetMapping
     public List<OrderDto> listOrders(@RequestHeader String username) {
-        return orderService.findUserOrders(username)
+        return orderService.findOrdersByUsername(username)
                 .stream().map(orderConverter::entityToDto).collect(Collectors.toList());
+    }
+
+    @GetMapping("/{orderId}")
+    public OrderDto findOrderById(@PathVariable Long orderId) {
+        Order order = orderService.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found. Id=" + orderId));
+        return orderConverter.entityToDto(order);
     }
 
 }

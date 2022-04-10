@@ -25,3 +25,6 @@ integrations:
 jwt:
   secret: sdgfklj289fkldsnj8347thkyoi@go7890@;ljkkld;lsgkj;l834#bfxkblmj
   lifetime: 36000000
+paypal:
+  client-id: AV1c839UqJ4yKO_1sFCgy2psJ8ugyjjwa764lwC3wqCnL6QJSOfTuwa83YJg_6Z8QMtJ4CZY3AngbJlT
+  client-secret: EIJUBWniPWhDVml6hSS4KBq5EXs2uoeAt7wztkXum_CfqDVKjtLp_pzv34R9kZnuzORUE1HJs1_LRTu1

@@ -51,7 +51,7 @@ public class Order {
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Collection<OrderItem> items;
 
     @Column(name = "username")

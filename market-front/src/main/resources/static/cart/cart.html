@@ -31,7 +31,10 @@
             <td>
                 {{cartContent.totalPrice}}
             </td>
-            <td class="text-start"><button class="btn btn-outline-warning" ng-click="checkout()">Checkout</button></td>
+            <td class="text-start">
+                <button class="btn btn-warning" ng-show="isUserLoggedIn()" ng-click="checkout()">Create order</button>
+                <button class="btn btn-warning" disabled ng-show="!isUserLoggedIn()" ng-click="checkout()">Please Log In or register to create order</button>
+            </td>
         </tr>
         </tbody>
     </table>

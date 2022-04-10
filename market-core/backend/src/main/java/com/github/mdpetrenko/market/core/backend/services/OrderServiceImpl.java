@@ -1,6 +1,5 @@
 package com.github.mdpetrenko.market.core.backend.services;
 
-import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.dto.CartDto;
 import com.github.mdpetrenko.market.cart.dto.CartItemDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
@@ -14,8 +13,10 @@ import com.github.mdpetrenko.market.core.backend.services.interfaces.ProductServ
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /***
@@ -28,15 +29,16 @@ import java.util.Set;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
-    private final CartServiceIntegration cartService;
+    private final CartServiceIntegration cartServiceIntegration;
 
     @Override
+    @Transactional
     public void createOrder(OrderDetailsDto orderDetails, String username) {
         Order order = new Order(orderDetails);
         if (username != null) {
             order.setUsername(username);
         }
-        CartDto cart = cartService.getCartForCurrentUser(username, orderDetails.getGuestCartUuid());
+        CartDto cart = cartServiceIntegration.getCartForCurrentUser(username, orderDetails.getGuestCartUuid());
         Set<OrderItem> items = new HashSet<>();
         for (CartItemDto item : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
@@ -52,11 +54,16 @@ public class OrderServiceImpl implements OrderService {
         order.setItems(items);
         order.setPrice(cart.getTotalPrice());
         orderRepository.save(order);
-        cartService.clearCart(username, orderDetails.getGuestCartUuid());
+        cartServiceIntegration.clearCart(username, orderDetails.getGuestCartUuid());
     }
 
     @Override
-    public List<Order> findUserOrders(String username) {
+    public List<Order> findOrdersByUsername(String username) {
         return orderRepository.findAllByUsername(username);
+    }
+
+    @Override
+    public Optional<Order> findById(Long id) {
+        return orderRepository.findById(id);
     }
 }

@@ -24,6 +24,7 @@ dependencies {
     implementation project(":market-core:api")
     implementation project(":market-cart:api")
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.4'
+    implementation 'com.paypal.sdk:checkout-sdk:1.0.5'
 }
 
 test {
