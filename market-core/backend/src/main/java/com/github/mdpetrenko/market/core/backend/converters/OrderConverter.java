@@ -21,6 +21,7 @@ public class OrderConverter {
         orderDto.setOwnerPhone(order.getOwnerPhone());
         orderDto.setPrice(order.getPrice());
         orderDto.setItems(order.getItems().stream().map(orderItemMapper::orderItemToDto).collect(Collectors.toList()));
+        orderDto.setStatus(order.getStatus().name());
         return orderDto;
     }
 }

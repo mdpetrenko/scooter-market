@@ -17,6 +17,7 @@ public class OrderDto {
     private String ownerPhone;
     private String ownerEmail;
     private String deliveryAddress;
+    private String status;
 
     public OrderDto(Long id, Collection<OrderItemDto> items, BigDecimal price, String ownerName, String ownerPhone, String ownerEmail, String deliveryAddress) {
         this.id = id;
@@ -85,5 +86,13 @@ public class OrderDto {
 
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -26,13 +26,17 @@
                 templateUrl: 'checkout/checkout.html',
                 controller: 'checkoutController'
             })
-            .when('/profile', {
-            templateUrl: 'user_profile/user_profile.html',
-            controller: 'profileController'
-        })
+            .when('/orders', {
+                templateUrl: 'orders/orders.html',
+                controller: 'ordersController'
+            })
             .when('/register', {
                 templateUrl: 'register/register_user.html',
                 controller: 'registerUserController'
+            })
+            .when('/order_pay/:orderId', {
+                templateUrl: 'order_pay/order_pay.html',
+                controller: 'payController'
             })
             .otherwise({
                 redirectTo: '/'
@@ -92,8 +96,8 @@ angular.module('market-front').controller('indexController', function ($rootScop
             $scope.user.password = null;
         }
         if (($location.path() === '/profile') || ($location.path() === '/cart')) {
-            console.log($location.path());
-            $location.path('/');
+            $location.path('/').replace();
+            $scope.$apply();
         }
     };
 

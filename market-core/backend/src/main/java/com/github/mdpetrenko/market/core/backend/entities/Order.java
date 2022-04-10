@@ -51,7 +51,7 @@ public class Order {
     @Column(name = "price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Collection<OrderItem> items;
 
     @Column(name = "username")
@@ -65,12 +65,19 @@ public class Order {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     public Order(OrderDetailsDto orderDetailsDto) {
         this.ownerName = orderDetailsDto.getOwnerName();
         this.deliveryAddress = orderDetailsDto.getDeliveryAddress();
         this.ownerPhone = orderDetailsDto.getOwnerPhone();
         this.ownerEmail = orderDetailsDto.getOwnerEmail();
+    }
+
+    public enum OrderStatus {
+        NEW, PAID, CANCELED
     }
 
 }
