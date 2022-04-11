@@ -26,9 +26,15 @@ jwt:
   secret: sdgfklj289fkldsnj8347thkyoi@go7890@;ljkkld;lsgkj;l834#bfxkblmj
   lifetime: 36000000
 
+common:
+  brand-name: Scooter-Market
+
+
 ## PayPal config
 ## to obtain client id and secret id visit https://developer.paypal.com/home/
 ## register test account and use business-account credentials here and personal account for payment
 paypal:
   clientId: ##your client-id
   clientSecret: ##your client-secret
+  currency: RUB
+

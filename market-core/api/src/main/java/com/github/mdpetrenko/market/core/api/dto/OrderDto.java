@@ -4,29 +4,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.UUID;
 
 @Schema(description = "Order schema")
 public class OrderDto {
     @Schema(description = "Order id", required = true, example = "1")
     private Long id;
+    private DeliveryAddressDto deliveryAddress;
+    private String ownerName;
+    private String ownerPhone;
+    private String ownerEmail;
     @Schema(description = "Order items list")
     private Collection<OrderItemDto> items;
     @Schema(description = "Order total price")
     private BigDecimal price;
-    private String ownerName;
-    private String ownerPhone;
-    private String ownerEmail;
-    private String deliveryAddress;
     private String status;
 
-    public OrderDto(Long id, Collection<OrderItemDto> items, BigDecimal price, String ownerName, String ownerPhone, String ownerEmail, String deliveryAddress) {
+    public OrderDto(Long id, String ownerName, String ownerPhone, String ownerEmail, DeliveryAddressDto deliveryAddress, Collection<OrderItemDto> items, BigDecimal price, String status) {
         this.id = id;
-        this.items = items;
-        this.price = price;
+        this.deliveryAddress = deliveryAddress;
         this.ownerName = ownerName;
         this.ownerPhone = ownerPhone;
         this.ownerEmail = ownerEmail;
-        this.deliveryAddress = deliveryAddress;
+        this.items = items;
+        this.price = price;
+        this.status = status;
     }
 
     public OrderDto() {
@@ -40,20 +42,12 @@ public class OrderDto {
         this.id = id;
     }
 
-    public Collection<OrderItemDto> getItems() {
-        return items;
+    public DeliveryAddressDto getDeliveryAddress() {
+        return deliveryAddress;
     }
 
-    public void setItems(Collection<OrderItemDto> items) {
-        this.items = items;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setDeliveryAddress(DeliveryAddressDto deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
     public String getOwnerName() {
@@ -80,12 +74,20 @@ public class OrderDto {
         this.ownerEmail = ownerEmail;
     }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
+    public Collection<OrderItemDto> getItems() {
+        return items;
     }
 
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public void setItems(Collection<OrderItemDto> items) {
+        this.items = items;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getStatus() {

@@ -1,6 +1,5 @@
 package com.github.mdpetrenko.market.core.backend.entities;
 
-import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,7 +17,8 @@ import java.util.Collection;
 @NamedEntityGraph(
         name = "orders.front",
         attributeNodes = {
-                @NamedAttributeNode(value = "items", subgraph = "items-products")
+                @NamedAttributeNode(value = "items", subgraph = "items-products"),
+                @NamedAttributeNode(value = "deliveryAddress")
         },
         subgraphs = {
                 @NamedSubgraph(
@@ -39,9 +39,6 @@ public class Order {
     @Column(name = "owner_name")
     private String ownerName;
 
-    @Column(name = "delivery_address")
-    private String deliveryAddress;
-
     @Column(name = "owner_phone")
     private String ownerPhone;
 
@@ -57,6 +54,14 @@ public class Order {
     @Column(name = "username")
     private String username;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    private DeliveryAddress deliveryAddress;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -64,17 +69,6 @@ public class Order {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
-
-    public Order(OrderDetailsDto orderDetailsDto) {
-        this.ownerName = orderDetailsDto.getOwnerName();
-        this.deliveryAddress = orderDetailsDto.getDeliveryAddress();
-        this.ownerPhone = orderDetailsDto.getOwnerPhone();
-        this.ownerEmail = orderDetailsDto.getOwnerEmail();
-    }
 
     public enum OrderStatus {
         NEW, PAID, CANCELED

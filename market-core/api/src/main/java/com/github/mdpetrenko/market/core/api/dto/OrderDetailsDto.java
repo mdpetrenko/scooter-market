@@ -5,11 +5,19 @@ import java.util.UUID;
 public class OrderDetailsDto {
     private UUID guestCartUuid;
     private String ownerName;
-    private String deliveryAddress;
     private String ownerPhone;
     private String ownerEmail;
+    private DeliveryAddressDto deliveryAddress;
 
     public OrderDetailsDto() {
+    }
+
+    public OrderDetailsDto(UUID guestCartUuid, String ownerName, String ownerPhone, String ownerEmail, DeliveryAddressDto deliveryAddress) {
+        this.guestCartUuid = guestCartUuid;
+        this.ownerName = ownerName;
+        this.ownerPhone = ownerPhone;
+        this.ownerEmail = ownerEmail;
+        this.deliveryAddress = deliveryAddress;
     }
 
     public UUID getGuestCartUuid() {
@@ -28,14 +36,6 @@ public class OrderDetailsDto {
         this.ownerName = ownerName;
     }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
     public String getOwnerPhone() {
         return ownerPhone;
     }
@@ -50,5 +50,13 @@ public class OrderDetailsDto {
 
     public void setOwnerEmail(String ownerEmail) {
         this.ownerEmail = ownerEmail;
+    }
+
+    public DeliveryAddressDto getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(DeliveryAddressDto deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 }
