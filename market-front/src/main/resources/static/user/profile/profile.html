@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="row mt-5 content-around">
+        <h3 class="text-center">Billing addresses</h3>
+        <div class="card m-3 col-3" ng-repeat="a in userData.addresses">
+            <div class="card-body">
+                <h5 class="card-title">{{a.ownerName}}</h5>
+                <p class="card-text">City: {{a.city}}</p>
+                <p class="card-text">Street: {{a.street}}</p>
+                <p class="card-text">Office: {{a.officeNumber}}</p>
+                <button class="btn btn-primary" ng-click="removeAddress(a.id)">Remove address</button>
+            </div>
+        </div>
+    </div>
+</div>
