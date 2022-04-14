@@ -27,8 +27,12 @@
                 controller: 'checkoutController'
             })
             .when('/orders', {
-                templateUrl: 'orders/orders.html',
+                templateUrl: 'user/orders/orders.html',
                 controller: 'ordersController'
+            })
+            .when('/address_form', {
+                templateUrl: 'user/address_form/address_form.html',
+                controller: 'addressController'
             })
             .when('/register', {
                 templateUrl: 'register/register_user.html',
