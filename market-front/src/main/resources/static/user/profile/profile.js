@@ -19,6 +19,10 @@ angular.module('market-front').controller('profileController', function ($scope,
             });
     }
 
+    $scope.addAddress = function () {
+        $location.path('add_address');
+    }
+
     $scope.getUserInfo();
 
 });

@@ -30,15 +30,10 @@ public class BillingAddress {
     private String postalCode;
 
     @Column(name = "country_code")
-    @Enumerated(value = EnumType.STRING)
-    private CountryCode countryCode;
+    private String countryCode;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public enum CountryCode {
-        RU, KZ
-    }
 
 }

@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="row g-5 justify-content-center">
+    <div class="col-6">
+        <h4 class="mb-3">Billing address</h4>
+        <form class="needs-validation" ng-submit="addAddress()" novalidate="">
+            <div class="row g-3">
+                <div class="col-12">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="" ng-model="address.addressLine1">
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
 
-</body>
-</html>
+                <div class="col-12">
+                    <label for="address2" class="form-label" >Address 2 </label>
+                    <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" required="" ng-model="address.addressLine2">
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="country" class="form-label">Country</label>
+                    <select class="form-select" id="country" required="" ng-model="address.countryCode">
+                        <option value="">Choose...</option>
+                        <option ng-value="'RU'">Russia</option>
+                        <option ng-value="'KZ'">Kazakhstan</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a valid country.
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" class="form-control" id="state" required="" placeholder="Moscow" ng-model="address.district">
+                    <div class="invalid-feedback">
+                        Please provide a valid state.
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" id="city" required="" placeholder="Moscow" ng-model="address.city">
+                    <div class="invalid-feedback">
+                        Please provide a valid city.
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <label for="zip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="zip" placeholder="620000" required="" ng-model="address.postalCode">
+                    <div class="invalid-feedback">
+                        Zip code required.
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Add address</button>
+        </form>
+    </div>
+</div>

@@ -3,7 +3,7 @@ package com.github.mdpetrenko.market.auth.backend.controllers;
 import com.github.mdpetrenko.market.auth.api.dto.AuthRequest;
 import com.github.mdpetrenko.market.auth.api.dto.AuthResponse;
 import com.github.mdpetrenko.market.auth.api.dto.RegisterRequest;
-import com.github.mdpetrenko.market.auth.backend.services.interfaces.UserService;
+import com.github.mdpetrenko.market.auth.backend.services.interfaces.AuthService;
 import com.github.mdpetrenko.market.auth.backend.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class AuthController {
-    private final UserService userService;
+    private final AuthService authService;
     private final JwtTokenUtil jwtTokenUtil;
     private final AuthenticationManager authenticationManager;
 
@@ -32,7 +32,7 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
+        UserDetails userDetails = authService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(token));
     }
@@ -42,7 +42,7 @@ public class AuthController {
         if (!registerRequest.isValid()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        userService.registerUser(registerRequest);
+        authService.registerUser(registerRequest);
         return ResponseEntity.ok(null);
     }
 

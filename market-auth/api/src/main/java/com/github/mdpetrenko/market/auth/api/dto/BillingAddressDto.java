@@ -2,8 +2,8 @@ package com.github.mdpetrenko.market.auth.api.dto;
 
 public class BillingAddressDto {
     private Long id;
-    private String street;
-    private String officeNumber;
+    private String addressLine1;
+    private String addressLine2;
     private String city;
     private String district;
     private String postalCode;
@@ -20,20 +20,20 @@ public class BillingAddressDto {
         this.id = id;
     }
 
-    public String getStreet() {
-        return street;
+    public String getAddressLine1() {
+        return addressLine1;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
     }
 
-    public String getOfficeNumber() {
-        return officeNumber;
+    public String getAddressLine2() {
+        return addressLine2;
     }
 
-    public void setOfficeNumber(String officeNumber) {
-        this.officeNumber = officeNumber;
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
     }
 
     public String getCity() {
@@ -52,7 +52,7 @@ public class BillingAddressDto {
         this.district = district;
     }
 
-    public String getPostalCode() {
+    public String getZipCode() {
         return postalCode;
     }
 

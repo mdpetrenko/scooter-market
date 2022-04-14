@@ -1,16 +1,16 @@
 <div class="row">
-    <h3 class="text-center">Billing addresses</h3>
-    <div class="row mt-5 content-around">
-        <div class="card m-3 col-3" ng-repeat="a in userData.addresses">
-            <div class="card-body">
+    <h3 class="text-center">Shipping addresses</h3>
+    <div class="row justify-content-evenly flex-fill">
+        <div class="card col-2 m-2" ng-repeat="a in userData.addresses">
+            <div class="card-body m1">
                 <p class="card-text">City: {{a.city}}</p>
-                <p class="card-text">Street: {{a.street}}</p>
-                <p class="card-text">Office: {{a.officeNumber}}</p>
-                <button class="btn btn-primary" ng-click="removeAddress(a.id)">Remove address</button>
+                <p class="card-text">Street: {{a.addressLine1}}</p>
+                <p class="card-text">Office: {{a.addressLine2}}</p>
+                <button class="btn btn-primary" ng-click="removeAddress(a.id)">Remove</button>
             </div>
         </div>
     </div>
-    <div class="row">
-        <button class="btn btn-primary" ng-click="addAddress()">Add Billing address</button>
+    <div class="row justify-content-center mt-5">
+        <button class="btn btn-primary col-3" ng-click="addAddress()">Add address</button>
     </div>
 </div>

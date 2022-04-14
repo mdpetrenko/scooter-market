@@ -11,13 +11,24 @@ public class BillingAddressConverter {
         BillingAddressDto billingAddressDto = new BillingAddressDto();
         billingAddressDto.setId(billingAddress.getId());
         billingAddressDto.setCity(billingAddress.getCity());
-        billingAddressDto.setCountryCode(billingAddress.getCountryCode().name());
+        billingAddressDto.setCountryCode(billingAddress.getCountryCode());
         billingAddressDto.setDistrict(billingAddress.getDistrict());
-        billingAddressDto.setStreet(billingAddress.getStreet());
-        billingAddressDto.setOfficeNumber(billingAddress.getOfficeNumber());
+        billingAddressDto.setAddressLine1(billingAddress.getStreet());
+        billingAddressDto.setAddressLine2(billingAddress.getOfficeNumber());
         billingAddressDto.setPostalCode(billingAddress.getPostalCode());
-        billingAddressDto.setOwnerName(billingAddress.getUser().getName());
         return billingAddressDto;
+    }
+
+    public BillingAddress dtoToEntity(BillingAddressDto billingAddressDto) {
+        BillingAddress billingAddress = new BillingAddress();
+        billingAddress.setId(billingAddressDto.getId());
+        billingAddress.setCity(billingAddressDto.getCity());
+        billingAddress.setCountryCode(billingAddressDto.getCountryCode());
+        billingAddress.setDistrict(billingAddressDto.getDistrict());
+        billingAddress.setStreet(billingAddressDto.getAddressLine1());
+        billingAddress.setOfficeNumber(billingAddressDto.getAddressLine2());
+        billingAddress.setPostalCode(billingAddressDto.getZipCode());
+        return billingAddress;
     }
 
 }

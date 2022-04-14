@@ -12,7 +12,7 @@
     <script src="index.js"></script>
 </head>
 <body ng-app=market-front ng-controller="indexController">
-<header class="p-3 bg-dark text-white">
+<div class="p-3 bg-dark text-white fixed-top">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -57,9 +57,9 @@
             </ul>
         </div>
     </div>
-</header>
-<div class="container">
-    <ng-view></ng-view>
+</div>
+<div class="container pt-3 pb-3 mt-5 mb-5">
+    <ng-view class="container-fluid"></ng-view>
     <script src="index.js"></script>
     <script src="catalog/catalog.js"></script>
     <script src="create_product/create_product.js"></script>
@@ -69,17 +69,16 @@
     <script src="checkout/checkout.js"></script>
     <script src="user/orders/orders.js"></script>
     <script src="user/profile/profile.js"></script>
-    <script src="user/billing/addresses.js"></script>
     <script src="order_pay/order_pay.js"></script>
     <script src="user/address_form/address_form.js"></script>
     <script
             src="https://www.paypal.com/sdk/js?client-id=AZX9sEz_m_KSN8L6yOcKLZMq4BJ5bJ1uRpNzPE_5PqswQIRysphIDBii578puqKFxEEP-3QoK5O6Kk94&currency=RUB">
     </script>
 </div>
-<footer class="footer mt-auto py-3 bg-dark position-absolute bottom-0 end-0 w-100">
+<div class="py-3 bg-dark w-100 fixed-bottom">
     <div class="container">
         <span class="text-muted">Hello World!</span>
     </div>
-</footer>
+</div>
 </body>
 </html>

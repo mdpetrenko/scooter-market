@@ -24,9 +24,13 @@ public class UserController {
     }
 
     @DeleteMapping("/billing/{addressId}")
-    public ResponseEntity<?> removeAddress(@RequestHeader String username, @PathVariable Long addressId) {
+    public void removeAddress(@RequestHeader String username, @PathVariable Long addressId) {
         userService.removeUserAddress(username, addressId);
-        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/billing")
+    public void addAddress(@RequestHeader String username, @RequestBody BillingAddressDto addressDto) {
+        userService.addUserAddress(username, addressDto);
     }
 
 }
