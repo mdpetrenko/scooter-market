@@ -54,7 +54,7 @@ public class Order {
     @Column(name = "username")
     private String username;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "address_id")
     private DeliveryAddress deliveryAddress;
 

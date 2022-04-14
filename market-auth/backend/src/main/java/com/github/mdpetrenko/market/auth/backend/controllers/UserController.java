@@ -1,48 +1,31 @@
 package com.github.mdpetrenko.market.auth.backend.controllers;
 
-import com.github.mdpetrenko.market.auth.api.dto.AuthRequest;
-import com.github.mdpetrenko.market.auth.api.dto.AuthResponse;
-import com.github.mdpetrenko.market.auth.api.dto.RegisterRequest;
+import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
+import com.github.mdpetrenko.market.auth.api.dto.BillingAddressDto;
+import com.github.mdpetrenko.market.auth.api.dto.UserDto;
+import com.github.mdpetrenko.market.auth.backend.converters.UserConverter;
+import com.github.mdpetrenko.market.auth.backend.entities.User;
 import com.github.mdpetrenko.market.auth.backend.services.interfaces.UserService;
-import com.github.mdpetrenko.market.auth.backend.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
-public class AuthController {
+@RequestMapping("/api/v1/user")
+public class UserController {
     private final UserService userService;
-    private final JwtTokenUtil jwtTokenUtil;
-    private final AuthenticationManager authenticationManager;
+    private final UserConverter userConverter;
 
-    @PostMapping("/auth")
-    public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest authRequest) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        } catch (BadCredentialsException e) {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-        UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
-        String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(token));
+    @GetMapping
+    public UserDto getUserInfo(@RequestHeader String username) {
+        User user = userService.findUserWithAddresses(username).orElseThrow(() -> new ResourceNotFoundException("Username not found: " + username));
+        return userConverter.entityToDto(user);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> tryToRegister(@RequestBody RegisterRequest registerRequest) {
-        if (!registerRequest.isValid()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        userService.registerUser(registerRequest);
+    @DeleteMapping("/billing/{addressId}")
+    public ResponseEntity<?> removeAddress(@RequestHeader String username, @PathVariable Long addressId) {
+        userService.removeUserAddress(username, addressId);
         return ResponseEntity.ok(null);
     }
 
