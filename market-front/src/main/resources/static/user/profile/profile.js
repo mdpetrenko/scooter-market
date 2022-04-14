@@ -11,9 +11,6 @@ angular.module('market-front').controller('profileController', function ($scope,
     }
 
     $scope.removeAddress = function (addressId) {
-        const options ={
-            body: addressId
-        };
         $http.delete($scope.prefix + '/user/billing/' + addressId)
             .then(function () {
                 $scope.getUserInfo();

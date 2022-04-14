@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(Long userId) {
         return userRepository.findById(userId);
+    }
+
+    @Override
+    @Transactional
+    public Optional<User> findUserWithAddresses(String username) {
+        return userRepository.findByUsernameWithAddresses(username);
+    }
+
+    @Override
+    @Transactional
+    public void removeUserAddress(String username, Long addressId) {
+        User user = findUserWithAddresses(username).orElseThrow(() -> new ResourceNotFoundException("username not found: " + username));
+        user.getAddresses().removeIf(a -> Objects.equals(a.getId(), addressId));
+        userRepository.save(user);
     }
 
     @Transactional

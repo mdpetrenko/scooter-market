@@ -13,4 +13,8 @@ public interface UserService extends UserDetailsService {
     void registerUser(RegisterRequest registerRequest);
 
     Optional<User> findById(Long ownerId);
+
+    Optional<User> findUserWithAddresses(String username);
+
+    void removeUserAddress(String username, Long addressId);
 }
