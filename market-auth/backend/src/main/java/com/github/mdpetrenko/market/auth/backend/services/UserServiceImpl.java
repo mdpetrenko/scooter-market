@@ -2,6 +2,7 @@ package com.github.mdpetrenko.market.auth.backend.services;
 
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.auth.api.dto.BillingAddressDto;
+import com.github.mdpetrenko.market.auth.api.dto.UserDto;
 import com.github.mdpetrenko.market.auth.backend.converters.BillingAddressConverter;
 import com.github.mdpetrenko.market.auth.backend.entities.BillingAddress;
 import com.github.mdpetrenko.market.auth.backend.entities.User;
@@ -28,6 +29,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public User updateUser(String username, UserDto userDto) {
+        User user = findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("Username not found: " + username));
+        user.setName(userDto.getName());
+        user.setEmail(userDto.getEmail());
+        user.setPhone(userDto.getPhone());
+        return saveUser(user);
     }
 
     @Override

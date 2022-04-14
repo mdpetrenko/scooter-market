@@ -15,7 +15,7 @@ public class BillingAddressConverter {
         billingAddressDto.setDistrict(billingAddress.getDistrict());
         billingAddressDto.setAddressLine1(billingAddress.getStreet());
         billingAddressDto.setAddressLine2(billingAddress.getOfficeNumber());
-        billingAddressDto.setPostalCode(billingAddress.getPostalCode());
+        billingAddressDto.setZipCode(billingAddress.getPostalCode());
         return billingAddressDto;
     }
 

@@ -123,4 +123,12 @@ angular.module('market-front').controller('indexController', function ($rootScop
         return $rootScope.isUserLoggedIn();
     }
 
+    $rootScope.addAddress = function (address) {
+        $http.post('http://localhost:5555/auth/api/v1/user/billing', address)
+            .then(function successCallback() {
+            }, function failureCallback(response) {
+                alert(response.data);
+            });
+    }
+
 });

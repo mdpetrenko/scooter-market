@@ -7,7 +7,6 @@ import com.github.mdpetrenko.market.auth.backend.converters.UserConverter;
 import com.github.mdpetrenko.market.auth.backend.entities.User;
 import com.github.mdpetrenko.market.auth.backend.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,4 +32,8 @@ public class UserController {
         userService.addUserAddress(username, addressDto);
     }
 
+    @PutMapping
+    public void updateUser(@RequestHeader String username, @RequestBody UserDto userDto) {
+        userService.updateUser(username, userDto);
+    }
 }

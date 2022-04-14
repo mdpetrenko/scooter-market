@@ -26,5 +26,18 @@ angular.module('market-front').controller('checkoutController', function ($scope
             });
     }
 
+    $scope.getUserData = function () {
+        $http.get(contextPath + '/auth/api/v1/user')
+            .then(function (response) {
+                $scope.userData = response.data;
+                console.log($scope.userData);
+            });
+    }
+
+    $scope.test = function () {
+        console.log($scope.orderDetails);
+    }
+
+    $scope.getUserData();
     $scope.loadCart();
 });

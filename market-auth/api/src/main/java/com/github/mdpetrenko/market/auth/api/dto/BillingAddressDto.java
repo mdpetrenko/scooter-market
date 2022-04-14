@@ -6,7 +6,7 @@ public class BillingAddressDto {
     private String addressLine2;
     private String city;
     private String district;
-    private String postalCode;
+    private String zipCode;
     private String countryCode;
 
     public BillingAddressDto() {
@@ -53,11 +53,11 @@ public class BillingAddressDto {
     }
 
     public String getZipCode() {
-        return postalCode;
+        return zipCode;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
     public String getCountryCode() {

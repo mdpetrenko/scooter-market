@@ -1,9 +1,8 @@
 package com.github.mdpetrenko.market.auth.backend.services.interfaces;
 
 import com.github.mdpetrenko.market.auth.api.dto.BillingAddressDto;
-import com.github.mdpetrenko.market.auth.api.dto.RegisterRequest;
+import com.github.mdpetrenko.market.auth.api.dto.UserDto;
 import com.github.mdpetrenko.market.auth.backend.entities.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 
@@ -11,7 +10,9 @@ public interface UserService {
 
     Optional<User> findByUsername(String username);
 
-   User saveUser(User user);
+    User saveUser(User user);
+
+    User updateUser(String username, UserDto userDto);
 
     Optional<User> findById(Long ownerId);
 
@@ -20,4 +21,5 @@ public interface UserService {
     void removeUserAddress(String username, Long addressId);
 
     void addUserAddress(String username, BillingAddressDto addressDto);
+
 }
