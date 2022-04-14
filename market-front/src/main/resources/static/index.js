@@ -33,6 +33,7 @@
             .when('/address_form', {
                 templateUrl: 'user/address_form/address_form.html',
                 controller: 'addressController'
+            })
             .when('/profile', {
                 templateUrl: 'user/profile/profile.html',
                 controller: 'profileController'
