@@ -1,10 +1,9 @@
 package com.github.mdpetrenko.market.core.backend.converters;
 
-import com.github.mdpetrenko.market.core.api.dto.DeliveryAddressDto;
+import com.github.mdpetrenko.market.core.api.dto.ShippingAddressDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderItemDto;
 import com.github.mdpetrenko.market.core.backend.entities.Order;
-import com.github.mdpetrenko.market.core.backend.integrations.CartServiceIntegration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +17,10 @@ public class OrderConverter {
     private final DeliveryAddressConverter deliveryAddressConverter;
 
     public OrderDto entityToDto(Order order) {
-        DeliveryAddressDto deliveryAddressDto = deliveryAddressConverter.entityToDto(order.getDeliveryAddress());
+        ShippingAddressDto shippingAddressDto = deliveryAddressConverter.entityToDto(order.getShippingAddress());
         Collection<OrderItemDto> orderItems = order.getItems().stream().map(orderItemConverter::entityToDto).collect(Collectors.toList());
         return new OrderDto(
-                order.getId(), order.getOwnerName(), order.getOwnerPhone(), order.getOwnerEmail(), deliveryAddressDto,
+                order.getId(), order.getOwnerName(), order.getOwnerPhone(), order.getOwnerEmail(), shippingAddressDto,
                 orderItems, order.getPrice(), order.getStatus().name()
         );
     }

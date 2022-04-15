@@ -4,13 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.UUID;
 
 @Schema(description = "Order schema")
 public class OrderDto {
     @Schema(description = "Order id", required = true, example = "1")
     private Long id;
-    private DeliveryAddressDto deliveryAddress;
+    private ShippingAddressDto shippingAddress;
     private String ownerName;
     private String ownerPhone;
     private String ownerEmail;
@@ -20,9 +19,9 @@ public class OrderDto {
     private BigDecimal price;
     private String status;
 
-    public OrderDto(Long id, String ownerName, String ownerPhone, String ownerEmail, DeliveryAddressDto deliveryAddress, Collection<OrderItemDto> items, BigDecimal price, String status) {
+    public OrderDto(Long id, String ownerName, String ownerPhone, String ownerEmail, ShippingAddressDto deliveryAddress, Collection<OrderItemDto> items, BigDecimal price, String status) {
         this.id = id;
-        this.deliveryAddress = deliveryAddress;
+        this.shippingAddress = deliveryAddress;
         this.ownerName = ownerName;
         this.ownerPhone = ownerPhone;
         this.ownerEmail = ownerEmail;
@@ -42,12 +41,12 @@ public class OrderDto {
         this.id = id;
     }
 
-    public DeliveryAddressDto getDeliveryAddress() {
-        return deliveryAddress;
+    public ShippingAddressDto getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setDeliveryAddress(DeliveryAddressDto deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public void setShippingAddress(ShippingAddressDto shippingAddressDto) {
+        this.shippingAddress = shippingAddressDto;
     }
 
     public String getOwnerName() {

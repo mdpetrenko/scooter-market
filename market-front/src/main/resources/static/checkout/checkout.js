@@ -16,6 +16,7 @@ angular.module('market-front').controller('checkoutController', function ($scope
 
     $scope.processOrder = function () {
         $scope.orderDetails.guestCartUuid = $localStorage.scooterMarketGuestCartId;
+        console.log($scope.orderDetails);
         $http.post(contextPath + '/core/api/v1/orders', $scope.orderDetails)
             .then(function () {
                 $scope.orderDetails = null;
@@ -29,8 +30,10 @@ angular.module('market-front').controller('checkoutController', function ($scope
     $scope.getUserData = function () {
         $http.get(contextPath + '/auth/api/v1/user')
             .then(function (response) {
-                $scope.userData = response.data;
-                console.log($scope.userData);
+                $scope.addressList = response.data.addresses;
+                $scope.orderDetails.ownerName = response.data.name;
+                $scope.orderDetails.ownerPhone = response.data.phone;
+                $scope.orderDetails.ownerEmail = response.data.email;
             });
     }
 

@@ -1,27 +1,27 @@
 package com.github.mdpetrenko.market.core.backend.converters;
 
-import com.github.mdpetrenko.market.core.api.dto.DeliveryAddressDto;
-import com.github.mdpetrenko.market.core.backend.entities.DeliveryAddress;
+import com.github.mdpetrenko.market.core.api.dto.ShippingAddressDto;
+import com.github.mdpetrenko.market.core.backend.entities.ShippingAddress;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DeliveryAddressConverter {
 
-    public DeliveryAddressDto entityToDto(DeliveryAddress deliveryAddress) {
-        return new DeliveryAddressDto(deliveryAddress.getId(),
-                deliveryAddress.getStreet(), deliveryAddress.getOfficeNumber(), deliveryAddress.getCity(),
-                deliveryAddress.getDistrict(), deliveryAddress.getPostalCode(), deliveryAddress.getCountryCode());
+    public ShippingAddressDto entityToDto(ShippingAddress shippingAddress) {
+        return new ShippingAddressDto(shippingAddress.getId(),
+                shippingAddress.getAddressLine1(), shippingAddress.getAddressLine2(), shippingAddress.getAdminArea2(),
+                shippingAddress.getAdminArea1(), shippingAddress.getPostalCode(), shippingAddress.getCountryCode());
     }
 
-    public DeliveryAddress dtoToEntity(DeliveryAddressDto deliveryAddressDto) {
-        DeliveryAddress deliveryAddress = new DeliveryAddress();
-        deliveryAddress.setId(deliveryAddress.getId());
-        deliveryAddress.setCity(deliveryAddressDto.getCity());
-        deliveryAddress.setStreet(deliveryAddressDto.getStreet());
-        deliveryAddress.setOfficeNumber(deliveryAddressDto.getOfficeNumber());
-        deliveryAddress.setCountryCode(deliveryAddressDto.getCountryCode());
-        deliveryAddress.setDistrict(deliveryAddressDto.getDistrict());
-        deliveryAddress.setPostalCode(deliveryAddressDto.getPostalCode());
-        return deliveryAddress;
+    public ShippingAddress dtoToEntity(ShippingAddressDto shippingAddressDto) {
+        ShippingAddress shippingAddress = new ShippingAddress();
+        shippingAddress.setId(shippingAddress.getId());
+        shippingAddress.setAdminArea2(shippingAddressDto.getAdminArea2());
+        shippingAddress.setAddressLine1(shippingAddressDto.getAddressLine1());
+        shippingAddress.setAddressLine2(shippingAddressDto.getAddressLine2());
+        shippingAddress.setCountryCode(shippingAddressDto.getCountryCode());
+        shippingAddress.setAdminArea1(shippingAddressDto.getAdminArea1());
+        shippingAddress.setPostalCode(shippingAddressDto.getPostalCode());
+        return shippingAddress;
     }
 }

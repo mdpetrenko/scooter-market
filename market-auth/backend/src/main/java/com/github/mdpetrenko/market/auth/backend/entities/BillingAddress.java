@@ -14,17 +14,18 @@ public class BillingAddress {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "street")
-    private String street;
+    @Column(name = "address_line1")
+    private String addressLine1;
 
-    @Column(name = "office_number")
-    private String officeNumber;
+    @Column(name = "address_line2")
+    private String addressLine2;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "admin_area1")
+    private String adminArea1;
 
-    @Column(name = "district")
-    private String district;
+    @Column(name = "admin_area2")
+    private String adminArea2;
+
 
     @Column(name = "postal_code")
     private String postalCode;

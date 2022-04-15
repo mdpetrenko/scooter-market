@@ -25,10 +25,10 @@ create table products
 create table addresses
 (
     id            bigserial primary key,
-    street        varchar(255) not null,
-    office_number varchar(255) not null,
-    city          varchar(255) not null,
-    district      varchar(255) not null,
+    address_line1 varchar(255) not null,
+    address_line2 varchar(255) not null,
+    admin_area1   varchar(255) not null,
+    admin_area2   varchar(255) not null,
     postal_code   varchar(255) not null,
     country_code  varchar(255) not null,
     created_at    timestamp default current_timestamp,
@@ -69,8 +69,8 @@ values ('Razor A6', 11700, 1),
        ('Электросамокат для взрослых Razor EcoSmart SUP', 69999.90, 2),
        ('Электросамокат Razor Power Core E100', 29999.90, 2);
 
-insert into addresses (id, street, office_number, city, district, postal_code, country_code)
-values (1, 'Lenin St. 66', '205', 'Yekaterinburg', 'Sverdlovsk', '620000', 'RU');
+insert into addresses (id, address_line1, address_line2, admin_area1, admin_area2, postal_code, country_code)
+values (1, 'Lenin St. 66', '205', 'Sverdlovsk', 'Yekaterinburg', '620000', 'RU');
 
 insert into orders (price, username, owner_name, owner_phone, owner_email, address_id)
 values (1000, 'user', 'Maksim Petrenko', '+79955556677', 'test@gmail.com', 1);

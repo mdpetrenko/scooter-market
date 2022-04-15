@@ -18,7 +18,7 @@ import java.util.Collection;
         name = "orders.front",
         attributeNodes = {
                 @NamedAttributeNode(value = "items", subgraph = "items-products"),
-                @NamedAttributeNode(value = "deliveryAddress")
+                @NamedAttributeNode(value = "shippingAddress")
         },
         subgraphs = {
                 @NamedSubgraph(
@@ -56,7 +56,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "address_id")
-    private DeliveryAddress deliveryAddress;
+    private ShippingAddress shippingAddress;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

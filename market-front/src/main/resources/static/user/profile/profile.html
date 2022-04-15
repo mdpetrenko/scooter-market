@@ -10,8 +10,8 @@
         <div class="row justify-content-start flex-fill">
             <div class="card col-12 m-2" ng-repeat="a in userData.addresses">
                 <div class="card-body m1">
-                    <p class="card-text">{{a.countryCode}}, {{a.district}}, {{a.city}}, {{a.addressLine1}},
-                        {{a.addressLine2}}, {{a.zipCode}}</p>
+                    <p class="card-text">{{a.adminArea1}}, {{a.adminArea2}}, {{a.addressLine1}},
+                        {{a.addressLine2}}, {{a.countryCode}}, {{a.postalCode}}</p>
                     <button class="btn btn-primary" ng-click="removeAddress(a.id)">Remove</button>
                 </div>
             </div>
@@ -107,7 +107,7 @@
 
                             <div class="col-6">
                                 <label class="form-label" for="state">State</label>
-                                <input class="form-control" id="state" ng-model="address.district" placeholder="Moscow district"
+                                <input class="form-control" id="state" ng-model="address.adminArea1" placeholder="Moscow district"
                                        required
                                        type="text">
                                 <div class="invalid-feedback">
@@ -117,7 +117,7 @@
 
                             <div class="col-6">
                                 <label class="form-label" for="city">City</label>
-                                <input class="form-control" id="city" ng-model="address.city" placeholder="Khimki"
+                                <input class="form-control" id="city" ng-model="address.adminArea2" placeholder="Khimki"
                                        required
                                        type="text">
                                 <div class="invalid-feedback">
@@ -127,7 +127,7 @@
 
                             <div class="col-6">
                                 <label class="form-label" for="zip">Zip</label>
-                                <input class="form-control" id="zip" ng-model="address.zipCode" placeholder="620000"
+                                <input class="form-control" id="zip" ng-model="address.postalCode" placeholder="620000"
                                        required
                                        type="text">
                                 <div class="invalid-feedback">

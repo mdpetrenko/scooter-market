@@ -1,8 +1,7 @@
 package com.github.mdpetrenko.market.core.backend.services;
 
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
-import com.github.mdpetrenko.market.core.api.exceptions.OrderNotFoundException;
-import com.github.mdpetrenko.market.core.backend.entities.DeliveryAddress;
+import com.github.mdpetrenko.market.core.backend.entities.ShippingAddress;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.OrderService;
 import com.paypal.orders.*;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class PayPalService {
     @Transactional
     public OrderRequest createOrderRequest(Long orderId) {
         com.github.mdpetrenko.market.core.backend.entities.Order order = orderService.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
-        DeliveryAddress address = order.getDeliveryAddress();
+        ShippingAddress address = order.getShippingAddress();
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
 
@@ -49,8 +48,8 @@ public class PayPalService {
                                 .quantity(String.valueOf(orderItem.getQuantity())))
                         .collect(Collectors.toList()))
                 .shippingDetail(new ShippingDetail().name(new Name().fullName(order.getOwnerName()))
-                        .addressPortable(new AddressPortable().addressLine1(address.getStreet()).addressLine2(address.getOfficeNumber())
-                                .adminArea2(address.getCity()).adminArea1(address.getDistrict()).postalCode(address.getPostalCode()).countryCode("RU")));
+                        .addressPortable(new AddressPortable().addressLine1(address.getAddressLine1()).addressLine2(address.getAddressLine2())
+                                .adminArea2(address.getAdminArea2()).adminArea1(address.getAdminArea1()).postalCode(address.getPostalCode()).countryCode(address.getCountryCode())));
         purchaseUnitRequests.add(purchaseUnitRequest);
         orderRequest.purchaseUnits(purchaseUnitRequests);
         return orderRequest;

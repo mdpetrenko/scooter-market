@@ -5,7 +5,7 @@ import com.github.mdpetrenko.market.cart.dto.CartDto;
 import com.github.mdpetrenko.market.cart.dto.CartItemDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
 import com.github.mdpetrenko.market.core.backend.converters.DeliveryAddressConverter;
-import com.github.mdpetrenko.market.core.backend.entities.DeliveryAddress;
+import com.github.mdpetrenko.market.core.backend.entities.ShippingAddress;
 import com.github.mdpetrenko.market.core.backend.entities.Order;
 import com.github.mdpetrenko.market.core.backend.entities.OrderItem;
 import com.github.mdpetrenko.market.core.backend.integrations.CartServiceIntegration;
@@ -42,8 +42,8 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         CartDto cart = cartServiceIntegration.getCartForCurrentUser(username, orderDetails.getGuestCartUuid());
         Set<OrderItem> items = new HashSet<>();
-        DeliveryAddress deliveryAddress = deliveryAddressRepository.save(deliveryAddressConverter.dtoToEntity(orderDetails.getDeliveryAddress()));
-        order.setDeliveryAddress(deliveryAddress);
+        ShippingAddress shippingAddress = deliveryAddressRepository.save(deliveryAddressConverter.dtoToEntity(orderDetails.getShippingAddress()));
+        order.setShippingAddress(shippingAddress);
         for (CartItemDto item : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);

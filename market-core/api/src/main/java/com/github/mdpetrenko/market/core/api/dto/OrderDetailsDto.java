@@ -7,17 +7,17 @@ public class OrderDetailsDto {
     private String ownerName;
     private String ownerPhone;
     private String ownerEmail;
-    private DeliveryAddressDto deliveryAddress;
+    private ShippingAddressDto shippingAddress;
 
     public OrderDetailsDto() {
     }
 
-    public OrderDetailsDto(UUID guestCartUuid, String ownerName, String ownerPhone, String ownerEmail, DeliveryAddressDto deliveryAddress) {
+    public OrderDetailsDto(UUID guestCartUuid, String ownerName, String ownerPhone, String ownerEmail, ShippingAddressDto shippingAddress) {
         this.guestCartUuid = guestCartUuid;
         this.ownerName = ownerName;
         this.ownerPhone = ownerPhone;
         this.ownerEmail = ownerEmail;
-        this.deliveryAddress = deliveryAddress;
+        this.shippingAddress = shippingAddress;
     }
 
     public UUID getGuestCartUuid() {
@@ -52,11 +52,11 @@ public class OrderDetailsDto {
         this.ownerEmail = ownerEmail;
     }
 
-    public DeliveryAddressDto getDeliveryAddress() {
-        return deliveryAddress;
+    public ShippingAddressDto getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setDeliveryAddress(DeliveryAddressDto deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public void setShippingAddress(ShippingAddressDto shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 }
