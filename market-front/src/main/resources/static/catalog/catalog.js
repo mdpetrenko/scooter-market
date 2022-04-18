@@ -29,6 +29,7 @@ angular.module('market-front').controller('catalogController', function ($scope,
         }).then(function (response) {
             $scope.productsPage = response.data;
             $scope.paginationArray = $scope.generatePageIndexes(1, $scope.productsPage.totalPages);
+            console.log(response.data);
         });
     };
 

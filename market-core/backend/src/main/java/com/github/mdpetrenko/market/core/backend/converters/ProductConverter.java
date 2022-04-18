@@ -8,9 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ProductConverter{
+public class ProductConverter {
     private final CategoryConverter categoryConverter;
-    private final ProductService productService;
 
     public ProductDto entityToDto(Product entity) {
         return new ProductDto(entity.getId(), entity.getTitle(), categoryConverter.entityToDto(entity.getCategory()), entity.getPrice());

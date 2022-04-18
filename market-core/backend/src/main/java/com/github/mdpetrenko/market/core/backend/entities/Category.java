@@ -20,7 +20,7 @@ public class Category {
     private Long id;
 
     @Column(name = "title")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Categories title;
 
     @OneToMany(mappedBy = "category")
