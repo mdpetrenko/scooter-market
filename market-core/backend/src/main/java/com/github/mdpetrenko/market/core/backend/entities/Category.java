@@ -20,7 +20,8 @@ public class Category {
     private Long id;
 
     @Column(name = "title")
-    private String title;
+    @Enumerated(EnumType.ORDINAL)
+    private Categories title;
 
     @OneToMany(mappedBy = "category")
     private List<Product> products;
@@ -33,5 +34,20 @@ public class Category {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public enum Categories {
+        CLASSIC("Classic"), ELECTRIC("Electric"), CHILD("Child");
+
+        private final String title;
+
+        Categories(String title) {
+            this.title = title;
+        }
+
+        @Override
+        public String toString() {
+            return title;
+        }
+    }
 
 }

@@ -5,7 +5,7 @@ import com.github.mdpetrenko.market.core.backend.entities.ShippingAddress;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DeliveryAddressConverter {
+public class ShippingAddressConverter {
 
     public ShippingAddressDto entityToDto(ShippingAddress shippingAddress) {
         return new ShippingAddressDto(shippingAddress.getId(),

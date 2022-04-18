@@ -14,10 +14,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderConverter {
     private final OrderItemConverter orderItemConverter;
-    private final DeliveryAddressConverter deliveryAddressConverter;
+    private final ShippingAddressConverter shippingAddressConverter;
 
     public OrderDto entityToDto(Order order) {
-        ShippingAddressDto shippingAddressDto = deliveryAddressConverter.entityToDto(order.getShippingAddress());
+        ShippingAddressDto shippingAddressDto = shippingAddressConverter.entityToDto(order.getShippingAddress());
         Collection<OrderItemDto> orderItems = order.getItems().stream().map(orderItemConverter::entityToDto).collect(Collectors.toList());
         return new OrderDto(
                 order.getId(), order.getOwnerName(), order.getOwnerPhone(), order.getOwnerEmail(), shippingAddressDto,

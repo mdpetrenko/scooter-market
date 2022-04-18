@@ -1,6 +1,5 @@
 package com.github.mdpetrenko.market.core.backend.services;
 
-import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.core.backend.entities.ShippingAddress;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.OrderService;
 import com.paypal.orders.*;
@@ -24,7 +23,7 @@ public class PayPalService {
 
     @Transactional
     public OrderRequest createOrderRequest(Long orderId) {
-        com.github.mdpetrenko.market.core.backend.entities.Order order = orderService.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+        com.github.mdpetrenko.market.core.backend.entities.Order order = orderService.findById(orderId);
         ShippingAddress address = order.getShippingAddress();
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");

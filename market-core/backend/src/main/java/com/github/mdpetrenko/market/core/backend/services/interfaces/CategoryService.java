@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CategoryService {
     List<Category> findAll();
 
-    Optional<Category> findById(Long id);
+    Category findById(Long id);
 
     Optional<Category> findByIdWithProducts(Long id);
 

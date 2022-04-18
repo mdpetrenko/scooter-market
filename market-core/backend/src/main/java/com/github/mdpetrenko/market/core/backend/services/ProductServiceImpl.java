@@ -1,7 +1,10 @@
 package com.github.mdpetrenko.market.core.backend.services;
 
+import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
+import com.github.mdpetrenko.market.core.api.dto.ProductDto;
 import com.github.mdpetrenko.market.core.backend.repositories.ProductRepository;
 import com.github.mdpetrenko.market.core.backend.repositories.specifications.ProductSpecification;
+import com.github.mdpetrenko.market.core.backend.services.interfaces.CategoryService;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.ProductService;
 import com.github.mdpetrenko.market.core.backend.entities.Product;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +13,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+    private final CategoryService categoryService;
     private final ProductRepository productRepository;
 
     @Override
@@ -24,8 +28,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found. Id: " + id));
     }
 
     @Override
@@ -36,6 +40,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional
+    public Product updateProduct(ProductDto productDto) {
+        Product product = findById(productDto.getId());
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        product.setCategory(categoryService.findById(productDto.getCategory().getId()));
+        return save(product);
     }
 
     private Specification<Product> getProductSpecification(Integer minPrice, Integer maxPrice, String titlePart) {

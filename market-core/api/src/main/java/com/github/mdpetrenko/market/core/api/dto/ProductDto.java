@@ -11,14 +11,14 @@ public class ProductDto {
     @Schema(description = "Product title", required = true, example = "Scooter")
     private String title;
     @Schema(description = "Product category", required = true)
-    private String categoryTitle;
+    private CategoryDto category;
     @Schema(description = "Product price", required = true, example = "100.95")
     private BigDecimal price;
 
-    public ProductDto(Long id, String title, String categoryTitle, BigDecimal price) {
+    public ProductDto(Long id, String title, CategoryDto category, BigDecimal price) {
         this.id = id;
         this.title = title;
-        this.categoryTitle = categoryTitle;
+        this.category = category;
         this.price = price;
     }
 
@@ -41,12 +41,12 @@ public class ProductDto {
         this.title = title;
     }
 
-    public String getCategoryTitle() {
-        return categoryTitle;
+    public CategoryDto getCategory() {
+        return category;
     }
 
-    public void setCategoryTitle(String categoryTitle) {
-        this.categoryTitle = categoryTitle;
+    public void setCategory(CategoryDto category) {
+        this.category = category;
     }
 
     public BigDecimal getPrice() {

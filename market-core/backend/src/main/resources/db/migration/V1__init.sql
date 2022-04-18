@@ -7,11 +7,6 @@ create table categories
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
-
-insert into categories (title)
-values ('Классический самокат'),
-       ('Электросамокат');
-
 create table products
 (
     id          bigserial primary key,
@@ -60,6 +55,12 @@ create table order_items
     created_at     timestamp default current_timestamp,
     updated_at     timestamp default current_timestamp
 );
+
+insert into categories (title)
+values ('Classic'),
+       ('Electric'),
+       ('Child');
+
 
 insert into products (title, price, category_id)
 values ('Razor A6', 11700, 1),

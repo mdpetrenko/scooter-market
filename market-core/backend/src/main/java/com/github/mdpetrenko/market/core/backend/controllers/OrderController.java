@@ -57,7 +57,7 @@ public class OrderController {
 
     @GetMapping("/{orderId}")
     public OrderDto findOrderById(@PathVariable Long orderId) {
-        Order order = orderService.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found. Id=" + orderId));
+        Order order = orderService.findById(orderId);
         return orderConverter.entityToDto(order);
     }
 

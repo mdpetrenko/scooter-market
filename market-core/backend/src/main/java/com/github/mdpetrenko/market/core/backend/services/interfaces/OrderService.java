@@ -4,7 +4,6 @@ import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
 import com.github.mdpetrenko.market.core.backend.entities.Order;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OrderService {
     void createOrder(OrderDetailsDto orderDetails, String username);
@@ -12,6 +11,6 @@ public interface OrderService {
 
     List<Order> findOrdersByUsername(String username);
 
-    Optional<Order> findById(Long id);
+    Order findById(Long id);
 
 }

@@ -1,5 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.services;
 
+import com.github.mdpetrenko.market.core.api.exceptions.CategoryNotFoundException;
 import com.github.mdpetrenko.market.core.backend.entities.Category;
 import com.github.mdpetrenko.market.core.backend.repositories.CategoryRepository;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.CategoryService;
@@ -20,8 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> findById(Long id) {
-        return categoryRepository.findById(id);
+    public Category findById(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category id = " + id + " not found"));
     }
 
     @Override

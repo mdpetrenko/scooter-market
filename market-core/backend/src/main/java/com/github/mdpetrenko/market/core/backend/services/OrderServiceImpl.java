@@ -4,12 +4,12 @@ import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.dto.CartDto;
 import com.github.mdpetrenko.market.cart.dto.CartItemDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
-import com.github.mdpetrenko.market.core.backend.converters.DeliveryAddressConverter;
+import com.github.mdpetrenko.market.core.backend.converters.ShippingAddressConverter;
 import com.github.mdpetrenko.market.core.backend.entities.ShippingAddress;
 import com.github.mdpetrenko.market.core.backend.entities.Order;
 import com.github.mdpetrenko.market.core.backend.entities.OrderItem;
 import com.github.mdpetrenko.market.core.backend.integrations.CartServiceIntegration;
-import com.github.mdpetrenko.market.core.backend.repositories.DeliveryAddressRepository;
+import com.github.mdpetrenko.market.core.backend.repositories.ShippingAddressRepository;
 import com.github.mdpetrenko.market.core.backend.repositories.OrderRepository;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.OrderService;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.ProductService;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /***
@@ -31,10 +30,10 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-    private final DeliveryAddressRepository deliveryAddressRepository;
     private final ProductService productService;
     private final CartServiceIntegration cartServiceIntegration;
-    private final DeliveryAddressConverter deliveryAddressConverter;
+    private final ShippingAddressRepository shippingAddressRepository;
+    private final ShippingAddressConverter shippingAddressConverter;
 
     @Override
     @Transactional
@@ -42,14 +41,13 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         CartDto cart = cartServiceIntegration.getCartForCurrentUser(username, orderDetails.getGuestCartUuid());
         Set<OrderItem> items = new HashSet<>();
-        ShippingAddress shippingAddress = deliveryAddressRepository.save(deliveryAddressConverter.dtoToEntity(orderDetails.getShippingAddress()));
+        ShippingAddress shippingAddress = shippingAddressRepository.save(shippingAddressConverter.dtoToEntity(orderDetails.getShippingAddress()));
         order.setShippingAddress(shippingAddress);
         for (CartItemDto item : cart.getItems()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrder(order);
             orderItem.setPrice(item.getPrice());
-            orderItem.setProduct(productService.findById(item.getProductId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Product not found. Id: " + item.getProductId())));
+            orderItem.setProduct(productService.findById(item.getProductId()));
             orderItem.setPrice(item.getPrice());
             orderItem.setPricePerItem(item.getPricePerItem());
             orderItem.setQuantity(item.getQuantity());
@@ -69,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void changeOrderStatus(Long orderId, Order.OrderStatus status) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order not found. Id: " + orderId));
+        Order order = findById(orderId);
         order.setStatus(status);
         orderRepository.save(order);
     }
@@ -80,8 +78,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<Order> findById(Long id) {
-        return orderRepository.findById(id);
+    public Order findById(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Order not found. Id: " + id));
     }
 
 }

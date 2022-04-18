@@ -2,6 +2,7 @@ package com.github.mdpetrenko.market.core.backend.controllers;
 
 import com.github.mdpetrenko.market.core.api.dto.CategoryDto;
 import com.github.mdpetrenko.market.core.api.exceptions.CategoryNotFoundException;
+import com.github.mdpetrenko.market.core.backend.converters.CategoryConverter;
 import com.github.mdpetrenko.market.core.backend.entities.Category;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +19,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+    private final CategoryConverter categoryConverter;
 
     @GetMapping
-    public List<String> getCategoryTitles() {
-        return categoryService.findAll().stream().map(Category::getTitle).collect(Collectors.toList());
+    public List<CategoryDto> getCategoryTitles() {
+        return categoryService.findAll().stream().map(categoryConverter::entityToDto).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     public CategoryDto findById(@PathVariable Long id) {
-        return categoryService.findById(id).map(c -> new CategoryDto(c.getId(), c.getTitle()))
-                .orElseThrow(() -> new CategoryNotFoundException("Category id = " + id + " not found"));
+        Category category = categoryService.findById(id);
+        return categoryConverter.entityToDto(category);
     }
 }
