@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping
     public UserDto getUserInfo(@RequestHeader String username) {
-        User user = userService.findUserWithAddresses(username).orElseThrow(() -> new ResourceNotFoundException("Username not found: " + username));
+        User user = userService.findUserWithAddresses(username);
         return userConverter.entityToDto(user);
     }
 

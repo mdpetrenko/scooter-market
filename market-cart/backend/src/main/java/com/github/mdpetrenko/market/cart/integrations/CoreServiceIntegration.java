@@ -22,14 +22,8 @@ public class CoreServiceIntegration {
                         clientResponse -> clientResponse.bodyToMono(CoreError.class).map(
                                 body ->
                                 {
-                                    if (body.getCode().equals(CoreError.CoreErrors.PRODUCT_NOT_FOUND.name())) {
-                                        return new CoreServiceIntegrationException("Incorrect input data: product not found");
-                                    }
-                                    if (body.getCode().equals(CoreError.CoreErrors.CATEGORY_NOT_FOUND.name())) {
-                                        return new CoreServiceIntegrationException("Incorrect input data: category not found");
-                                    }
-                                    if (body.getCode().equals(CoreError.CoreErrors.ORDER_NOT_FOUND.name())) {
-                                        return new CoreServiceIntegrationException("Incorrect input data: order not found");
+                                    if (body.getCode().equals(CoreError.CoreErrors.RESOURCE_NOT_FOUND.name())) {
+                                        return new CoreServiceIntegrationException("Incorrect input data: resource not found");
                                     }
                                     return new CoreServiceIntegrationException("Unknown error");
                                 }

@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.services;
 
-import com.github.mdpetrenko.market.core.api.exceptions.CategoryNotFoundException;
+import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.core.backend.entities.Category;
 import com.github.mdpetrenko.market.core.backend.repositories.CategoryRepository;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.CategoryService;
@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,16 +22,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category id = " + id + " not found"));
-    }
-
-    @Override
-    public Optional<Category> findByIdWithProducts(Long id) {
-        return categoryRepository.findByIdWithProducts(id);
-    }
-
-    @Override
-    public Optional<Category> findByTitle(String title) {
-        return categoryRepository.findByTitle(title);
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found. Id=" + id));
     }
 }

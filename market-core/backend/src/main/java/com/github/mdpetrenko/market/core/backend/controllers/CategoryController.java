@@ -1,7 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.controllers;
 
 import com.github.mdpetrenko.market.core.api.dto.CategoryDto;
-import com.github.mdpetrenko.market.core.api.exceptions.CategoryNotFoundException;
 import com.github.mdpetrenko.market.core.backend.converters.CategoryConverter;
 import com.github.mdpetrenko.market.core.backend.entities.Category;
 import com.github.mdpetrenko.market.core.backend.services.interfaces.CategoryService;

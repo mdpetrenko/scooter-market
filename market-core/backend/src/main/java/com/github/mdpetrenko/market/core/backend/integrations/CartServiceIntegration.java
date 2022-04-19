@@ -49,12 +49,15 @@ public class CartServiceIntegration {
         return clientResponse -> clientResponse.bodyToMono(CoreError.class).map(
                 body -> {
                     if (body.getCode().equals(CartError.CartErrors.CART_NOT_FOUND.name())) {
-                        return new CartServiceIntegrationException("Incorrect input: cart with such key not found");
+                        return new CartServiceIntegrationException("Incorrect request: cart not found");
                     }
                     if (body.getCode().equals(CartError.CartErrors.CART_KEY_IS_NULL.name())) {
-                        return new CartServiceIntegrationException("Incorrect input: no cart key provided");
+                        return new CartServiceIntegrationException("Incorrect request: cart key is null");
                     }
-                    return new CartServiceIntegrationException("Unknown request error");
+                    if (body.getCode().equals(CartError.CartErrors.SERVICE_NOT_AVAILABLE.name())) {
+                        return new CartServiceIntegrationException("Cart Service is not available");
+                    }
+                    return new CartServiceIntegrationException("Unknown integration error");
                 }
         );
     }

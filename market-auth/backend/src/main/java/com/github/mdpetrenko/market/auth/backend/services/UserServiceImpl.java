@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +21,9 @@ public class UserServiceImpl implements UserService {
     private final BillingAddressConverter billingAddressConverter;
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Username not found: " + username));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(String username, UserDto userDto) {
-        User user = findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("Username not found: " + username));
+        User user = findByUsername(username);
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
@@ -41,20 +41,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long userId) {
-        return userRepository.findById(userId);
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found. ID: " + userId));
     }
 
     @Override
     @Transactional
-    public Optional<User> findUserWithAddresses(String username) {
-        return userRepository.findByUsernameWithAddresses(username);
+    public User findUserWithAddresses(String username) {
+        return userRepository.findByUsernameWithAddresses(username)
+                .orElseThrow(() -> new ResourceNotFoundException("username not found: " + username));
     }
 
     @Override
     @Transactional
     public void removeUserAddress(String username, Long addressId) {
-        User user = findUserWithAddresses(username).orElseThrow(() -> new ResourceNotFoundException("username not found: " + username));
+        User user = findUserWithAddresses(username);
         user.getAddresses().removeIf(a -> Objects.equals(a.getId(), addressId));
         userRepository.save(user);
     }
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUserAddress(String username, BillingAddressDto addressDto) {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("Username not found: " + username));
+        User user = findByUsername(username);
         BillingAddress billingAddress = billingAddressConverter.dtoToEntity(addressDto);
         billingAddress.setUser(user);
         user.getAddresses().add(billingAddress);
