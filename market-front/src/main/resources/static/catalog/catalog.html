@@ -4,7 +4,7 @@
             <p></p>
             <input class="form-control" type="number" placeholder="Min price" ng-model="productFilter.minPrice" ng-value="productFilter.minPrice">
             <p></p>
-            <input class="form-control" type="number" placeholder="Max price" ng-model="productFilter.maxPrice" ng-value="productFilter.maxPrice">
+            <input class="form-control" type="number" placeholder="Min price" ng-model="productFilter.maxPrice" ng-value="productFilter.maxPrice">
             <p></p>
             <input class="form-control" type="text" placeholder="Title part" ng-model="productFilter.titlePart" ng-value="productFilter.titlePart">
             <p></p>
@@ -26,7 +26,7 @@
             <tr ng-repeat="p in productsPage.content">
                 <td ng-show="false">{{p.id}}</td>
                 <td>{{p.title}}</td>
-                <td>{{p.category.title}}</td>
+                <td>{{p.categoryTitle}}</td>
                 <td>{{p.price}}</td>
                 <td>
                     <button class="btn btn-primary" ng-click="addToCart(p.id)">To Cart</button>

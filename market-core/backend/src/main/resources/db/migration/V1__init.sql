@@ -57,9 +57,9 @@ create table order_items
 );
 
 insert into categories (title)
-values ('CLASSIC'),
-       ('ELECTRIC'),
-       ('CHILD');
+values ('Classic'),
+       ('Electric'),
+       ('Child');
 
 
 insert into products (title, price, category_id)
