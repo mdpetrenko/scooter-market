@@ -4,7 +4,7 @@ import com.github.mdpetrenko.market.api.exceptions.AppError;
 
 public class CoreError extends AppError {
     public enum CoreErrors {
-        PRODUCT_NOT_FOUND, ORDER_NOT_FOUND, CATEGORY_NOT_FOUND, CART_INTEGRATION_ERROR
+        RESOURCE_NOT_FOUND, CART_INTEGRATION_ERROR
     }
 
     public CoreError() {

@@ -12,5 +12,6 @@ public class CartError extends AppError {
 
     public enum CartErrors {
         CART_NOT_FOUND, CART_KEY_IS_NULL, CORE_INTEGRATION_ERROR, SERVICE_NOT_AVAILABLE
+
     }
 }

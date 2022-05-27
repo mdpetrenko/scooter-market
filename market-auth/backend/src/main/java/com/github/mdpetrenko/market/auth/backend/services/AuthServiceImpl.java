@@ -37,11 +37,10 @@ public class AuthServiceImpl implements AuthService {
         user.setEmail(registerRequest.getEmail());
         if (registerRequest.getRoles() != null) {
             user.setRoles(registerRequest.getRoles().stream()
-                    .map(r -> roleService.findByTitle(r)
-                            .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + r)))
+                    .map(roleService::findByTitle)
                     .collect(Collectors.toList()));
         } else {
-            user.setRoles(List.of(roleService.getStandardUserRoles().orElseThrow()));
+            user.setRoles(List.of(roleService.getStandardUserRoles()));
         }
         userService.saveUser(user);
     }
@@ -49,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
+        User user = userService.findByUsername(username);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 

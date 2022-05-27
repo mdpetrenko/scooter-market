@@ -83,8 +83,9 @@ angular.module('market-front').controller('indexController', function ($rootScop
                             }
                         });
                 }
-            }, function errorCallback(response) {
+            }, function failureCallback(response) {
                 console.log(response.data);
+                alert(response.data.message);
             });
     };
 
