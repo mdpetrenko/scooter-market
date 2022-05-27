@@ -1,5 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.entities;
 
+import com.github.mdpetrenko.market.core.api.commons.OrderStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -69,9 +70,5 @@ public class Order {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-    public enum OrderStatus {
-        NEW, PAID, CANCELED
-    }
 
 }

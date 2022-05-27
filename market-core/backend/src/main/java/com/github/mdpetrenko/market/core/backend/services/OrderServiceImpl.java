@@ -3,6 +3,7 @@ package com.github.mdpetrenko.market.core.backend.services;
 import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
 import com.github.mdpetrenko.market.cart.dto.CartDto;
 import com.github.mdpetrenko.market.cart.dto.CartItemDto;
+import com.github.mdpetrenko.market.core.api.commons.OrderStatus;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
 import com.github.mdpetrenko.market.core.backend.converters.ShippingAddressConverter;
 import com.github.mdpetrenko.market.core.backend.entities.ShippingAddress;
@@ -58,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
         order.setOwnerEmail(orderDetails.getOwnerEmail());
         order.setOwnerPhone(orderDetails.getOwnerPhone());
         order.setPrice(cart.getTotalPrice());
-        order.setStatus(Order.OrderStatus.NEW);
+        order.setStatus(OrderStatus.NEW);
         order.setUsername(username);
         orderRepository.save(order);
         cartServiceIntegration.clearCart(username, orderDetails.getGuestCartUuid());
@@ -66,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void changeOrderStatus(Long orderId, Order.OrderStatus status) {
+    public void changeOrderStatus(Long orderId, OrderStatus status) {
         Order order = findById(orderId);
         order.setStatus(status);
         orderRepository.save(order);

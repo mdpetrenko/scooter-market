@@ -1,6 +1,7 @@
 package com.github.mdpetrenko.market.payment.backend.services;
 
 
+import com.github.mdpetrenko.market.core.api.commons.OrderStatus;
 import com.github.mdpetrenko.market.core.api.dto.OrderDto;
 import com.github.mdpetrenko.market.core.api.dto.ShippingAddressDto;
 import com.github.mdpetrenko.market.payment.backend.integrations.CoreServiceIntegration;
@@ -22,8 +23,8 @@ public class PaymentService {
     @Value("${common.brand-name}")
     private String brandName;
 
-    public OrderRequest createOrderRequest(Long orderId) {
-        OrderDto orderDto = coreServiceIntegration.findOrderById(orderId);
+    public OrderRequest createOrderRequest(String username, Long orderId) {
+        OrderDto orderDto = coreServiceIntegration.findOrderById(username, orderId);
         ShippingAddressDto address = orderDto.getShippingAddress();
         OrderRequest orderRequest = new OrderRequest();
         orderRequest.checkoutPaymentIntent("CAPTURE");
@@ -54,7 +55,7 @@ public class PaymentService {
         return orderRequest;
     }
 
-    public void changeOrderStatus(Long orderId) {
-        coreServiceIntegration.changeOrderStatus(orderId, com.github.mdpetrenko.market.core.backend.entities.Order.OrderStatus.PAID);
+    public void changeOrderStatus(String username, Long orderId, OrderStatus status) {
+        coreServiceIntegration.changeOrderStatus(username, orderId, OrderStatus.PAID);
     }
 }

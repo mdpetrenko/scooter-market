@@ -1,6 +1,6 @@
 package com.github.mdpetrenko.market.core.backend.controllers;
 
-import com.github.mdpetrenko.market.api.exceptions.ResourceNotFoundException;
+import com.github.mdpetrenko.market.core.api.commons.OrderStatus;
 import com.github.mdpetrenko.market.core.api.dto.OrderDetailsDto;
 import com.github.mdpetrenko.market.core.api.dto.OrderDto;
 import com.github.mdpetrenko.market.core.api.exceptions.erors.CoreError;
@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,9 +57,14 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    public OrderDto findOrderById(@PathVariable Long orderId) {
+    public OrderDto findOrderById(@PathVariable Long orderId, @RequestHeader String username) {
         Order order = orderService.findById(orderId);
         return orderConverter.entityToDto(order);
+    }
+
+    @PutMapping("/{orderId}")
+    public void updateOrderStatus(@PathVariable Long orderId, @RequestBody OrderStatus status, @RequestHeader String username) {
+        orderService.changeOrderStatus(orderId, status);
     }
 
 }

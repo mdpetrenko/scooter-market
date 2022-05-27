@@ -10,10 +10,7 @@ import com.paypal.orders.OrdersCreateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -23,14 +20,13 @@ import java.io.IOException;
 public class PayPalController {
 
     private final PayPalHttpClient payPalClient;
-    private final PaymentService payPalService;
-    private final OrderService orderService;
+    private final PaymentService paymentService;
 
     @PostMapping("/create/{orderId}")
-    public ResponseEntity<?> createOrder(@PathVariable Long orderId) throws IOException {
+    public ResponseEntity<?> createOrder(@PathVariable Long orderId, @RequestHeader String username) throws IOException {
         OrdersCreateRequest request = new OrdersCreateRequest();
         request.prefer("return=representation");
-        request.requestBody(payPalService.createOrderRequest(orderId));
+        request.requestBody(paymentService.createOrderRequest(username, orderId));
         HttpResponse<Order> response = payPalClient.execute(request);
         return new ResponseEntity<>(response.result().id(), HttpStatus.valueOf(response.statusCode()));
     }
@@ -42,8 +38,10 @@ public class PayPalController {
 
         HttpResponse<Order> response = payPalClient.execute(request);
         Order payPalOrder = response.result();
+        payPalOrder.
         if ("COMPLETED".equals(payPalOrder.status())) {
             long orderId = Long.parseLong(payPalOrder.purchaseUnits().get(0).referenceId());
+            paymentService.changeOrderStatus();
             // Optional<com.geekbrains.spring.web.core.entities.Order> orderOptional = orderService.findById(orderId);
             return new ResponseEntity<>("Order completed!", HttpStatus.valueOf(response.statusCode()));
         }
